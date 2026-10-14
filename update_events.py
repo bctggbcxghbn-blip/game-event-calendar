@@ -83,6 +83,27 @@ def rss_events(blob, config):
             result.append(e)
     return result
 
+def classify_activity(category, name):
+    """Conservative classification: never guess new vs rerun from a banner name."""
+    value = (category + ' ' + name).casefold()
+    weapon_words = ('weapon banner', 'weapon event wish', 'light cone event warp', '音擎', '武器祈願', '武器活动祈愿', '光锥活动跃迁', '武器唤取')
+    banner_words = ('祈愿', '祈願', '跃迁', '跳躍', '调频', '変調', 'banner', 'event wish', 'warp', 'signal search', '唤取', '共鳴')
+    if any(word in value for word in weapon_words):
+        return '武器・装備ガチャ'
+    if any(word in value for word in banner_words):
+        return 'ガチャ（新規・復刻未確認）'
+    return 'イベント'
+
+def overrides():
+    """Optional reviewed translations and classifications keyed by game and exact source name."""
+    path = ROOT / 'labels_ja.json'
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(data, dict):
+        raise ValueError('labels_ja.json must be an object')
+    return data
+
 def activity_events(blob, config):
     """Convert StarRailAssistant-style version/activity payloads to calendar rows."""
     game = config['game']
@@ -98,6 +119,7 @@ def activity_events(blob, config):
     if not isinstance(versions, list):
         raise ValueError('Expected version list or version object')
     result = []
+    reviewed = overrides()
     def date(value):
         if not isinstance(value, str):
             return None
@@ -119,10 +141,23 @@ def activity_events(blob, config):
             if not isinstance(name, str) or not name.strip() or not start or not end:
                 continue
             category = str(item.get('kind') or '')
-            # API category is not a reliable indicator of new vs rerun characters.
-            kind = 'ガチャ' if any(x in category.lower() for x in ('祈愿','祈願','跃迁','跳躍','调频','変調','banner','wish','warp','signal')) else 'イベント'
+            kind = classify_activity(category, name)
+            entry = reviewed.get(game, {}).get(name, {})
+            if isinstance(entry, dict):
+                jp_name = entry.get('name')
+                if isinstance(jp_name, str) and jp_name.strip():
+                    display_name = jp_name.strip()
+                else:
+                    display_name = name
+                reviewed_kind = entry.get('kind')
+                if reviewed_kind in {'イベント','ガチャ（新規・復刻未確認）','武器・装備ガチャ','新キャラ','復刻キャラ','新武器・装備','復刻武器・装備','報酬2倍','報酬3倍','ログイン'}:
+                    kind = reviewed_kind
+            else:
+                display_name = name
             uid = hashlib.sha256((game+'|'+name+'|'+start).encode('utf-8')).hexdigest()[:20]
-            row = {'id':'activity-'+uid,'game':game,'name':name[:180], 'start':start,'end':end,'kind':kind,'source_status':'外部API・要確認'}
+            row = {'id':'activity-'+uid,'game':game,'name':display_name[:180], 'start':start,'end':end,'kind':kind,'source_status':'外部API・要確認'}
+            if display_name != name:
+                row['original_name'] = name
             if valid(row):
                 result.append(row)
     return result
