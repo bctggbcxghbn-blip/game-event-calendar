@@ -66,38 +66,35 @@ class WikiTables(HTMLParser):
 
 
 def expand_table(rows):
-    """Resolve rowspan/colspan into a rectangular grid."""
+    """Expand rowspan/colspan while respecting occupied columns.
+
+    A carried-over cell can be in the *middle* of a new row. Therefore,
+    appending the next explicit cell directly after the previous one shifts
+    all later columns and can turn version labels into gacha names.
+    """
     grid = []
-    pending = {}  # column -> (text, rows_remaining)
+    carried = {}  # column -> (text, remaining future rows)
     for cells in rows:
-        line = []
+        occupied = {col: text for col, (text, _) in carried.items()}
+        future = {}
+        for col, (text, remaining) in carried.items():
+            if remaining > 1:
+                future[col] = (text, remaining - 1)
         col = 0
-        def take_pending():
-            nonlocal col
-            while col in pending:
-                value, left = pending[col]
-                line.append(value)
-                if left <= 1:
-                    del pending[col]
-                else:
-                    pending[col] = (value, left - 1)
-                col += 1
         for value, rowspan, colspan in cells:
-            take_pending()
-            for _ in range(colspan):
-                line.append(value)
+            while any((col + offset) in occupied for offset in range(colspan)):
+                col += 1
+            for offset in range(colspan):
+                dest = col + offset
+                if dest in occupied:
+                    raise ValueError('Overlapping Wiki table cells')
+                occupied[dest] = value
                 if rowspan > 1:
-                    pending[col] = (value, rowspan - 1)
-                col += 1
-        take_pending()
-        # Rows may end with inherited cells from a later column.
-        while pending and col <= max(pending):
-            if col in pending:
-                take_pending()
-            else:
-                line.append('')
-                col += 1
-        grid.append(line)
+                    future[dest] = (value, rowspan - 1)
+            col += colspan
+        width = max(occupied, default=-1) + 1
+        grid.append([occupied.get(i, '') for i in range(width)])
+        carried = future
     return grid
 
 
@@ -130,13 +127,12 @@ def collect(html):
     result = []
     for raw in parser.tables:
         grid = expand_table(raw)
-        # This table is the character/light-cone warp history, not an event list.
         heading = ' '.join(' '.join(r) for r in grid[:4])
         if 'イベント跳躍' not in heading or '光円錐' not in heading or '期間' not in heading:
             continue
         for row in grid:
-            # Expected columns: version, period, warp name, 5* character,
-            # 4* character, 5* light cone, 4* light cone.
+            # Version | period | warp | 5-star character | 4-star character |
+            # 5-star light cone | 4-star light cone
             if len(row) < 7:
                 continue
             period = parse_period(row[1])
@@ -147,8 +143,9 @@ def collect(html):
                 name = clean(name)
                 if not name or name in ('PUなし', '-', 'なし'):
                     continue
-                # Cell may contain multiple 5-star items separated by spaces.
-                # Keep the exact wiki text rather than inventing a split.
+                # Safety: do not import obvious version/phase labels as items.
+                if re.search(r'Ver\.?\s*\d+\.\d+|\d+\.\d+\s*(?:前|後)半?', name, re.I):
+                    continue
                 result.append((kind, name, start, end))
     return list(dict.fromkeys(result))
 
@@ -160,8 +157,8 @@ def main():
     if len(blob) > 2_000_000:
         raise ValueError('Wiki page exceeds 2 MB')
     candidates = collect(blob.decode('utf-8', 'replace'))
-    if not candidates:
-        raise ValueError('No warp rows found: Wiki table may have changed. events.json unchanged.')
+    if len(candidates) < 4:
+        raise ValueError('Too few warp entries: Wiki table may have changed. events.json unchanged.')
 
     path = ROOT / 'events.json'
     events = json.loads(path.read_text(encoding='utf-8'))
