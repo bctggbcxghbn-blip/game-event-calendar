@@ -208,15 +208,6 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-3975ef226c2976818e9d",
-    "game": "hsr",
-    "name": "Love, Ghosts & Robots",
-    "start": "2026-09-28",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-9740aa90222efb8c992b",
     "game": "hsr",
     "name": "Wishpower UP! Down with Voracity!",
@@ -234,6 +225,16 @@
     "kind": "ログイン",
     "source_status": "外部API・要確認",
     "original_name": "Gift of Odyssey"
+  },
+  {
+    "id": "activity-3975ef226c2976818e9d",
+    "game": "hsr",
+    "name": "愛、幽霊とロボット",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Love, Ghosts & Robots"
   },
   {
     "id": "activity-97782a3ce594388d2203",
