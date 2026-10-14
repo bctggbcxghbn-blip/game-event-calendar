@@ -1,1 +1,425 @@
-[]
+[
+  {
+    "id": "activity-2e06326c3440d1700c7a",
+    "game": "hsr",
+    "name": "Fate Contract: Renewal",
+    "start": "2026-07-24",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-4708b5d24ce34ea04569",
+    "game": "genshin",
+    "name": "To Temper Thyself and Journey Far",
+    "start": "2026-08-10",
+    "end": "2026-11-02",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-33a1fbea351c98eb941d",
+    "game": "genshin",
+    "name": "The Godforsaken Frostlands",
+    "start": "2026-08-12",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-ee3d8db54c7dcb1c96e4",
+    "game": "zzz",
+    "name": "Ding-Dong! Delivery Training in Progress",
+    "start": "2026-08-28",
+    "end": "2026-09-14",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-4c7ee8482bb68de31b1e",
+    "game": "hsr",
+    "name": "Apocalyptic Shadow: Celestial Lupine",
+    "start": "2026-08-31",
+    "end": "2026-10-05",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-0835cb3215aa2808ffb2",
+    "game": "zzz",
+    "name": "All-New Program",
+    "start": "2026-09-09",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-fcbd05eedd33f0b47a08",
+    "game": "zzz",
+    "name": "Angels Support Operation",
+    "start": "2026-09-09",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-4a58efa71b2c5f186d3a",
+    "game": "zzz",
+    "name": "Potential Hypothesis: Reforged in Fire",
+    "start": "2026-09-09",
+    "end": "2026-10-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-c5ec004aa16864015bbc",
+    "game": "zzz",
+    "name": "Clink, Clank, Pinball Knight!",
+    "start": "2026-09-10",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-ed7108d63aa4adb856ef",
+    "game": "hsr",
+    "name": "Pure Fiction: Domain Genesis",
+    "start": "2026-09-14",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-9021255ab970672d39fe",
+    "game": "zzz",
+    "name": "Shadow Chase Showdown",
+    "start": "2026-09-16",
+    "end": "2026-10-05",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-e82611d5265ebfd87f1e",
+    "game": "genshin",
+    "name": "A Rekviem for the Underworld",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-451bf8df5d218444044e",
+    "game": "genshin",
+    "name": "Across the Frozen Wilds, Honing One's Edge",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-3df112a7a8391d49da0d",
+    "game": "genshin",
+    "name": "Raiment Collection: Warmth of a Sunny Day",
+    "start": "2026-09-23",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-65782ccca9c183164d0d",
+    "game": "genshin",
+    "name": "Tabletop Troupe: A Gathering on Adventure's Eve",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-bc81d737cb11be685c60",
+    "game": "zzz",
+    "name": "Advanced Bounty: Area Patrol",
+    "start": "2026-09-23",
+    "end": "2026-09-28",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-022edf478ccac7bafc01",
+    "game": "zzz",
+    "name": "Surprise Screening Plan",
+    "start": "2026-09-23",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-e72909f414377495b608",
+    "game": "genshin",
+    "name": "Silverwing in Pursuit of the Moon",
+    "start": "2026-09-24",
+    "end": "2026-10-12",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-ceb48fcb733bc4793dc8",
+    "game": "genshin",
+    "name": "Rainbow's End: Resplendent Starlight",
+    "start": "2026-09-28",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-07e3ac29c518e8d9aed9",
+    "game": "hsr",
+    "name": "Anomaly Arbitration: Return to Roots",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-09d50ed4b75590c55b81",
+    "game": "hsr",
+    "name": "Astral Imagea Park: Astral Trendible",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-12ab999013ccb5e30b3d",
+    "game": "hsr",
+    "name": "Astral Imagea Park: Park Souvenir",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-de3f6a694be26acf668a",
+    "game": "hsr",
+    "name": "Astral Slammers Squad!",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-6af2910e486ef14a9dd7",
+    "game": "hsr",
+    "name": "Gift of Odyssey",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-3975ef226c2976818e9d",
+    "game": "hsr",
+    "name": "Love, Ghosts & Robots",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-97782a3ce594388d2203",
+    "game": "hsr",
+    "name": "Memory of Chaos: Crossing the Afterlife",
+    "start": "2026-09-28",
+    "end": "2026-11-02",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-9740aa90222efb8c992b",
+    "game": "hsr",
+    "name": "Wishpower UP! Down with Voracity!",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-9ad83dbc1c367e4f5a4c",
+    "game": "wuwa",
+    "name": "Back to Solaris",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-2dc7c41d2ccb853878f3",
+    "game": "wuwa",
+    "name": "Cubie Wars",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-8afe332c6be537f7caf5",
+    "game": "wuwa",
+    "name": "Dreams in the Capsule",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-e3d1733c6e2c05e31298",
+    "game": "wuwa",
+    "name": "Gifts of Waking Moon",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-5f5b5164c581e8d647e9",
+    "game": "wuwa",
+    "name": "Moonlit Path",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-c862eeceda7f14b83e4e",
+    "game": "zzz",
+    "name": "\"En-Nah\" Into Your Lap",
+    "start": "2026-09-30",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-db206794b4e172a82ba3",
+    "game": "zzz",
+    "name": "Diary of an Orbie Parent",
+    "start": "2026-09-30",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-103aef3626c1ebf99532",
+    "game": "zzz",
+    "name": "Chronicles of the Hobbling Crow",
+    "start": "2026-10-03",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-cbf4dfbc7242a20808d0",
+    "game": "hsr",
+    "name": "Apocalyptic Shadow: Dominance of Oblivion",
+    "start": "2026-10-05",
+    "end": "2026-11-16",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-1589dc9a2119725a6ec6",
+    "game": "wuwa",
+    "name": "Artisan's Search",
+    "start": "2026-10-08",
+    "end": "2026-10-26",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-21809f167d148c9b1bae",
+    "game": "zzz",
+    "name": "Data Bounty: Combat Simulation",
+    "start": "2026-10-14",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-26fce6c066ae6fe4f8ac",
+    "game": "wuwa",
+    "name": "Bountiful Crescendo",
+    "start": "2026-10-15",
+    "end": "2026-10-22",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-1b7dfb68d0054903b4a2",
+    "game": "wuwa",
+    "name": "Waking Moon Fishing",
+    "start": "2026-10-15",
+    "end": "2026-11-01",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-9f810533ae9981cb7351",
+    "game": "hsr",
+    "name": "Pure Fiction: Imagined Words",
+    "start": "2026-10-19",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-6e4715ad764f28577a5a",
+    "game": "hsr",
+    "name": "Interastral Peace Gala: One Take",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-9340d9e657e47bfcde1d",
+    "game": "wuwa",
+    "name": "Echo Erase",
+    "start": "2026-10-22",
+    "end": "2026-11-09",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-307d2da296ee4fe5f418",
+    "game": "wuwa",
+    "name": "Gifts of Singing Drizzle",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-1b66d81bb5b7c7150ead",
+    "game": "wuwa",
+    "name": "Beyond the Waves: Land of Xuanfang",
+    "start": "2026-10-29",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-a0ac38d207da0790bb27",
+    "game": "hsr",
+    "name": "Memory of Chaos: Survival of the Fittest",
+    "start": "2026-11-02",
+    "end": "2026-12-14",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-f61c018524082aed1b4c",
+    "game": "wuwa",
+    "name": "Chord Cleansing",
+    "start": "2026-11-04",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  }
+]
