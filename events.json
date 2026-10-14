@@ -337,6 +337,16 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wiki-hsr-f2200a797cf5e3455b68",
+    "game": "hsr",
+    "name": "次元界分裂",
+    "start": "2026-10-12",
+    "end": "2026-10-25",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
+  },
+  {
     "id": "activity-21809f167d148c9b1bae",
     "game": "zzz",
     "name": "Data Bounty: Combat Simulation",
@@ -383,6 +393,16 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wiki-hsr-5d1189a18920d8f3295a",
+    "game": "hsr",
+    "name": "スターピースフェスティバル：ワンカット?",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
+  },
+  {
     "id": "activity-9340d9e657e47bfcde1d",
     "game": "wuwa",
     "name": "Echo Erase",
@@ -401,6 +421,16 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wiki-hsr-cd35ea2075bc0eb0528c",
+    "game": "hsr",
+    "name": "笑いの神様、miHoYoを出し抜く",
+    "start": "2026-10-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
+  },
+  {
     "id": "activity-1b66d81bb5b7c7150ead",
     "game": "wuwa",
     "name": "Beyond the Waves: Land of Xuanfang",
@@ -408,6 +438,16 @@
     "end": "2026-11-11",
     "kind": "イベント",
     "source_status": "外部API・要確認"
+  },
+  {
+    "id": "wiki-hsr-edd4a68277d8af03ecaf",
+    "game": "hsr",
+    "name": "花が育む繁生",
+    "start": "2026-10-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
   },
   {
     "id": "activity-a0ac38d207da0790bb27",
