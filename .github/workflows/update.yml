@@ -21,7 +21,11 @@ jobs:
         run: python wiki_hsr_preview.py
       - name: Update events
         run: python update_events.py
+
   
+      - name: Import Japanese HSR Wiki
+        run: python wiki_hsr_import.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
