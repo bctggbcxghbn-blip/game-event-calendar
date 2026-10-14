@@ -175,11 +175,12 @@
   {
     "id": "activity-12ab999013ccb5e30b3d",
     "game": "hsr",
-    "name": "Astral Imagea Park: Park Souvenir",
+    "name": "「星間幻獣」パーク：パークのお土産",
     "start": "2026-09-28",
     "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "ログイン",
+    "source_status": "外部API・要確認",
+    "original_name": "Astral Imagea Park: Park Souvenir"
   },
   {
     "id": "activity-09d50ed4b75590c55b81",
@@ -212,6 +213,26 @@
     "original_name": "Astral Slammers Squad!"
   },
   {
+    "id": "wiki-hsr-gacha-20d200007ca146c89d09",
+    "game": "hsr",
+    "name": "パール",
+    "start": "2026-09-28",
+    "end": "2026-10-21",
+    "kind": "ガチャ（新規・復刻未確認）",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
+    "id": "wiki-hsr-gacha-96eb88227761f1076033",
+    "game": "hsr",
+    "name": "再び花が咲く季節に",
+    "start": "2026-09-28",
+    "end": "2026-10-21",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
     "id": "activity-6af2910e486ef14a9dd7",
     "game": "hsr",
     "name": "巡星の礼",
@@ -232,6 +253,16 @@
     "original_name": "Love, Ghosts & Robots"
   },
   {
+    "id": "wiki-hsr-gacha-36d139ba0992c9be15b8",
+    "game": "hsr",
+    "name": "明日に捧げる色",
+    "start": "2026-09-28",
+    "end": "2026-10-21",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
     "id": "activity-97782a3ce594388d2203",
     "game": "hsr",
     "name": "混沌の記憶",
@@ -250,6 +281,16 @@
     "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Anomaly Arbitration: Return to Roots"
+  },
+  {
+    "id": "wiki-hsr-gacha-ee028a678e50156a8f15",
+    "game": "hsr",
+    "name": "緋英4.6前",
+    "start": "2026-09-28",
+    "end": "2026-10-21",
+    "kind": "ガチャ（新規・復刻未確認）",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "activity-9ad83dbc1c367e4f5a4c",
@@ -398,6 +439,46 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "Interastral Peace Gala: One Take"
+  },
+  {
+    "id": "wiki-hsr-gacha-501105da29d611b298ff",
+    "game": "hsr",
+    "name": "パール",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "ガチャ（新規・復刻未確認）",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
+    "id": "wiki-hsr-gacha-096519479ee8f7e0ff4e",
+    "game": "hsr",
+    "name": "千冶・刃4.6後",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "ガチャ（新規・復刻未確認）",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
+    "id": "wiki-hsr-gacha-180b4ecf05d9600cc1e9",
+    "game": "hsr",
+    "name": "明日に捧げる色",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
+  },
+  {
+    "id": "wiki-hsr-gacha-cda131ed4aefda5587a8",
+    "game": "hsr",
+    "name": "煉獄に焼かれし新身",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "activity-9340d9e657e47bfcde1d",
