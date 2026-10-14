@@ -83,6 +83,50 @@ def rss_events(blob, config):
             result.append(e)
     return result
 
+def activity_events(blob, config):
+    """Convert StarRailAssistant-style version/activity payloads to calendar rows."""
+    game = config['game']
+    if game not in GAMES:
+        raise ValueError('Unsupported game')
+    payload = json.loads(blob)
+    if isinstance(payload, dict):
+        versions = payload.get('data', payload)
+        if isinstance(versions, dict):
+            versions = versions.get('versions', versions.get('list', [versions]))
+    else:
+        versions = payload
+    if not isinstance(versions, list):
+        raise ValueError('Expected version list or version object')
+    result = []
+    def date(value):
+        if not isinstance(value, str):
+            return None
+        try:
+            return dt.date.fromisoformat(value[:10]).isoformat()
+        except ValueError:
+            return None
+    for version in versions:
+        if not isinstance(version, dict):
+            continue
+        rows = version.get('activities', [])
+        if not isinstance(rows, list):
+            continue
+        for item in rows:
+            if not isinstance(item, dict):
+                continue
+            name = item.get('name')
+            start, end = date(item.get('startTime')), date(item.get('endTime'))
+            if not isinstance(name, str) or not name.strip() or not start or not end:
+                continue
+            category = str(item.get('kind') or '')
+            # API category is not a reliable indicator of new vs rerun characters.
+            kind = 'ガチャ' if any(x in category.lower() for x in ('祈愿','祈願','跃迁','跳躍','调频','変調','banner','wish','warp','signal')) else 'イベント'
+            uid = hashlib.sha256((game+'|'+name+'|'+start).encode('utf-8')).hexdigest()[:20]
+            row = {'id':'activity-'+uid,'game':game,'name':name[:180], 'start':start,'end':end,'kind':kind,'source_status':'外部API・要確認'}
+            if valid(row):
+                result.append(row)
+    return result
+
 def main():
     path = ROOT / 'events.json'
     current = json.loads(path.read_text(encoding='utf-8'))
@@ -104,8 +148,10 @@ def main():
                     raise ValueError('Expected JSON array')
             elif mode == 'rss':
                 rows = rss_events(raw, feed)
+            elif mode == 'activity':
+                rows = activity_events(raw, feed)
             else:
-                raise ValueError('Feed type must be json or rss')
+                raise ValueError('Feed type must be json, rss or activity')
             added = 0
             for e in rows:
                 if valid(e):
