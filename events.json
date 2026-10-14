@@ -83,12 +83,11 @@
   {
     "id": "activity-ed7108d63aa4adb856ef",
     "game": "hsr",
-    "name": "虚構叙事：Domain Genesis",
+    "name": "Pure Fiction: Domain Genesis",
     "start": "2026-09-14",
     "end": "2026-10-19",
-    "kind": "チャレンジ",
-    "source_status": "外部API・要確認",
-    "original_name": "Pure Fiction: Domain Genesis"
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-9021255ab970672d39fe",
@@ -321,12 +320,11 @@
   {
     "id": "activity-cbf4dfbc7242a20808d0",
     "game": "hsr",
-    "name": "末日の幻影：Dominance of Oblivion",
+    "name": "Apocalyptic Shadow: Dominance of Oblivion",
     "start": "2026-10-05",
     "end": "2026-11-16",
-    "kind": "チャレンジ",
-    "source_status": "外部API・要確認",
-    "original_name": "Apocalyptic Shadow: Dominance of Oblivion"
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-1589dc9a2119725a6ec6",
@@ -377,11 +375,12 @@
   {
     "id": "activity-9f810533ae9981cb7351",
     "game": "hsr",
-    "name": "Pure Fiction: Imagined Words",
+    "name": "虚構叙事：Imagined Words",
     "start": "2026-10-19",
     "end": "2026-11-30",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Pure Fiction: Imagined Words"
   },
   {
     "id": "activity-6e4715ad764f28577a5a",
@@ -443,11 +442,12 @@
   {
     "id": "activity-a0ac38d207da0790bb27",
     "game": "hsr",
-    "name": "Memory of Chaos: Survival of the Fittest",
+    "name": "混沌の記憶：Survival of the Fittest",
     "start": "2026-11-02",
     "end": "2026-12-14",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Memory of Chaos: Survival of the Fittest"
   },
   {
     "id": "activity-f61c018524082aed1b4c",
