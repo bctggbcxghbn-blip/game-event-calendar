@@ -386,21 +386,12 @@
   {
     "id": "activity-6e4715ad764f28577a5a",
     "game": "hsr",
-    "name": "Interastral Peace Gala: One Take",
+    "name": "スターピースフェスティバル：ワンカット",
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "wiki-hsr-5d1189a18920d8f3295a",
-    "game": "hsr",
-    "name": "スターピースフェスティバル：ワンカット?",
-    "start": "2026-10-21",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
-    "source_status": "日本語Wiki・日付確認済み"
+    "source_status": "外部API・要確認",
+    "original_name": "Interastral Peace Gala: One Take"
   },
   {
     "id": "activity-9340d9e657e47bfcde1d",
