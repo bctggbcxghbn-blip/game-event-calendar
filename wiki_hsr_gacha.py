@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Import HSR character and light-cone warp periods from Japanese Wiki.
 
-Run after update_events.py and wiki_hsr_import.py. Fail safely if the Wiki
-structure changes; never delete unrelated calendar events.
+Run after update_events.py and wiki_hsr_import.py. Preserve unrelated events.
+A star marker is a Wiki hint, while older appearances establish reruns.
+Uncertain classifications remain unconfirmed rather than being guessed.
 """
 import datetime as dt
 import hashlib
@@ -28,7 +29,6 @@ class WikiTables(HTMLParser):
         self.cell = None
         self.span = 1
         self.colspan = 1
-        self.skip = 0
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -68,14 +68,9 @@ class WikiTables(HTMLParser):
 
 
 def expand_table(rows):
-    """Expand rowspan/colspan while respecting occupied columns.
-
-    A carried-over cell can be in the *middle* of a new row. Therefore,
-    appending the next explicit cell directly after the previous one shifts
-    all later columns and can turn version labels into gacha names.
-    """
+    """Expand rowspan/colspan while respecting occupied columns."""
     grid = []
-    carried = {}  # column -> (text, remaining future rows)
+    carried = {}
     for cells in rows:
         occupied = {col: text for col, (text, _) in carried.items()}
         future = {}
@@ -124,19 +119,18 @@ def clean(text):
 
 
 def split_items(cell):
-    """Separate Wiki links/line breaks and discard version/phase suffixes."""
+    """Return (name, has_star) for each Wiki link/line."""
     items = []
     for part in cell.split('\n'):
+        starred = '☆' in part or '★' in part
         name = clean(part)
-        # Wiki may append the version to a linked character, e.g. 千治・刃4.6後.
         name = re.sub(r'(?:Ver\.?\s*)?\d+\.\d+\s*(?:前|後)半?$', '', name, flags=re.I).strip()
         if not name or name in ('PUなし', '-', 'なし'):
             continue
-        # Never treat a standalone phase/version label as a gacha item.
         if re.fullmatch(r'(?:Ver\.?\s*)?\d+\.\d+\s*(?:前|後)半?', name, re.I):
             continue
-        if name not in items:
-            items.append(name)
+        if name not in [x[0] for x in items]:
+            items.append((name, starred))
     return items
 
 
@@ -150,18 +144,38 @@ def collect(html):
         if 'イベント跳躍' not in heading or '光円錐' not in heading or '期間' not in heading:
             continue
         for row in grid:
-            # Version | period | warp | 5-star character | 4-star character |
-            # 5-star light cone | 4-star light cone
             if len(row) < 7:
                 continue
             period = parse_period(row[1])
             if not period:
                 continue
             start, end = period
-            for kind, cell in [('ガチャ（新規・復刻未確認）', row[3]), ('武器・装備ガチャ', row[5])]:
-                for name in split_items(cell):
-                    result.append((kind, name, start, end))
+            for item_type, cell in [('character', row[3]), ('lightcone', row[5])]:
+                for name, starred in split_items(cell):
+                    result.append((item_type, name, start, end, starred))
     return list(dict.fromkeys(result))
+
+
+def classify(candidates):
+    """Determine reruns from earlier entries; a star suggests debut.
+
+    Do not assume an unstarred item is a rerun without earlier evidence.
+    """
+    first_seen = {}
+    for item_type, name, start, _, _ in candidates:
+        key = (item_type, name)
+        if key not in first_seen or start < first_seen[key]:
+            first_seen[key] = start
+    for item_type, name, start, end, starred in candidates:
+        if item_type == 'lightcone':
+            kind = '武器・装備ガチャ'
+        elif first_seen[(item_type, name)] < start:
+            kind = '復刻キャラ'
+        elif starred:
+            kind = '新キャラ'
+        else:
+            kind = 'ガチャ（新規・復刻未確認）'
+        yield kind, name, start, end
 
 
 def main():
@@ -179,10 +193,10 @@ def main():
     if not isinstance(events, list):
         raise ValueError('events.json must be a list')
     cutoff = dt.datetime.now(JST).date() - dt.timedelta(days=14)
-    # Only replace previously imported Wiki gacha when parsing succeeds.
+    # Replace only gacha entries imported by this script, after parsing succeeded.
     events = [e for e in events if not str(e.get('id', '')).startswith('wiki-hsr-gacha-')]
     added = 0
-    for kind, name, start, end in candidates:
+    for kind, name, start, end in classify(candidates):
         if dt.date.fromisoformat(end) < cutoff:
             continue
         uid = hashlib.sha256(f'hsr|gacha|{kind}|{name}|{start}'.encode()).hexdigest()[:20]
