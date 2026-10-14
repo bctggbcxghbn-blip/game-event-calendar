@@ -5,7 +5,7 @@
     "name": "Fate Contract: Renewal",
     "start": "2026-07-24",
     "end": "2026-11-11",
-    "kind": "イベント",
+    "kind": "ログイン",
     "source_status": "外部API・要確認"
   },
   {
@@ -177,7 +177,7 @@
     "name": "Anomaly Arbitration: Return to Roots",
     "start": "2026-09-28",
     "end": "2026-11-11",
-    "kind": "イベント",
+    "kind": "チャレンジ",
     "source_status": "外部API・要確認"
   },
   {
@@ -195,7 +195,7 @@
     "name": "Astral Imagea Park: Park Souvenir",
     "start": "2026-09-28",
     "end": "2026-11-11",
-    "kind": "イベント",
+    "kind": "ログイン",
     "source_status": "外部API・要確認"
   },
   {
