@@ -145,6 +145,38 @@ def main():
         })
         inserted += 1
     existing.sort(key=lambda row: (row.get('start', ''), row.get('game', ''), row.get('name', '')))
+
+    # Confirmed English/Japanese aliases: merge only known identical events.
+    confirmed_pairs = {
+        'Interastral Peace Gala: One Take': 'スターピースフェスティバル：ワンカット',
+    }
+
+    for english, japanese in confirmed_pairs.items():
+        api_rows = [
+            row for row in existing
+            if row.get('game') == 'hsr'
+            and (row.get('original_name') or row.get('name')) == english
+        ]
+        wiki_rows = [
+            row for row in existing
+            if row.get('game') == 'hsr'
+            and row.get('name') == japanese
+            and str(row.get('id', '')).startswith('wiki-hsr-')
+        ]
+
+        for api_row in api_rows:
+            duplicates = [
+                row for row in wiki_rows
+                if overlaps(api_row, row)
+            ]
+            if duplicates:
+                api_row['original_name'] = english
+                api_row['name'] = japanese
+                for duplicate in duplicates:
+                    if duplicate in existing:
+                        existing.remove(duplicate)
+                print(f'Merged duplicate: {english} -> {japanese}')
+
     path.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'Wiki: {len(candidates)} dated candidates; {inserted} added, {updated} renamed, {skipped} old/duplicate skipped.')
     print('NOTE: Unmatched English API entries remain; inspect calendar for semantic duplicates.')
