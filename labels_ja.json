@@ -2,6 +2,10 @@
   "genshin": {},
   "wuwa": {},
   "hsr": {
+    "Love, Ghosts & Robots": {
+  "name": "愛、幽霊とロボット",
+  "kind": "イベント"
+},
     "Gift of Odyssey": {
       "name": "巡星の礼",
       "kind": "ログイン"
@@ -26,9 +30,5 @@
       "name": "混沌の記憶：Survival of the Fittest",
       "kind": "イベント"
     },
-    "Love, Ghosts & Robots": {
-  　　"name": "愛、幽霊とロボット",
-  　　"kind": "イベント"
-}
   }
   "zzz": {}
