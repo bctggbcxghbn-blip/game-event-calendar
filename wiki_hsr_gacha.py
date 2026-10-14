@@ -43,15 +43,17 @@ class WikiTables(HTMLParser):
             self.span = min(100, max(1, int(attrs.get('rowspan', '1') or '1')))
             self.colspan = min(20, max(1, int(attrs.get('colspan', '1') or '1')))
         elif tag == 'br' and self.cell is not None:
-            self.cell.append(' ')
+            self.cell.append('\n')
 
     def handle_data(self, data):
         if self.cell is not None:
             self.cell.append(data)
 
     def handle_endtag(self, tag):
-        if tag in ('td', 'th') and self.cell is not None:
-            value = re.sub(r'\s+', ' ', ''.join(self.cell)).strip()
+        if tag == 'a' and self.cell is not None:
+            self.cell.append('\n')
+        elif tag in ('td', 'th') and self.cell is not None:
+            value = '\n'.join(re.sub(r'\s+', ' ', part).strip() for part in ''.join(self.cell).split('\n') if part.strip())
             self.row.append((value, self.span, self.colspan))
             self.cell = None
         elif tag == 'tr' and self.row is not None:
@@ -121,6 +123,23 @@ def clean(text):
     return re.sub(r'\s+', ' ', text).strip().replace('☆', '').replace('★', '').strip()
 
 
+def split_items(cell):
+    """Separate Wiki links/line breaks and discard version/phase suffixes."""
+    items = []
+    for part in cell.split('\n'):
+        name = clean(part)
+        # Wiki may append the version to a linked character, e.g. 千治・刃4.6後.
+        name = re.sub(r'(?:Ver\.?\s*)?\d+\.\d+\s*(?:前|後)半?$', '', name, flags=re.I).strip()
+        if not name or name in ('PUなし', '-', 'なし'):
+            continue
+        # Never treat a standalone phase/version label as a gacha item.
+        if re.fullmatch(r'(?:Ver\.?\s*)?\d+\.\d+\s*(?:前|後)半?', name, re.I):
+            continue
+        if name not in items:
+            items.append(name)
+    return items
+
+
 def collect(html):
     parser = WikiTables()
     parser.feed(html)
@@ -139,14 +158,9 @@ def collect(html):
             if not period:
                 continue
             start, end = period
-            for kind, name in [('ガチャ（新規・復刻未確認）', row[3]), ('武器・装備ガチャ', row[5])]:
-                name = clean(name)
-                if not name or name in ('PUなし', '-', 'なし'):
-                    continue
-                # Safety: do not import obvious version/phase labels as items.
-                if re.search(r'Ver\.?\s*\d+\.\d+|\d+\.\d+\s*(?:前|後)半?', name, re.I):
-                    continue
-                result.append((kind, name, start, end))
+            for kind, cell in [('ガチャ（新規・復刻未確認）', row[3]), ('武器・装備ガチャ', row[5])]:
+                for name in split_items(cell):
+                    result.append((kind, name, start, end))
     return list(dict.fromkeys(result))
 
 
