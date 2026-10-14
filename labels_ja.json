@@ -15,13 +15,13 @@
       "kind": "イベント"
     },
     "Pure Fiction: Domain Genesis": {
-      "name": "虚構叙事：Domain Genesis",
-      "kind": "イベント"
-    },
-    "Pure Fiction: Imagined Words": {
-      "name": "虚構叙事：Imagined Words",
-      "kind": "イベント"
-    },
+  "name": "虚構叙事：Domain Genesis",
+  "kind": "チャレンジ"
+},
+    "Pure Fiction: Domain Genesis": {
+  "name": "虚構叙事：Domain Genesis",
+  "kind": "チャレンジ"
+},
     "Apocalyptic Shadow: Dominance of Oblivion": {
       "name": "末日の幻影：Dominance of Oblivion",
       "kind": "イベント"
