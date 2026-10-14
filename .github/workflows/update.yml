@@ -18,6 +18,8 @@ jobs:
           python-version: '3.12'
       - name: Update events
         run: python update_events.py
+              - name: Test Japanese Wiki
+        run: python wiki_hsr_preview.py
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
