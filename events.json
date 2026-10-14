@@ -86,7 +86,7 @@
     "name": "虚構叙事：Domain Genesis",
     "start": "2026-09-14",
     "end": "2026-10-19",
-    "kind": "イベント",
+    "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Pure Fiction: Domain Genesis"
   },
@@ -377,17 +377,16 @@
   {
     "id": "activity-9f810533ae9981cb7351",
     "game": "hsr",
-    "name": "虚構叙事：Imagined Words",
+    "name": "Pure Fiction: Imagined Words",
     "start": "2026-10-19",
     "end": "2026-11-30",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Pure Fiction: Imagined Words"
+    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-6e4715ad764f28577a5a",
     "game": "hsr",
-    "name": "スターピースフェスティバル：ワンカット",
+    "name": "スターピースフェスティバル：ワンカット?",
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "イベント",
