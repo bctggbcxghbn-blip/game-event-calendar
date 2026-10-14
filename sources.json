@@ -1,3 +1,8 @@
 {
-  "feeds": []
+  "feeds": [
+    {"game": "genshin", "type": "activity", "url": "https://starrailassistant.top/api/v1/activity/ys-en-US.json"},
+    {"game": "wuwa", "type": "activity", "url": "https://starrailassistant.top/api/v1/activity/ww-en-US.json"},
+    {"game": "hsr", "type": "activity", "url": "https://starrailassistant.top/api/v1/activity/sr-en-US.json"},
+    {"game": "zzz", "type": "activity", "url": "https://starrailassistant.top/api/v1/activity/zzz-en-US.json"}
+  ]
 }
