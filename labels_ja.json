@@ -2,14 +2,25 @@
   "genshin": {},
   "wuwa": {},
   "hsr": {
-"Fate Contract: Renewal": {
+    "Fate Contract: Renewal": {
+  "name": "運命の契約・再び",
   "kind": "ログイン"
 },
 "Anomaly Arbitration: Return to Roots": {
+  "name": "異相の仲裁",
   "kind": "チャレンジ"
 },
-"Astral Imagea Park: Park Souvenir": {
-  "kind": "ログイン"
+"Astral Imagea Park: Astral Trendible": {
+  "name": "「星間幻獣」パーク：星間カプセルトイ",
+  "kind": "イベント"
+},
+"Astral Slammers Squad!": {
+  "name": "ぽよよん星間タッグ大作戦！",
+  "kind": "イベント"
+},
+"Wishpower UP! Down with Voracity!": {
+  "name": "「貪慾」を鎮め、願力を集めよう",
+  "kind": "イベント"
 },
     "Love, Ghosts & Robots": {
       "name": "愛、幽霊とロボット",
