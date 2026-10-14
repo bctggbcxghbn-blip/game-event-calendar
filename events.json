@@ -242,7 +242,7 @@
     "name": "混沌の記憶：Crossing the Afterlife",
     "start": "2026-09-28",
     "end": "2026-11-02",
-    "kind": "イベント",
+    "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Memory of Chaos: Crossing the Afterlife"
   },
@@ -324,7 +324,7 @@
     "name": "末日の幻影：Dominance of Oblivion",
     "start": "2026-10-05",
     "end": "2026-11-16",
-    "kind": "イベント",
+    "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Apocalyptic Shadow: Dominance of Oblivion"
   },
@@ -443,12 +443,11 @@
   {
     "id": "activity-a0ac38d207da0790bb27",
     "game": "hsr",
-    "name": "混沌の記憶：Survival of the Fittest",
+    "name": "Memory of Chaos: Survival of the Fittest",
     "start": "2026-11-02",
     "end": "2026-12-14",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Memory of Chaos: Survival of the Fittest"
+    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-f61c018524082aed1b4c",
