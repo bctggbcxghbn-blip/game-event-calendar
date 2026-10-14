@@ -2,11 +2,12 @@
   {
     "id": "activity-2e06326c3440d1700c7a",
     "game": "hsr",
-    "name": "Fate Contract: Renewal",
+    "name": "運命の契約・再び",
     "start": "2026-07-24",
     "end": "2026-11-11",
     "kind": "ログイン",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Fate Contract: Renewal"
   },
   {
     "id": "activity-4708b5d24ce34ea04569",
@@ -172,49 +173,43 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-07e3ac29c518e8d9aed9",
-    "game": "hsr",
-    "name": "Anomaly Arbitration: Return to Roots",
-    "start": "2026-09-28",
-    "end": "2026-11-11",
-    "kind": "チャレンジ",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-09d50ed4b75590c55b81",
-    "game": "hsr",
-    "name": "Astral Imagea Park: Astral Trendible",
-    "start": "2026-09-28",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-12ab999013ccb5e30b3d",
     "game": "hsr",
     "name": "Astral Imagea Park: Park Souvenir",
     "start": "2026-09-28",
     "end": "2026-11-11",
-    "kind": "ログイン",
+    "kind": "イベント",
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-de3f6a694be26acf668a",
+    "id": "activity-09d50ed4b75590c55b81",
     "game": "hsr",
-    "name": "Astral Slammers Squad!",
+    "name": "「星間幻獣」パーク：星間カプセルトイ",
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Astral Imagea Park: Astral Trendible"
   },
   {
     "id": "activity-9740aa90222efb8c992b",
     "game": "hsr",
-    "name": "Wishpower UP! Down with Voracity!",
+    "name": "「貪慾」を鎮め、願力を集めよう",
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Wishpower UP! Down with Voracity!"
+  },
+  {
+    "id": "activity-de3f6a694be26acf668a",
+    "game": "hsr",
+    "name": "ぽよよん星間タッグ大作戦！",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Astral Slammers Squad!"
   },
   {
     "id": "activity-6af2910e486ef14a9dd7",
@@ -245,6 +240,16 @@
     "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Memory of Chaos: Crossing the Afterlife"
+  },
+  {
+    "id": "activity-07e3ac29c518e8d9aed9",
+    "game": "hsr",
+    "name": "異相の仲裁",
+    "start": "2026-09-28",
+    "end": "2026-11-11",
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Anomaly Arbitration: Return to Roots"
   },
   {
     "id": "activity-9ad83dbc1c367e4f5a4c",
