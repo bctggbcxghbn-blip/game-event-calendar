@@ -84,7 +84,7 @@
   {
     "id": "activity-ed7108d63aa4adb856ef",
     "game": "hsr",
-    "name": "虚構叙事：Domain Genesis",
+    "name": "虚構叙事",
     "start": "2026-09-14",
     "end": "2026-10-19",
     "kind": "チャレンジ",
@@ -234,7 +234,7 @@
   {
     "id": "activity-97782a3ce594388d2203",
     "game": "hsr",
-    "name": "混沌の記憶：Crossing the Afterlife",
+    "name": "混沌の記憶",
     "start": "2026-09-28",
     "end": "2026-11-02",
     "kind": "チャレンジ",
@@ -326,7 +326,7 @@
   {
     "id": "activity-cbf4dfbc7242a20808d0",
     "game": "hsr",
-    "name": "末日の幻影：Dominance of Oblivion",
+    "name": "末日の幻影",
     "start": "2026-10-05",
     "end": "2026-11-16",
     "kind": "チャレンジ",
@@ -382,7 +382,7 @@
   {
     "id": "activity-9f810533ae9981cb7351",
     "game": "hsr",
-    "name": "虚構叙事：Imagined Words",
+    "name": "虚構叙事",
     "start": "2026-10-19",
     "end": "2026-11-30",
     "kind": "チャレンジ",
@@ -449,7 +449,7 @@
   {
     "id": "activity-a0ac38d207da0790bb27",
     "game": "hsr",
-    "name": "混沌の記憶：Survival of the Fittest",
+    "name": "混沌の記憶",
     "start": "2026-11-02",
     "end": "2026-12-14",
     "kind": "チャレンジ",
