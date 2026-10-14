@@ -24,8 +24,10 @@ jobs:
         
       - name: Import Japanese HSR Wiki
         run: python wiki_hsr_import.py
+        
       - name: Import HSR Gacha
  　　　　run: python wiki_hsr_gacha.py
+     
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
