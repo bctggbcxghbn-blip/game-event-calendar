@@ -283,16 +283,6 @@
     "original_name": "Anomaly Arbitration: Return to Roots"
   },
   {
-    "id": "wiki-hsr-gacha-ee028a678e50156a8f15",
-    "game": "hsr",
-    "name": "緋英4.6前",
-    "start": "2026-09-28",
-    "end": "2026-10-21",
-    "kind": "ガチャ（新規・復刻未確認）",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付確認済み"
-  },
-  {
     "id": "activity-9ad83dbc1c367e4f5a4c",
     "game": "wuwa",
     "name": "Back to Solaris",
@@ -444,16 +434,6 @@
     "id": "wiki-hsr-gacha-501105da29d611b298ff",
     "game": "hsr",
     "name": "パール",
-    "start": "2026-10-21",
-    "end": "2026-11-11",
-    "kind": "ガチャ（新規・復刻未確認）",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付確認済み"
-  },
-  {
-    "id": "wiki-hsr-gacha-096519479ee8f7e0ff4e",
-    "game": "hsr",
-    "name": "千冶・刃4.6後",
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "ガチャ（新規・復刻未確認）",
