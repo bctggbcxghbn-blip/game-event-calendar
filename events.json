@@ -83,11 +83,12 @@
   {
     "id": "activity-ed7108d63aa4adb856ef",
     "game": "hsr",
-    "name": "Pure Fiction: Domain Genesis",
+    "name": "虚構叙事：Domain Genesis",
     "start": "2026-09-14",
     "end": "2026-10-19",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Pure Fiction: Domain Genesis"
   },
   {
     "id": "activity-9021255ab970672d39fe",
@@ -320,11 +321,12 @@
   {
     "id": "activity-cbf4dfbc7242a20808d0",
     "game": "hsr",
-    "name": "Apocalyptic Shadow: Dominance of Oblivion",
+    "name": "末日の幻影：Dominance of Oblivion",
     "start": "2026-10-05",
     "end": "2026-11-16",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Apocalyptic Shadow: Dominance of Oblivion"
   },
   {
     "id": "activity-1589dc9a2119725a6ec6",
