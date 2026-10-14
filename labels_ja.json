@@ -1,6 +1,31 @@
 {
   "genshin": {},
   "wuwa": {},
-  "hsr": {},
+  "hsr": {
+    "Gift of Odyssey": {
+      "name": "巡星の礼",
+      "kind": "ログイン"
+    },
+    "Pure Fiction: Domain Genesis": {
+      "name": "虚構叙事：Domain Genesis",
+      "kind": "イベント"
+    },
+    "Pure Fiction: Imagined Words": {
+      "name": "虚構叙事：Imagined Words",
+      "kind": "イベント"
+    },
+    "Apocalyptic Shadow: Dominance of Oblivion": {
+      "name": "末日の幻影：Dominance of Oblivion",
+      "kind": "イベント"
+    },
+    "Memory of Chaos: Crossing the Afterlife": {
+      "name": "混沌の記憶：Crossing the Afterlife",
+      "kind": "イベント"
+    },
+    "Memory of Chaos: Survival of the Fittest": {
+      "name": "混沌の記憶：Survival of the Fittest",
+      "kind": "イベント"
+    }
+  },
   "zzz": {}
 }
