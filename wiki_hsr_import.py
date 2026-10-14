@@ -70,7 +70,7 @@ def parse_period(text):
     return a.isoformat(), b.isoformat()
 
 def normalize(text):
-    return re.sub(r'[\s:：・「」『』\-–—!！]+', '', text).casefold()
+    return re.sub(r'[\s:：・「」『』\-–—!！?？]+', '', text).casefold()
 
 def overlaps(a, b):
     return a['start'] <= b['end'] and b['start'] <= a['end']
@@ -160,7 +160,7 @@ def main():
         wiki_rows = [
             row for row in existing
             if row.get('game') == 'hsr'
-            and row.get('name') == japanese
+            and normalize(row.get('name', '')) == normalize(japanese)
             and str(row.get('id', '')).startswith('wiki-hsr-')
         ]
 
