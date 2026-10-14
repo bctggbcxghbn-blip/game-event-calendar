@@ -22,7 +22,6 @@ jobs:
       - name: Update events
         run: python update_events.py
 
-  
       - name: Import Japanese HSR Wiki
         run: python wiki_hsr_import.py
 
