@@ -150,7 +150,7 @@ def activity_events(blob, config):
                 else:
                     display_name = name
                 reviewed_kind = entry.get('kind')
-                if reviewed_kind in {'イベント','ガチャ（新規・復刻未確認）','武器・装備ガチャ','新キャラ','復刻キャラ','新武器・装備','復刻武器・装備','報酬2倍','報酬3倍','ログイン'}:
+                if reviewed_kind in {'イベント','チャレンジ','ガチャ（新規・復刻未確認）','武器・装備ガチャ','新キャラ','復刻キャラ','新武器・装備','復刻武器・装備','報酬2倍','報酬3倍','ログイン'}:
                     kind = reviewed_kind
             else:
                 display_name = name
