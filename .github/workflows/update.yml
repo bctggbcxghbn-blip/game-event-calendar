@@ -51,7 +51,10 @@ jobs:
 
       - name: Preview official HSR gacha
         run: python hsr_official_gacha_preview.py
-
+        
+      - name: Check official HSR gacha names
+        run: python hsr_official_gacha_name_check.py
+        
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
 
