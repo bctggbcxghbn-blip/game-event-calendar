@@ -33,6 +33,9 @@ jobs:
       - name: Apply reviewed HSR gacha times
         run: python hsr_official_gacha_apply.py --apply
         
+      - name: Remove duplicate HSR gacha
+        run: python hsr_gacha_dedupe.py --apply
+        
       - name: Test official HSR article dates
         run: python hsr_official_article_test.py
   
