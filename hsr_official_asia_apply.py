@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Conservative HSR Asia-server JST updater: existing Planar Fissure rows only.
+"""Conservative HSR Asia-server JST updater: existing Planar Fissure and Realm of the Strange rows only.
 
 Run after wiki importers and before reviewed official overrides. No new events.
-Other event types and ambiguous articles are intentionally skipped.
+Ambiguous periods and unmatched events are intentionally skipped.
 """
 import datetime as dt
 import json
@@ -17,16 +17,26 @@ from hsr_official_match_preview import ROOT, normalize
 EVENTS = ROOT / 'events.json'
 TZ_ASIA = dt.timezone(dt.timedelta(hours=8))
 TZ_JST = dt.timezone(dt.timedelta(hours=9))
-# Only a single, explicitly labeled event period; no arbitrary dates in patch notes.
+# Only one explicitly labeled event period per standalone article.
+# Mixed time-zone notation is deliberately rejected until separately verified.
+EVENT_TYPES = (
+    ('planar fissure event:', ('次元界分裂', 'planar fissure')),
+    ('realm of the strange event:', ('遺物2倍', '遺物ドロップ2倍', 'realm of the strange', '奇妙な領域')),
+)
+
+def event_type(title):
+    title = str(title or '').casefold()
+    return next((aliases for prefix, aliases in EVENT_TYPES if title.startswith(prefix)), None)
+
 PERIOD = re.compile(
     r'Event\s+Period\s*[:：]?\s*'
     r'(?P<start>20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+'
     r'(?P<startclock>\d{1,2}:\d{2})\s*'
-    r'(?:\(server\s+time\)\s*)?'
+    r'(?P<startzone>\((?:server\s+time|UTC\s*\+\s*8)\))\s*'
     r'[-–—]\s*'
     r'(?P<end>20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+'
     r'(?P<endclock>\d{1,2}:\d{2})\s*'
-    r'\(server\s+time\)', re.I)
+    r'(?P<endzone>\((?:server\s+time|UTC\s*\+\s*8)\))', re.I)
 
 
 def jst(date, clock):
@@ -45,7 +55,7 @@ def main():
             for entry in result.get('list') or []:
                 post = entry.get('post') or {}
                 pid = str(post.get('post_id') or '')
-                if pid.isdigit() and str(post.get('subject') or '').casefold().startswith('planar fissure event:'):
+                if pid.isdigit() and event_type(post.get('subject')):
                     articles[pid] = post.get('subject')
         except Exception as exc:
             print(f'WARNING: news list category {category}: {exc}')
@@ -61,7 +71,7 @@ def main():
                     and isinstance(cert, dict) and cert.get('desc') == EXPECTED_CERT):
                 print(f'SKIP {pid}: publisher mismatch')
                 continue
-            if not str(post.get('subject') or '').casefold().startswith('planar fissure event:'):
+            if not event_type(post.get('subject')) or event_type(post.get('subject')) != event_type(title):
                 continue
             body = as_text(post)
             periods = list(PERIOD.finditer(body))
@@ -69,10 +79,10 @@ def main():
                 print(f'SKIP {pid}: {len(periods)} unambiguous server-time periods (need 1)')
                 continue
             m = periods[0]
-            # Reject mixed timezone notation within this event-period segment.
-            segment = body[m.start():m.end()]
-            if re.search(r'UTC\s*[+-]', segment, re.I):
-                print(f'SKIP {pid}: mixed timezone labels')
+            startzone = re.sub(r'\s+', '', m.group('startzone')).casefold()
+            endzone = re.sub(r'\s+', '', m.group('endzone')).casefold()
+            if startzone != endzone:
+                print(f'SKIP {pid}: mixed timezone labels ({startzone}, {endzone}); review needed')
                 continue
             start, end = m.group('start').replace('/', '-'), m.group('end').replace('/', '-')
             sd, st = jst(start, m.group('startclock'))
@@ -82,7 +92,7 @@ def main():
                 continue
             matches = [e for e in rows if isinstance(e, dict) and e.get('game') == 'hsr'
                        and any(normalize(alias) in normalize(str(e.get(field) or ''))
-                               for alias in ('次元界分裂', 'planar fissure')
+                               for alias in event_type(title)
                                for field in ('name', 'original_name'))
                        and (e.get('start'), e.get('end')) == (start, end)]
             if len(matches) != 1:
@@ -125,8 +135,8 @@ def main():
         finally:
             if os.path.exists(name):
                 os.unlink(name)
-    print(f'Done: {changed} existing Planar Fissure events updated; no events added or deleted.')
-    print('Assumption: Asia server time = UTC+8. Other event types remain unchanged.')
+    print(f'Done: {changed} existing Planar Fissure/Realm of the Strange events updated; no events added or deleted.')
+    print('Assumption: Asia server time = UTC+8. Mixed-zone or unmatched articles remain unchanged.')
 
 
 if __name__ == '__main__':
