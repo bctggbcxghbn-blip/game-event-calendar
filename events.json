@@ -230,11 +230,13 @@
     "game": "hsr",
     "name": "パール",
     "start": "2026-09-28",
-    "end": "2026-10-21",
+    "end": "2026-11-10",
     "kind": "ガチャ（新規・復刻未確認）",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "end_time": "12:59"
+    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
+    "end_time": "16:00",
+    "start_label": "アップデート後",
+    "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
     "id": "wiki-hsr-gacha-96eb88227761f1076033",
@@ -244,8 +246,10 @@
     "end": "2026-10-21",
     "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "end_time": "12:59"
+    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
+    "end_time": "12:59",
+    "start_label": "アップデート後",
+    "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
     "id": "activity-6af2910e486ef14a9dd7",
@@ -275,11 +279,13 @@
     "game": "hsr",
     "name": "明日に捧げる色",
     "start": "2026-09-28",
-    "end": "2026-10-21",
+    "end": "2026-11-10",
     "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "end_time": "12:59"
+    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
+    "end_time": "16:00",
+    "start_label": "アップデート後",
+    "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
     "id": "activity-97782a3ce594388d2203",
@@ -312,8 +318,10 @@
     "end": "2026-10-21",
     "kind": "復刻キャラ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "end_time": "12:59"
+    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
+    "end_time": "12:59",
+    "start_label": "アップデート後",
+    "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
     "id": "activity-9ad83dbc1c367e4f5a4c",
