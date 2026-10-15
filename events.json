@@ -485,36 +485,12 @@
     "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
-    "id": "wiki-hsr-gacha-c5eea1d917d6d611e256",
-    "game": "hsr",
-    "name": "パール",
-    "start": "2026-10-21",
-    "end": "2026-11-11",
-    "kind": "復刻キャラ",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
-  },
-  {
     "id": "wiki-hsr-gacha-1f4ec0896851a5562ba3",
     "game": "hsr",
     "name": "千冶・刃",
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "復刻キャラ",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
-  },
-  {
-    "id": "wiki-hsr-gacha-180b4ecf05d9600cc1e9",
-    "game": "hsr",
-    "name": "明日に捧げる色",
-    "start": "2026-10-21",
-    "end": "2026-11-11",
-    "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
     "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
     "start_time": "13:00",
