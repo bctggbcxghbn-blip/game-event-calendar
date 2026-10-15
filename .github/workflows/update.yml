@@ -55,9 +55,6 @@ jobs:
         run: python hsr_realm_timezone_check.py
         
       - name: Check HSR Phase II official gacha
-        run: python hsr_phase2_official_check.py
-        
-      - name: Check HSR Phase II official gacha
         run: python hsr_phase2_official_check_v2.py
         
       - name: Preview official HSR gacha
