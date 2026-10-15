@@ -31,8 +31,8 @@ jobs:
         run: python wiki_hsr_gacha.py
        
     
-      - name: Discover official HSR news
-        run: python hsr_official_discovery.py
+      - name: Test official HSR article dates
+        run: python hsr_official_article_test.py
 
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
