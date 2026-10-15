@@ -194,5 +194,106 @@ def main():
     print('NOTE: Challenge times not shown in the event table remain unconfirmed.')
     print('NOTE: Unmatched English API entries remain; inspect calendar for semantic duplicates.')
 
+SOURCES = {
+    '虚構叙事': ['https://game8.jp/houkaistarrail/583174'],
+    '混沌の記憶': ['https://game8.jp/houkaistarrail/525860'],
+    '末日の幻影': ['https://game8.jp/houkaistarrail/614662'],
+}
+DATE_TIME = re.compile(
+    r'(20\d{2})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})\s*'
+    r'(?:\([^)]{1,8}\)\s*)?([01]?\d|2[0-3]):([0-5]\d)\s*'
+    r'[〜～~–—－-]\s*'
+    r'(20\d{2})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})\s*'
+    r'(?:\([^)]{1,8}\)\s*)?([01]?\d|2[0-3]):([0-5]\d)'
+)
+
+class Text(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.skip = 0
+    def handle_starttag(self, tag, attrs):
+        if tag in ('script', 'style', 'noscript'):
+            self.skip += 1
+        elif tag in ('br', 'p', 'div', 'h2', 'h3', 'tr'):
+            self.parts.append(' ')
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript') and self.skip:
+            self.skip -= 1
+        elif tag in ('p', 'div', 'h2', 'h3', 'tr'):
+            self.parts.append(' ')
+    def handle_data(self, data):
+        if not self.skip:
+            self.parts.append(data)
+
+def get_periods(url):
+    req = Request(url, headers={'User-Agent': 'GameEventCalendar/1.0 (personal project)'})
+    with urlopen(req, timeout=15) as response:
+        blob = response.read(2_000_001)
+    if len(blob) > 2_000_000:
+        raise ValueError('Source page exceeds 2 MB')
+    parser = Text()
+    parser.feed(blob.decode('utf-8', 'replace'))
+    text = re.sub(r'\s+', ' ', ' '.join(parser.parts))
+    periods = set()
+    for m in DATE_TIME.finditer(text):
+        try:
+            start = dt.date(*map(int, m.group(1, 2, 3)))
+            end = dt.date(*map(int, m.group(6, 7, 8)))
+        except ValueError:
+            continue
+        if not (start <= end and (end-start).days <= 70):
+            continue
+        periods.add((start.isoformat(), end.isoformat(),
+                     f'{int(m[4]):02d}:{m[5]}', f'{int(m[9]):02d}:{m[10]}'))
+    return periods
+
+def enrich_challenge_times():
+    path = ROOT / 'events.json'
+    events = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(events, list):
+        raise ValueError('events.json must be a list')
+    confirmed = {}
+    for name, urls in SOURCES.items():
+        for url in urls:
+            try:
+                periods = get_periods(url)
+                print(f'Challenge source {name}: {len(periods)} explicit dated period(s)')
+                for start, end, st, et in periods:
+                    confirmed.setdefault((name, start, end), set()).add((st, et, url))
+            except Exception as exc:
+                print(f'WARNING: {name} source unavailable: {exc}')
+    updated = 0
+    mismatched = 0
+    for event in events:
+        if not isinstance(event, dict) or event.get('game') != 'hsr':
+            continue
+        name = str(event.get('name', ''))
+        category = next((x for x in SOURCES if x in name), None)
+        if not category:
+            continue
+        matches = confirmed.get((category, event.get('start'), event.get('end')), set())
+        clock_pairs = {(st, et) for st, et, _ in matches}
+        if len(clock_pairs) != 1:
+            mismatched += 1
+            continue
+        st, et = next(iter(clock_pairs))
+        # Do not overwrite another source's conflicting confirmed times.
+        if (event.get('start_time') not in (None, st) or
+                event.get('end_time') not in (None, et)):
+            print(f'WARNING: conflicting clock data for {name}; skipped')
+            continue
+        event['start_time'] = st
+        event['end_time'] = et
+        event['time_zone'] = 'Asia/Tokyo'
+        event['time_source_url'] = sorted(matches)[0][2]
+        updated += 1
+    if updated:
+        path.write_text(json.dumps(events, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(f'HSR challenge clocks: {updated} exact-date matches updated; '
+          f'{mismatched} unmatched challenge rows left unchanged.')
+
+
 if __name__ == '__main__':
     main()
+    enrich_challenge_times()
