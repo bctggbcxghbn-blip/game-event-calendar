@@ -30,8 +30,8 @@ jobs:
       - name: Import HSR Gacha
         run: python wiki_hsr_gacha.py
        
-     - name: Discover official HSR news
-        run: python hsr_official_discovery.py
+    　 - name: Discover official HSR news
+      　  run: python hsr_official_discovery.py
         
       - name: Apply reviewed official HSR event dates and labelｓ
         run: python hsr_official_import.py
