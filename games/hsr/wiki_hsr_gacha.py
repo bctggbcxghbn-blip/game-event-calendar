@@ -13,7 +13,7 @@ import re
 from html.parser import HTMLParser
 from urllib.request import Request, urlopen
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 URL = 'https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D'
 JST = dt.timezone(dt.timedelta(hours=9))
 DATE = re.compile(r'(20\d{2})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})')

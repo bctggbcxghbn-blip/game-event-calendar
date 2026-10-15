@@ -10,7 +10,7 @@ import json
 import pathlib
 import re
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 SOURCE = 'https://hsr.hoyoverse.com/en-us/news/166468'
 # Confirmed from the official Version 4.6 announcement. UTC+8 timestamps
 # become JST by adding one hour. Server-time dates are kept as server dates

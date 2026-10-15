@@ -19,52 +19,52 @@ jobs:
           python-version: '3.12'
 
       - name: Test Japanese Wiki
-        run: python wiki_hsr_preview.py
+        run: python games/hsr/wiki_hsr_preview.py
 
       - name: Update events
         run: python update_events.py
 
       - name: Import Japanese HSR Wiki
-        run: python wiki_hsr_import.py
+        run: python games/hsr/wiki_hsr_import.py
 
       - name: Import HSR Gacha
-        run: python wiki_hsr_gacha.py   
+        run: python games/hsr/wiki_hsr_gacha.py   
         
       - name: Apply reviewed HSR gacha times
-        run: python hsr_official_gacha_apply.py --apply
+        run: python games/hsr/hsr_official_gacha_apply.py --apply
         
       - name: Remove duplicate HSR gacha
-        run: python hsr_gacha_dedupe.py --apply
+        run: python games/hsr/hsr_gacha_dedupe.py --apply
         
       - name: Test official HSR article dates
-        run: python hsr_official_article_test.py
+        run: python games/hsr/hsr_official_article_test.py
   
       - name: Extract official HSR event candidates
-        run: python hsr_official_candidates.py
+        run: python games/hsr/hsr_official_candidates.py
         
       - name: Match official HSR events
-        run: python hsr_official_match_preview.py
+        run: python games/hsr/hsr_official_match_preview.py
         
       - name: Preview Asia-server HSR times
-        run: python hsr_official_asia_preview.py
+        run: python games/hsr/hsr_official_asia_preview.py
         
       - name: Apply official HSR Asia times
-        run: python hsr_official_asia_apply.py
+        run: python games/hsr/hsr_official_asia_apply.py
         
       - name: Check HSR relic event timezones
-        run: python hsr_realm_timezone_check.py
+        run: python games/hsr/hsr_realm_timezone_check.py
         
       - name: Check HSR Phase II official gacha
-        run: python hsr_phase2_official_check_v3.py
+        run: python games/hsr/hsr_phase2_official_check_v3.py
         
       - name: Preview official HSR gacha
-        run: python hsr_official_gacha_preview.py
+        run: python games/hsr/hsr_official_gacha_preview.py
         
       - name: Check official HSR gacha names
-        run: python hsr_official_gacha_name_check.py
+        run: python games/hsr/hsr_official_gacha_name_check.py
         
       - name: Apply reviewed official HSR event dates and labels
-        run: python hsr_official_import.py
+        run: python games/hsr/hsr_official_import.py
 
 
       - name: Commit changes

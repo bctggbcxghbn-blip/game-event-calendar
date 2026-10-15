@@ -11,7 +11,7 @@ from hsr_official_candidates import (
     EXPECTED_CERT, EXPECTED_UID, RANGE, as_text, candidate, fetch,
 )
 
-ROOT = pathlib.Path(__file__).resolve().parent
+ROOT = pathlib.Path(__file__).resolve().parents[2]
 MAX_ARTICLES = 60
 # Single-event announcements only. Broad patch notes and multi-warp posts are excluded.
 TYPES = {

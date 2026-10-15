@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 from hsr_official_candidates import fetch, as_text, EXPECTED_UID, EXPECTED_CERT, RANGE, candidate
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
 ARTICLE_ID = '46851682'
 START = '2026-09-28'
 END = '2026-10-21'

@@ -10,7 +10,7 @@ import os
 import tempfile
 from pathlib import Path
 
-PATH = Path(__file__).resolve().parent / 'events.json'
+PATH = Path(__file__).resolve().parents[2] / 'events.json'
 OFFICIAL = 'https://www.hoyolab.com/article/46851682'
 PAIRS = {
     'パール': ('wiki-hsr-gacha-20d200007ca146c89d09', 'wiki-hsr-gacha-c5eea1d917d6d611e256'),

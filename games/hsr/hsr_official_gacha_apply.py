@@ -10,7 +10,7 @@ import os
 import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
 EVENTS = ROOT / 'events.json'
 OFFICIAL = 'https://www.hoyolab.com/article/46851682'
 START = '2026-09-28'

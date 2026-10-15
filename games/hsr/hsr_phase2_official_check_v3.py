@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from hsr_official_candidates import fetch, as_text, EXPECTED_UID, EXPECTED_CERT, RANGE, candidate
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
 TARGET = re.compile(r'\bversion\s*4[.]6\b.*\bevent\s+warp\s*[:：]\s*phase\s*(?:ii|2)\b', re.I)
 
 def annotate(level, message):

@@ -9,7 +9,7 @@ import re
 from pathlib import Path
 from hsr_official_candidates import fetch, as_text, EXPECTED_UID, EXPECTED_CERT, RANGE, candidate
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[2]
 WARP_TITLE = re.compile(r'(?:event\s+warp|warp\s+event)\s*[:：]', re.I)
 PHASE = re.compile(r'phase\s*(?:i{1,3}|[12])\b', re.I)
 NAME = re.compile(r'["“]([^"”]{2,90})["”]')
