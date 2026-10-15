@@ -114,6 +114,27 @@ def parse_period(value):
     return start.isoformat(), end.isoformat()
 
 
+
+def parse_period_times(value):
+    """Read clock times explicitly printed next to the two period dates.
+
+    Never infer a clock time from a version phase or maintenance notice.
+    Returns (start_time, end_time) as HH:MM or None.
+    """
+    dates = list(re.finditer(r'(?:20\d{2}\s*/\s*)?\d{1,2}\s*/\s*\d{1,2}', value))
+    if len(dates) < 2:
+        return None, None
+
+    times = []
+    for index in range(2):
+        after = value[dates[index].end():dates[index + 1].start() if index + 1 < len(dates) else len(value)]
+        # Time must follow its date, before the next date or period separator.
+        after = re.split(r'[〜～~–—－]|\s+-\s+', after, maxsplit=1)[0]
+        match = re.search(r'(?<!\d)([01]?\d|2[0-3]):([0-5]\d)(?!\d)', after)
+        times.append(f'{int(match.group(1)):02d}:{match.group(2)}' if match else None)
+    return tuple(times)
+
+
 def clean(text):
     return re.sub(r'\s+', ' ', text).strip().replace('☆', '').replace('★', '').strip()
 
@@ -152,7 +173,7 @@ def collect(html):
             start, end = period
             for item_type, cell in [('character', row[3]), ('lightcone', row[5])]:
                 for name, starred in split_items(cell):
-                    result.append((item_type, name, start, end, starred))
+                    result.append((item_type, name, start, end, starred, *parse_period_times(row[1])))
     return list(dict.fromkeys(result))
 
 
@@ -162,11 +183,11 @@ def classify(candidates):
     Do not assume an unstarred item is a rerun without earlier evidence.
     """
     first_seen = {}
-    for item_type, name, start, _, _ in candidates:
+    for item_type, name, start, _, _, _, _ in candidates:
         key = (item_type, name)
         if key not in first_seen or start < first_seen[key]:
             first_seen[key] = start
-    for item_type, name, start, end, starred in candidates:
+    for item_type, name, start, end, starred, start_time, end_time in candidates:
         if item_type == 'lightcone':
             kind = '武器・装備ガチャ'
         elif first_seen[(item_type, name)] < start:
@@ -175,7 +196,7 @@ def classify(candidates):
             kind = '新キャラ'
         else:
             kind = 'ガチャ（新規・復刻未確認）'
-        yield kind, name, start, end
+        yield kind, name, start, end, start_time, end_time
 
 
 def main():
@@ -196,16 +217,23 @@ def main():
     # Replace only gacha entries imported by this script, after parsing succeeded.
     events = [e for e in events if not str(e.get('id', '')).startswith('wiki-hsr-gacha-')]
     added = 0
-    for kind, name, start, end in classify(candidates):
+    for kind, name, start, end, start_time, end_time in classify(candidates):
         if dt.date.fromisoformat(end) < cutoff:
             continue
         uid = hashlib.sha256(f'hsr|gacha|{kind}|{name}|{start}'.encode()).hexdigest()[:20]
-        events.append({
+        event = {
             'id': 'wiki-hsr-gacha-' + uid,
             'game': 'hsr', 'name': name, 'start': start, 'end': end,
             'kind': kind, 'url': URL,
             'source_status': '日本語Wiki・ガチャ日付確認済み',
-        })
+        }
+        if start_time:
+            event['start_time'] = start_time
+        if end_time:
+            event['end_time'] = end_time
+        if start_time or end_time:
+            event['source_status'] = '日本語Wiki・ガチャ日付と記載時刻確認済み'
+        events.append(event)
         added += 1
     events.sort(key=lambda e: (e.get('start', ''), e.get('game', ''), e.get('name', '')))
     path.write_text(json.dumps(events, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
