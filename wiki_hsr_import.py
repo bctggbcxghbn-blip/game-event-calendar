@@ -194,59 +194,33 @@ def main():
     print('NOTE: Challenge times not shown in the event table remain unconfirmed.')
     print('NOTE: Unmatched English API entries remain; inspect calendar for semantic duplicates.')
 
-SOURCES = {
-    '虚構叙事': ['https://game8.jp/houkaistarrail/583174'],
-    '混沌の記憶': ['https://game8.jp/houkaistarrail/525860'],
-    '末日の幻影': ['https://game8.jp/houkaistarrail/614662'],
-}
-DATE_TIME = re.compile(
-    r'(20\d{2})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})\s*'
-    r'(?:\([^)]{1,8}\)\s*)?([01]?\d|2[0-3]):([0-5]\d)\s*'
-    r'[〜～~–—－-]\s*'
-    r'(20\d{2})\s*/\s*(\d{1,2})\s*/\s*(\d{1,2})\s*'
-    r'(?:\([^)]{1,8}\)\s*)?([01]?\d|2[0-3]):([0-5]\d)'
-)
+# Official HoYoverse announcements verified against the dated periods shown in
+# the Japanese announcements. Times there are server times (Asia server UTC+8).
+# This is a verified-source snapshot, not a live announcement scraper.
+OFFICIAL_PERIODS = [
+    # category, start date, end date, start server clock, end server clock, source
+    ('虚構叙事', '2026-09-14', '2026-10-19', '04:00', '03:59',
+     'https://hsr.hoyoverse.com/ja-jp/news/165767'),
+    ('末日の幻影', '2026-10-05', '2026-11-16', '04:00', '03:59',
+     'https://hsr.hoyoverse.com/ja-jp/news/166468'),
+    ('虚構叙事', '2026-10-19', '2026-11-30', '04:00', '03:59',
+     'https://hsr.hoyoverse.com/ja-jp/news/166468'),
+    ('混沌の記憶', '2026-11-02', '2026-12-14', '04:00', '03:59',
+     'https://hsr.hoyoverse.com/ja-jp/news/166468'),
+    # The earlier Memory of Chaos start clock was not visible in the evidence.
+    ('混沌の記憶', '2026-09-28', '2026-11-02', None, '03:59',
+     'https://hsr.hoyoverse.com/ja-jp/news/166468'),
+]
 
-class Text(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.parts = []
-        self.skip = 0
-    def handle_starttag(self, tag, attrs):
-        if tag in ('script', 'style', 'noscript'):
-            self.skip += 1
-        elif tag in ('br', 'p', 'div', 'h2', 'h3', 'tr'):
-            self.parts.append(' ')
-    def handle_endtag(self, tag):
-        if tag in ('script', 'style', 'noscript') and self.skip:
-            self.skip -= 1
-        elif tag in ('p', 'div', 'h2', 'h3', 'tr'):
-            self.parts.append(' ')
-    def handle_data(self, data):
-        if not self.skip:
-            self.parts.append(data)
-
-def get_periods(url):
-    req = Request(url, headers={'User-Agent': 'GameEventCalendar/1.0 (personal project)'})
-    with urlopen(req, timeout=15) as response:
-        blob = response.read(2_000_001)
-    if len(blob) > 2_000_000:
-        raise ValueError('Source page exceeds 2 MB')
-    parser = Text()
-    parser.feed(blob.decode('utf-8', 'replace'))
-    text = re.sub(r'\s+', ' ', ' '.join(parser.parts))
-    periods = set()
-    for m in DATE_TIME.finditer(text):
-        try:
-            start = dt.date(*map(int, m.group(1, 2, 3)))
-            end = dt.date(*map(int, m.group(6, 7, 8)))
-        except ValueError:
-            continue
-        if not (start <= end and (end-start).days <= 70):
-            continue
-        periods.add((start.isoformat(), end.isoformat(),
-                     f'{int(m[4]):02d}:{m[5]}', f'{int(m[9]):02d}:{m[10]}'))
-    return periods
+def server_clock_to_jst(clock):
+    """Asia-server UTC+8 clock to JST UTC+9; return (clock, day shift)."""
+    if clock is None:
+        return None, 0
+    hour, minute = map(int, clock.split(':'))
+    if not (0 <= hour <= 23 and 0 <= minute <= 59):
+        raise ValueError('Invalid clock: ' + clock)
+    total = hour * 60 + minute + 60
+    return f'{(total // 60) % 24:02d}:{total % 60:02d}', total // 1440
 
 def enrich_challenge_times():
     path = ROOT / 'events.json'
@@ -254,46 +228,64 @@ def enrich_challenge_times():
     if not isinstance(events, list):
         raise ValueError('events.json must be a list')
     confirmed = {}
-    for name, urls in SOURCES.items():
-        for url in urls:
-            try:
-                periods = get_periods(url)
-                print(f'Challenge source {name}: {len(periods)} explicit dated period(s)')
-                for start, end, st, et in periods:
-                    confirmed.setdefault((name, start, end), set()).add((st, et, url))
-            except Exception as exc:
-                print(f'WARNING: {name} source unavailable: {exc}')
-    updated = 0
-    mismatched = 0
+    for category, start, end, st, et, url in OFFICIAL_PERIODS:
+        key = (category, start, end)
+        if key in confirmed:
+            raise ValueError('Duplicate official period: ' + str(key))
+        confirmed[key] = (st, et, url)
+    changed = 0
+    unmatched = 0
     for event in events:
         if not isinstance(event, dict) or event.get('game') != 'hsr':
             continue
         name = str(event.get('name', ''))
-        category = next((x for x in SOURCES if x in name), None)
-        if not category:
+        original = str(event.get('original_name', ''))
+        categories = {
+            '虚構叙事': ('虚構叙事' in name or 'Pure Fiction' in original),
+            '混沌の記憶': ('混沌の記憶' in name or 'Memory of Chaos' in original),
+            '末日の幻影': ('末日の幻影' in name or 'Apocalyptic Shadow' in original),
+        }
+        matches = [cat for cat, matched in categories.items() if matched]
+        if len(matches) != 1:
             continue
-        matches = confirmed.get((category, event.get('start'), event.get('end')), set())
-        clock_pairs = {(st, et) for st, et, _ in matches}
-        if len(clock_pairs) != 1:
-            mismatched += 1
+        key = (matches[0], event.get('start'), event.get('end'))
+        source = confirmed.get(key)
+        if not source:
+            unmatched += 1
             continue
-        st, et = next(iter(clock_pairs))
-        # Do not overwrite another source's conflicting confirmed times.
-        if (event.get('start_time') not in (None, st) or
-                event.get('end_time') not in (None, et)):
-            print(f'WARNING: conflicting clock data for {name}; skipped')
+        st, et, url = source
+        new = {}
+        for prefix, server_time, date_key in (
+            ('start', st, 'start'), ('end', et, 'end')
+        ):
+            if server_time is None:
+                continue
+            jst, shift = server_clock_to_jst(server_time)
+            original_date = dt.date.fromisoformat(event[date_key])
+            shifted_date = (original_date + dt.timedelta(days=shift)).isoformat()
+            # Preserve the API's date; never silently move an event's date.
+            if shifted_date != event[date_key]:
+                print(f'WARNING: JST date shift for {name}; {prefix} skipped')
+                continue
+            field = prefix + '_time'
+            if event.get(field) not in (None, jst):
+                print(f'WARNING: conflicting {field} for {name}; skipped')
+                continue
+            new[field] = jst
+        if not new:
             continue
-        event['start_time'] = st
-        event['end_time'] = et
-        event['time_zone'] = 'Asia/Tokyo'
-        event['time_source_url'] = sorted(matches)[0][2]
-        updated += 1
-    if updated:
+        new['time_zone'] = 'Asia/Tokyo'
+        new['time_source_url'] = url
+        if any(event.get(k) != v for k, v in new.items()):
+            event.update(new)
+            changed += 1
+    if changed:
         path.write_text(json.dumps(events, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(f'HSR challenge clocks: {updated} exact-date matches updated; '
-          f'{mismatched} unmatched challenge rows left unchanged.')
-
+    print(f'HSR official challenge clocks: {changed} event(s) updated; '
+          f'{unmatched} unmatched challenge rows unchanged.')
+    print('NOTE: Official period snapshot from announcements; future seasons require new verified entries.')
 
 if __name__ == '__main__':
     main()
     enrich_challenge_times()
+
