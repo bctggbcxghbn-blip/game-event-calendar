@@ -39,6 +39,9 @@ jobs:
         
       - name: Match official HSR events
         run: python hsr_official_match_preview.py
+        
+      - name: Preview Asia-server HSR times
+        run: python hsr_official_asia_preview.py
 
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
