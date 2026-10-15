@@ -36,6 +36,9 @@ jobs:
         
       - name: Extract official HSR event candidates
         run: python hsr_official_candidates.py
+        
+      - name: Match official HSR events
+        run: python hsr_official_match_preview.py
 
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
