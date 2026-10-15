@@ -65,6 +65,15 @@ function displayItems(list){
     .sort((a,b)=>type(a.segments[0]).localeCompare(type(b.segments[0]))||a.segments[0].displayEnd.localeCompare(b.segments[0].displayEnd));
 }
 function eventTime(e,side){
+  // Official announcement wording is displayed verbatim when a clock is not supplied.
+  const labelKeys=side==='start'?['start_label','start_note']:['end_label','end_note'];
+  const clockKeys=side==='start'?['start_time','startTime','start_datetime','startDateTime']:['end_time','endTime','end_datetime','endDateTime'];
+  const hasClock=clockKeys.some(k=>typeof e[k]==='string'&&e[k].trim());
+  if(!hasClock){
+    for(const key of labelKeys){
+      if(typeof e[key]==='string'&&e[key].trim())return e[key].trim();
+    }
+  }
   const keys=side==='start'?['start_time','startTime','start_datetime','startDateTime']:['end_time','endTime','end_datetime','endDateTime'];
   for(const key of keys){
     const raw=e[key];
