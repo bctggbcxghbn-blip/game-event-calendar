@@ -1,7 +1,7 @@
 name: Update Game Events
 
 on:
-  schedule:
+  schedule:　
     - cron: '0 0 * * *'
   workflow_dispatch:
 
@@ -48,6 +48,9 @@ jobs:
         
       - name: Check HSR relic event timezones
         run: python hsr_realm_timezone_check.py
+
+      - name: Preview official HSR gacha
+        run: python hsr_official_gacha_preview.py
 
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
