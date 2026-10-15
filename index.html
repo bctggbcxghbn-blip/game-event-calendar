@@ -31,6 +31,7 @@ function displayItems(list){
     }else ordinary.push({key:'single:'+e.id,segments:[{...e,displayStart:e.start,displayEnd:e.end}]});
   }
   for(const [game,items] of gacha){
+    // Group only banners with exactly the same dates. Never truncate real dates.
     const periods=new Map();
     for(const e of items){
       const key=e.start+'|'+e.end;
@@ -41,15 +42,14 @@ function displayItems(list){
       const first=group[0];
       return {...first,name:[...new Set(group.map(e=>e.name))].join(' / '),groupItems:group,displayStart:first.start,displayEnd:first.end};
     }).sort((a,b)=>a.start.localeCompare(b.start)||a.end.localeCompare(b.end));
-    // The next gacha period replaces the previous one visually at its start.
-    // No claim about the actual hour is made here.
-    const segments=[];
-    for(let i=0;i<grouped.length;i++){
-      const e=grouped[i],next=grouped[i+1];
-      const displayEnd=next&&next.start<=e.end?plus(next.start,-1):e.end;
-      if(displayEnd>=e.start)segments.push({...e,displayEnd});
+    // Pack non-overlapping periods into lanes; overlapping banners get separate rows.
+    const packed=[];
+    for(const e of grouped){
+      let lane=packed.find(row=>row[row.length-1].displayEnd<e.displayStart);
+      if(!lane){lane=[];packed.push(lane)}
+      lane.push(e);
     }
-    ordinary.push({key:'gacha:'+game,segments});
+    packed.forEach((segments,i)=>ordinary.push({key:'gacha:'+game+':'+i,segments}));
   }
   for(const [key,items] of lanes){
     items.sort((a,b)=>a.start.localeCompare(b.start)||a.end.localeCompare(b.end));
