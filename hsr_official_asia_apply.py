@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Conservative HSR Asia-server JST updater: existing Planar Fissure and Realm of the Strange rows only.
+"""Conservative HSR Asia-server JST updater: Planar Fissure and Realm of the Strange.
 
 Run after wiki importers and before reviewed official overrides. No new events.
 Ambiguous periods and unmatched events are intentionally skipped.
@@ -32,7 +32,7 @@ PERIOD = re.compile(
     r'Event\s+Period\s*[:：]?\s*'
     r'(?P<start>20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+'
     r'(?P<startclock>\d{1,2}:\d{2})\s*'
-    r'(?P<startzone>\((?:server\s+time|UTC\s*\+\s*8)\))\s*'
+    r'(?P<startzone>\((?:server\s+time|UTC\s*\+\s*8)\))?\s*'
     r'[-–—]\s*'
     r'(?P<end>20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+'
     r'(?P<endclock>\d{1,2}:\d{2})\s*'
@@ -79,10 +79,16 @@ def main():
                 print(f'SKIP {pid}: {len(periods)} unambiguous server-time periods (need 1)')
                 continue
             m = periods[0]
-            startzone = re.sub(r'\s+', '', m.group('startzone')).casefold()
+            startzone = re.sub(r'\s+', '', m.group('startzone') or '').casefold()
             endzone = re.sub(r'\s+', '', m.group('endzone')).casefold()
-            if startzone != endzone:
+            # The previously working Planar Fissure format omits a timezone
+            # after the start clock. Its end is explicitly server time.
+            # A genuine conflict between two explicit labels is not auto-applied.
+            if startzone and startzone != endzone:
                 print(f'SKIP {pid}: mixed timezone labels ({startzone}, {endzone}); review needed')
+                continue
+            if not startzone and endzone != '(servertime)':
+                print(f'SKIP {pid}: start timezone omitted, end is {endzone}; review needed')
                 continue
             start, end = m.group('start').replace('/', '-'), m.group('end').replace('/', '-')
             sd, st = jst(start, m.group('startclock'))
