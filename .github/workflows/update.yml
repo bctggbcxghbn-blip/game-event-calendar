@@ -45,6 +45,9 @@ jobs:
         
       - name: Apply official HSR Asia times
         run: python hsr_official_asia_apply.py
+        
+      - name: Check HSR relic event timezones
+        run: python hsr_realm_timezone_check.py
 
       - name: Apply reviewed official HSR event dates and labels
         run: python hsr_official_import.py
