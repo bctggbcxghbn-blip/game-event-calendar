@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 ROOT = pathlib.Path(__file__).resolve().parent
 URL = 'https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88'
 DATE = r'(20\d{2})/(\d{1,2})/(\d{1,2})'
-PERIOD = re.compile(r'^\s*' + DATE + r'\s*[〜～~–—－-]\s*(?:' + DATE + r'|(\d{1,2})/(\d{1,2}))\s*$')
+PERIOD = re.compile(r'^\s*' + DATE + r'(?:\s+([01]?\d|2[0-3]):([0-5]\d))?\s*[〜～~–—－-]\s*(?:' + DATE + r'|(\d{1,2})/(\d{1,2}))(?:\s+([01]?\d|2[0-3]):([0-5]\d))?\s*$')
 
 class Tables(HTMLParser):
     def __init__(self):
@@ -59,15 +59,17 @@ def parse_period(text):
     if not m:
         return None
     a = dt.date(*map(int, m.group(1, 2, 3)))
-    if m.group(4):
-        b = dt.date(*map(int, m.group(4, 5, 6)))
+    if m.group(6):
+        b = dt.date(*map(int, m.group(6, 7, 8)))
     else:
-        month, day = int(m.group(7)), int(m.group(8))
+        month, day = int(m.group(9)), int(m.group(10))
         year = a.year + (month, day).__lt__((a.month, a.day))
         b = dt.date(year, month, day)
     if b < a or (b - a).days > 180:
         return None
-    return a.isoformat(), b.isoformat()
+    return (a.isoformat(), b.isoformat(),
+            f'{int(m.group(4)):02d}:{m.group(5)}' if m.group(4) else None,
+            f'{int(m.group(11)):02d}:{m.group(12)}' if m.group(11) else None)
 
 def normalize(text):
     return re.sub(r'[\s:：・「」『』\-–—!！?？]+', '', text).casefold()
@@ -112,15 +114,16 @@ def main():
     # Avoid bringing in stale historical events from the entire Wiki archive.
     today = dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).date()
     cutoff = today - dt.timedelta(days=14)
-    inserted = updated = skipped = 0
+    inserted = updated = skipped = timed = 0
     seen = set()
-    for name, start, end in candidates:
+    for name, start, end, start_time, end_time in candidates:
         key = (normalize(name), start, end)
         if key in seen or dt.date.fromisoformat(end) < cutoff:
             skipped += 1
             continue
         seen.add(key)
         candidate = {'game': 'hsr', 'name': name, 'start': start, 'end': end}
+        clocks = {k: v for k, v in (('start_time', start_time), ('end_time', end_time)) if v}
         matching = []
         for row in existing:
             if not isinstance(row, dict) or row.get('game') != 'hsr':
@@ -136,13 +139,21 @@ def main():
                     row.setdefault('original_name', row['name'])
                     row['name'] = name
                     updated += 1
+                for field, value in clocks.items():
+                    if row.get(field) != value:
+                        row[field] = value
+                        timed += 1
             continue
         uid = hashlib.sha256(('hsr|wiki|' + name + '|' + start).encode()).hexdigest()[:20]
-        existing.append({
+        entry = {
             'id': 'wiki-hsr-' + uid, 'game': 'hsr', 'name': name,
             'start': start, 'end': end, 'kind': 'イベント',
             'url': URL, 'source_status': '日本語Wiki・日付確認済み'
-        })
+        }
+        entry.update(clocks)
+        if clocks:
+            timed += 1
+        existing.append(entry)
         inserted += 1
     existing.sort(key=lambda row: (row.get('start', ''), row.get('game', ''), row.get('name', '')))
 
@@ -179,6 +190,8 @@ def main():
 
     path.write_text(json.dumps(existing, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'Wiki: {len(candidates)} dated candidates; {inserted} added, {updated} renamed, {skipped} old/duplicate skipped.')
+    print(f'Wiki: {timed} event clock fields/entries confirmed from explicit period text.')
+    print('NOTE: Challenge times not shown in the event table remain unconfirmed.')
     print('NOTE: Unmatched English API entries remain; inspect calendar for semantic duplicates.')
 
 if __name__ == '__main__':
