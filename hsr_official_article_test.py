@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Read-only HoYoLAB HSR article/author diagnostic. Never edits events.json.
+"""Read-only diagnostic: match known HSR publisher ID plus certification.
 
-The API's absent post_status.is_official flag is NOT evidence of unofficial status.
-Print author metadata for manual review; no article is auto-trusted.
+This is a provisional publisher match, not independent authentication.
+Never writes events.json; times are displayed as written, not converted.
 """
 import json
 import re
@@ -13,7 +13,9 @@ from urllib.request import Request, urlopen
 
 BASE = 'https://bbs-api-os.hoyolab.com/community/post/wapi/'
 HEADERS = {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json', 'Referer': 'https://www.hoyolab.com/'}
-MAX_ARTICLES = 8
+MAX_ARTICLES = 12
+EXPECTED_UID = "172534910"
+EXPECTED_CERT = "HonkaiSR Official"
 DATE = re.compile(r'(?:20\d{2}\s*[-/.年]\s*)?\d{1,2}\s*[-/.月]\s*\d{1,2}\s*日?(?:\s*(?:\d{1,2}:\d{2}|アップデート後|after the (?:update|maintenance)))?', re.I)
 
 class PlainText(HTMLParser):
@@ -67,7 +69,7 @@ def main():
                     ids[pid] = post.get('subject') or '(no title)'
         except Exception as exc:
             print(f'WARNING: category {category}: {type(exc).__name__}: {exc}')
-    print(f'Found {len(ids)} unique articles. Inspecting up to {MAX_ARTICLES}; none auto-verified.')
+    print(f'Found {len(ids)} unique articles. Inspecting up to {MAX_ARTICLES}.')
     inspected = 0
     for pid, fallback_title in ids.items():
         if inspected >= MAX_ARTICLES:
@@ -80,21 +82,29 @@ def main():
             status = post.get('post_status') or {}
             inspected += 1
             title = str(post.get('subject') or fallback_title)
-            print(f'\nARTICLE (NOT VERIFIED): {title[:130]}')
+            cert = user.get('certification') or {}
+            matched = (str(user.get('uid', '')) == EXPECTED_UID
+                       and isinstance(cert, dict)
+                       and cert.get('desc') == EXPECTED_CERT
+                       and str(user.get('nickname', '')) == 'Honkai: Star Rail')
+            if not matched:
+                print(f'SKIP publisher mismatch: {title[:90]} (uid={user.get("uid")})')
+                continue
+            print(f'\nPUBLISHER MATCH (provisional): {title[:130]}')
             print(f'URL: https://www.hoyolab.com/article/{pid}')
-            print('post_status.is_official:', repr(status.get('is_official', 'MISSING')))
-            print('author fields:', json.dumps({k: user.get(k) for k in ('uid', 'nickname', 'introduce', 'certification', 'certification_type', 'is_official') if k in user}, ensure_ascii=False)[:500])
-            print('available author keys:', ', '.join(sorted(user.keys())[:35]))
-            print('available wrapper keys:', ', '.join(sorted(wrapper.keys())[:25]))
+            print(f'Publisher uid: {user.get("uid")}; certification: {cert.get("desc")}')
             body = as_text(post)
-            print('Text length:', len(body))
-            for match in list(DATE.finditer(body))[:8]:
-                context = ' '.join(body[max(0, match.start()-55):match.end()+65].split())
-                print('  DATE CONTEXT:', context[:180])
+            print(f'Text length: {len(body)}')
+            matches = list(DATE.finditer(body))
+            for match in matches[:12]:
+                context = ' '.join(body[max(0, match.start()-85):match.end()+110].split())
+                print('  DATE CONTEXT (unconverted):', context[:240])
+            if not matches:
+                print('  No date-like text found; details may be in images.')
         except Exception as exc:
             print(f'WARNING: article {pid}: {type(exc).__name__}: {exc}')
-    print(f'\nDone: {inspected} articles inspected (not verified). events.json unchanged.')
-    print('Do not auto-import until publisher identity is verified against an official account.')
+    print(f'\nDone: {inspected} articles inspected. events.json unchanged.')
+    print('Publisher match is provisional; do not auto-import without independent verification and event-specific date parsing.')
 
 if __name__ == '__main__':
     main()
