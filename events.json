@@ -183,8 +183,11 @@
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "ログイン",
-    "source_status": "外部API・要確認",
-    "original_name": "Astral Imagea Park: Park Souvenir"
+    "source_status": "公式お知らせ・日時確認済み",
+    "original_name": "Astral Imagea Park: Park Souvenir",
+    "start_label": "アップデート後",
+    "end_time": "07:00",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
     "id": "activity-09d50ed4b75590c55b81",
@@ -193,8 +196,11 @@
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Astral Imagea Park: Astral Trendible"
+    "source_status": "公式お知らせ・日時確認済み",
+    "original_name": "Astral Imagea Park: Astral Trendible",
+    "start_label": "アップデート後",
+    "end_time": "07:00",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
     "id": "activity-9740aa90222efb8c992b",
@@ -203,8 +209,11 @@
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Wishpower UP! Down with Voracity!"
+    "source_status": "公式お知らせ・日時確認済み",
+    "original_name": "Wishpower UP! Down with Voracity!",
+    "start_label": "アップデート後",
+    "end_time": "07:00",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
     "id": "activity-de3f6a694be26acf668a",
@@ -255,8 +264,11 @@
     "start": "2026-09-28",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Love, Ghosts & Robots"
+    "source_status": "公式お知らせ・日時確認済み",
+    "original_name": "Love, Ghosts & Robots",
+    "start_label": "アップデート後",
+    "end_time": "04:59",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
     "id": "wiki-hsr-gacha-36d139ba0992c9be15b8",
@@ -456,8 +468,10 @@
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Interastral Peace Gala: One Take"
+    "source_status": "公式お知らせ・日時確認済み",
+    "original_name": "Interastral Peace Gala: One Take",
+    "end_time": "04:59",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
     "id": "wiki-hsr-gacha-c5eea1d917d6d611e256",
