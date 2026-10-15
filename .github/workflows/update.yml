@@ -53,7 +53,10 @@ jobs:
         
       - name: Check HSR relic event timezones
         run: python hsr_realm_timezone_check.py
-
+        
+      - name: Check HSR Phase II official gacha
+        run: python hsr_phase2_official_check.py
+        
       - name: Preview official HSR gacha
         run: python hsr_official_gacha_preview.py
         
