@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Read-only diagnostic for HSR HoYoLAB official article text and date snippets.
+"""Read-only HoYoLAB HSR article/author diagnostic. Never edits events.json.
 
-Does NOT modify events.json. Does NOT infer dates or create events.
+The API's absent post_status.is_official flag is NOT evidence of unofficial status.
+Print author metadata for manual review; no article is auto-trusted.
 """
 import json
 import re
@@ -12,7 +13,7 @@ from urllib.request import Request, urlopen
 
 BASE = 'https://bbs-api-os.hoyolab.com/community/post/wapi/'
 HEADERS = {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json', 'Referer': 'https://www.hoyolab.com/'}
-MAX_ARTICLES = 6
+MAX_ARTICLES = 8
 DATE = re.compile(r'(?:20\d{2}\s*[-/.年]\s*)?\d{1,2}\s*[-/.月]\s*\d{1,2}\s*日?(?:\s*(?:\d{1,2}:\d{2}|アップデート後|after the (?:update|maintenance)))?', re.I)
 
 class PlainText(HTMLParser):
@@ -47,9 +48,8 @@ def as_text(post):
         except (ValueError, TypeError):
             pass
     if not chunks:
-        raw = str(post.get('content') or '')
         parser = PlainText()
-        parser.feed(raw)
+        parser.feed(str(post.get('content') or ''))
         chunks.append(''.join(parser.parts))
     return unescape('\n'.join(chunks))
 
@@ -63,43 +63,38 @@ def main():
             for entry in rows:
                 post = entry.get('post') or {}
                 pid = str(post.get('post_id') or '')
-                if pid.isdigit():
+                if pid.isdigit() and pid not in ids:
                     ids[pid] = post.get('subject') or '(no title)'
         except Exception as exc:
             print(f'WARNING: category {category}: {type(exc).__name__}: {exc}')
-    print(f'Found {len(ids)} unique articles. Checking up to {MAX_ARTICLES} verified official articles.')
-    checked = 0
+    print(f'Found {len(ids)} unique articles. Inspecting up to {MAX_ARTICLES}; none auto-verified.')
+    inspected = 0
     for pid, fallback_title in ids.items():
-        if checked >= MAX_ARTICLES:
+        if inspected >= MAX_ARTICLES:
             break
         try:
             data = fetch('getPostFull', {'post_id': pid})
             wrapper = data.get('post') or {}
             post = wrapper.get('post') or {}
+            user = wrapper.get('user') or {}
             status = post.get('post_status') or {}
-            # Only an explicit True counts as official; absence is not proof.
-            if status.get('is_official') is not True:
-                print(f'SKIP unverified: {fallback_title[:75]}')
-                continue
-            checked += 1
+            inspected += 1
             title = str(post.get('subject') or fallback_title)
-            body = as_text(post)
-            print(f'\nOFFICIAL: {title[:130]}')
+            print(f'\nARTICLE (NOT VERIFIED): {title[:130]}')
             print(f'URL: https://www.hoyolab.com/article/{pid}')
-            print(f'Text length: {len(body)} characters')
-            matches = list(DATE.finditer(body))
-            if not matches:
-                print('  No date-like expressions in available text (dates may be in images).')
-            for match in matches[:12]:
+            print('post_status.is_official:', repr(status.get('is_official', 'MISSING')))
+            print('author fields:', json.dumps({k: user.get(k) for k in ('uid', 'nickname', 'introduce', 'certification', 'certification_type', 'is_official') if k in user}, ensure_ascii=False)[:500])
+            print('available author keys:', ', '.join(sorted(user.keys())[:35]))
+            print('available wrapper keys:', ', '.join(sorted(wrapper.keys())[:25]))
+            body = as_text(post)
+            print('Text length:', len(body))
+            for match in list(DATE.finditer(body))[:8]:
                 context = ' '.join(body[max(0, match.start()-55):match.end()+65].split())
-                print('  DATE CONTEXT: ' + context[:180])
-            if len(matches) > 12:
-                print(f'  ... and {len(matches)-12} more matches')
+                print('  DATE CONTEXT:', context[:180])
         except Exception as exc:
             print(f'WARNING: article {pid}: {type(exc).__name__}: {exc}')
-    print(f'\nDone: {checked} verified official articles inspected. events.json unchanged.')
-    if not checked:
-        print('No articles with an explicit official flag found. Do not auto-import from these results.')
+    print(f'\nDone: {inspected} articles inspected (not verified). events.json unchanged.')
+    print('Do not auto-import until publisher identity is verified against an official account.')
 
 if __name__ == '__main__':
     main()
