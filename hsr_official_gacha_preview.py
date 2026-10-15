@@ -68,13 +68,22 @@ def main():
             quoted = list(dict.fromkeys(NAME.findall(body)))[:16]
             print('QUOTED NAMES (not verified as banners):', ', '.join(quoted) or 'none')
             article_dates = {c['start'] for m in matches if (c := candidate(m, body))}
-            possible = [e for e in rows if isinstance(e, dict) and e.get('game') == 'hsr'
+            # Wiki imports identify warp rows primarily through kind and id,
+            # not through the character/banner name itself.
+            possible = [e for e in rows if isinstance(e, dict)
+                        and e.get('game') == 'hsr'
                         and str(e.get('start') or '') in article_dates
-                        and any(term in str(e.get('name', '')).lower() + ' ' + str(e.get('category', '')).lower() + ' ' + str(e.get('type', '')).lower()
-                                for term in ('ガチャ', '跳躍', 'warp'))]
+                        and (str(e.get('id') or '').startswith('wiki-hsr-gacha-')
+                             or any(term in str(e.get('kind') or '').casefold()
+                                    for term in ('ガチャ', '復刻キャラ', '跳躍', 'warp')))]
             print(f'EXISTING WARP ROWS WITH SAME START DATE: {len(possible)} (date-only, NOT a verified match)')
-            for e in possible[:12]:
-                print('  WIKI CANDIDATE:', e.get('name'), '|', e.get('start'), '->', e.get('end'), '| id=', e.get('id'))
+            for e in possible[:20]:
+                print('  WIKI CANDIDATE:', e.get('name'), '| kind=', e.get('kind'),
+                      '|', e.get('start'), '->', e.get('end'),
+                      '| start=', e.get('start_label') or e.get('start_time') or 'unconfirmed',
+                      '| end=', e.get('end_time') or 'unconfirmed', '| id=', e.get('id'))
+            if possible and phase and 'phase i' in phase.group(0).casefold() and 'phase ii' not in phase.group(0).casefold():
+                print('  NOTE: Phase I candidates identified by date only; banner names and start labels still need review.')
             count += 1
         except Exception as exc:
             print(f'WARNING: article {pid}: {type(exc).__name__}: {exc}')
