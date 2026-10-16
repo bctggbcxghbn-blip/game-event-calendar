@@ -73,6 +73,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "zzz-official-46615127-イベント",
+    "game": "zzz",
+    "name": "\"Clink, Clank, Pinball Knight!\" Event Details",
+    "start": "2026-09-10",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/46615127",
+    "url": "https://www.hoyolab.com/article/46615127"
+  },
+  {
     "id": "activity-c5ec004aa16864015bbc",
     "game": "zzz",
     "name": "Clink, Clank, Pinball Knight!",
@@ -139,6 +150,17 @@
     "end": "2026-11-03",
     "kind": "イベント",
     "source_status": "外部API・要確認"
+  },
+  {
+    "id": "zzz-official-46771693-イベント",
+    "game": "zzz",
+    "name": "\"Surprise Screening Plan\" Event Details",
+    "start": "2026-09-23",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/46771693",
+    "url": "https://www.hoyolab.com/article/46771693"
   },
   {
     "id": "activity-bc81d737cb11be685c60",
@@ -404,6 +426,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "zzz-official-46864094-イベント",
+    "game": "zzz",
+    "name": "\"Diary of an Orbie Parent\" Event Details",
+    "start": "2026-09-30",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/46864094",
+    "url": "https://www.hoyolab.com/article/46864094"
+  },
+  {
     "id": "activity-c862eeceda7f14b83e4e",
     "game": "zzz",
     "name": "\"En-Nah\" Into Your Lap",
@@ -422,6 +455,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "zzz-official-46863847-ガチャ",
+    "game": "zzz",
+    "name": "V3.2 Limited-Time Channels (Phase II)",
+    "start": "2026-09-30",
+    "end": "2026-10-20",
+    "kind": "ガチャ",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/46863847",
+    "url": "https://www.hoyolab.com/article/46863847"
+  },
+  {
     "id": "genshin-extra-46928428-8206bd42",
     "game": "genshin",
     "name": "Genshin Impact Miliastra Wonderland \"Starlit Gala\" Web Event Now Live for a Limited Time!",
@@ -431,6 +475,17 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/46928428",
     "url": "https://www.hoyolab.com/article/46928428"
+  },
+  {
+    "id": "zzz-official-46913357-イベント",
+    "game": "zzz",
+    "name": "\"Chronicles of the Hobbling Crow\" Event Details",
+    "start": "2026-10-03",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/46913357",
+    "url": "https://www.hoyolab.com/article/46913357"
   },
   {
     "id": "activity-103aef3626c1ebf99532",
@@ -509,6 +564,17 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/47066240",
     "url": "https://www.hoyolab.com/article/47066240"
+  },
+  {
+    "id": "zzz-official-47055658-イベント",
+    "game": "zzz",
+    "name": "\"Data Bounty: Combat Simulation\" Event Details",
+    "start": "2026-10-14",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47055658",
+    "url": "https://www.hoyolab.com/article/47055658"
   },
   {
     "id": "activity-21809f167d148c9b1bae",
