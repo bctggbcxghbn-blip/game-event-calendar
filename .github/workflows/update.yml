@@ -66,6 +66,8 @@ jobs:
       - name: Apply reviewed official HSR event dates and labels
         run: python games/hsr/hsr_official_import.py
 
+      - name: Import HSR maintenance
+        run: python games/hsr/hsr_maintenance_import.py
 
       - name: Commit changes
         run: |
