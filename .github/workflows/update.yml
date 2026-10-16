@@ -24,7 +24,6 @@ jobs:
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
 
-
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
