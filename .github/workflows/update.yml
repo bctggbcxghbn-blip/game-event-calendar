@@ -24,14 +24,14 @@ jobs:
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
-      - name: Preview all Genshin content
-        run: python games/genshin/genshin_all_import.py --diagnose
+      - name: Import Genshin maintenance
+        run: python games/genshin/genshin_all_import.py --apply
 
       - name: Preview Genshin events and wishes
         run: python games/genshin/genshin_extra_preview.py
 
       - name: Import Genshin events and wishes
-        run: python games/genshin/genshin_extra_import.py
+        run: python games/genshin/genshin_extra_import.py --apply
 
       - name: Test Japanese Wiki
         run: python games/hsr/wiki_hsr_preview.py
