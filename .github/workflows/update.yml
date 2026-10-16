@@ -28,7 +28,7 @@ jobs:
         run: python games/genshin/genshin_extra_preview.py
 
       - name: Import Genshin events and wishes
-        run: python games/genshin/genshin_extra_import.py
+        run: python games/genshin/genshin_extra_import.py --apply
 
       - name: Test Japanese Wiki
         run: python games/hsr/wiki_hsr_preview.py
