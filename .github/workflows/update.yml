@@ -93,6 +93,9 @@ jobs:
       - name: Preview HSR structured maintenance content
         run: python games/hsr/hsr_maintenance_structured_preview.py
 
+      - name: Preview Genshin maintenance
+        run: python games/genshin/genshin_maintenance_auto_import.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
