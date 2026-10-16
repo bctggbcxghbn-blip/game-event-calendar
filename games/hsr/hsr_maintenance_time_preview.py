@@ -17,18 +17,45 @@ DATE = r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})\s+(\d{1,2}):(\d{2})'
 START = re.compile(r'(?:update\s+time\s+begins\s+at|maintenance\s+(?:will\s+begin|begins|starts|start\s+time)\s*(?:at|:)?|维护(?:开始)?时间\s*[:：]?)\s*' + DATE + r'\s*\(?\s*UTC\s*\+\s*8\s*\)?', re.I)
 DURATION = re.compile(r'(?:approximately|about|around|roughly)\s*(\d{1,2})\s*hours?|(?:预计|约)\s*(\d{1,2})\s*小时', re.I)
 
+def extract_structured(raw):
+    """Extract only textual inserts from HoYoLAB structured_content JSON."""
+    if not isinstance(raw, str) or not raw.strip():
+        return ''
+    try:
+        operations = json.loads(raw)
+    except (ValueError, TypeError):
+        return ''
+    if not isinstance(operations, list):
+        return ''
+    chunks = []
+    for operation in operations:
+        if not isinstance(operation, dict):
+            continue
+        insert = operation.get('insert')
+        if isinstance(insert, str):
+            chunks.append(insert)
+        # Images and other embedded objects do not establish a maintenance time.
+    return plain(' '.join(chunks))
+
+
 def content_text(detail):
     if not isinstance(detail, dict):
         return ''
-    post = detail.get('post')
-    if not isinstance(post, dict):
+    outer = detail.get('post')
+    if not isinstance(outer, dict):
         return ''
+    post = outer.get('post') if isinstance(outer.get('post'), dict) else outer
+
+    # Newer official articles can have content='en-us' rather than HTML.
+    # structured_content carries the real text for both observed versions.
+    structured = extract_structured(post.get('structured_content'))
+    if structured:
+        return structured
+
     raw = post.get('content')
-    if not raw and isinstance(post.get('post'), dict):
-        raw = post['post'].get('content')
     if isinstance(raw, (dict, list)):
         raw = json.dumps(raw, ensure_ascii=False)
-    if not isinstance(raw, str):
+    if not isinstance(raw, str) or not raw.strip():
         return ''
     try:
         decoded = json.loads(raw)
@@ -36,6 +63,8 @@ def content_text(detail):
             raw = json.dumps(decoded, ensure_ascii=False)
     except (ValueError, TypeError):
         pass
+    if re.fullmatch(r'[a-z]{2}-[a-z]{2}', raw.strip(), re.I):
+        return ''  # Language marker, not article body.
     return plain(raw)
 
 def parse_window(text):
