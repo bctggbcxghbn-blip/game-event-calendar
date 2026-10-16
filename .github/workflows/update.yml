@@ -78,6 +78,9 @@ jobs:
       - name: Import HSR maintenance
         run: python games/hsr/hsr_maintenance_import.py
 
+      - name: Test HSR maintenance auto import
+        run: python games/hsr/test_hsr_maintenance_auto_import.py
+
       - name: Preview HSR automatic maintenance import
         run: python games/hsr/hsr_maintenance_auto_import.py
 
