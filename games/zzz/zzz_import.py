@@ -99,9 +99,10 @@ def articles(limit):
 
 
 def normalized_name(name):
-    """Match article headings against shorter names from the existing feed."""
-    name = str(name).strip().strip('"“”‘’').strip()
+    """Normalize official article titles and legacy activity names."""
+    name = str(name).strip()
     name = re.sub(r'\s+(?:Event Details|Event Notice|Event Guide)$', '', name, flags=re.I)
+    name = name.strip().strip('"“”‘’').strip()
     return re.sub(r'\s+', ' ', name).casefold()
 
 
@@ -110,6 +111,32 @@ def same_event(a, b):
             and normalized_name(a.get('name', '')) == normalized_name(b.get('name', ''))
             and a.get('start') == b.get('start')
             and a.get('end') == b.get('end'))
+
+
+def is_official(event):
+    return bool(event.get('official_url')) or str(event.get('id', '')).startswith('zzz-official-')
+
+
+def deduplicate(events):
+    """Keep official records for exact-name-and-date duplicates; retain other games."""
+    winners = {}
+    for i, event in enumerate(events):
+        if not isinstance(event, dict) or event.get('game') != 'zzz':
+            continue
+        key = (normalized_name(event.get('name', '')), event.get('start'), event.get('end'))
+        previous = winners.get(key)
+        if previous is None or (is_official(event) and not is_official(events[previous])):
+            winners[key] = i
+    keep = set(winners.values())
+    result = []
+    removed = 0
+    for i, event in enumerate(events):
+        if isinstance(event, dict) and event.get('game') == 'zzz' and i not in keep:
+            print(f'REMOVE DUPLICATE: {event.get("name")} ({event.get("id")})')
+            removed += 1
+        else:
+            result.append(event)
+    return result, removed
 
 
 def main():
@@ -126,14 +153,7 @@ def main():
         raise ValueError('events.json must be a JSON array')
     removed = 0
     if args.clean_duplicates:
-        cleaned = []
-        for event in events:
-            if isinstance(event, dict) and event.get('game') == 'zzz' and any(same_event(event, old) for old in cleaned):
-                print(f'REMOVE DUPLICATE: {event.get("name")} ({event.get("id")})')
-                removed += 1
-                continue
-            cleaned.append(event)
-        events = cleaned
+        events, removed = deduplicate(events)
     ids = {str(e.get('id')) for e in events if isinstance(e, dict)}
     signatures = {(e.get('game'), normalized_name(e.get('name', '')), e.get('start'), e.get('end')) for e in events if isinstance(e, dict)}
     today = dt.datetime.now(JST).date()
