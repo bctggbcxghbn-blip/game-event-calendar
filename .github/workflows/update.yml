@@ -69,6 +69,9 @@ jobs:
       - name: Preview official HSR maintenance
         run: python games/hsr/hsr_maintenance_preview.py
 
+      - name: Test HSR news API
+        run: python games/hsr/hsr_maintenance_api_probe.py
+
       - name: Import HSR maintenance
         run: python games/hsr/hsr_maintenance_import.py
 
