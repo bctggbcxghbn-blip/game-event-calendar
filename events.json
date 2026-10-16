@@ -177,6 +177,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "genshin-extra-46863658-1ee6585d",
+    "game": "genshin",
+    "name": "The \"Anniversary Memories Album\" web event is now live for a limited time.",
+    "start": "2026-09-28",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/46863658",
+    "url": "https://www.hoyolab.com/article/46863658"
+  },
+  {
     "id": "hsr-maintenance-4.6-20260928",
     "game": "hsr",
     "name": "Ver.4.6 アップデートメンテナンス（終了予定）",
@@ -337,6 +348,17 @@
     "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
+    "id": "genshin-extra-46863654-4f8829c6",
+    "game": "genshin",
+    "name": "Stygian Onslaught Event: Disturbance-affected Ley Line challenges",
+    "start": "2026-09-30",
+    "end": "2026-11-03",
+    "kind": "チャレンジ",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/46863654",
+    "url": "https://www.hoyolab.com/article/46863654"
+  },
+  {
     "id": "activity-9ad83dbc1c367e4f5a4c",
     "game": "wuwa",
     "name": "Back to Solaris",
@@ -400,6 +422,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "genshin-extra-46928428-8206bd42",
+    "game": "genshin",
+    "name": "Genshin Impact Miliastra Wonderland \"Starlit Gala\" Web Event Now Live for a Limited Time!",
+    "start": "2026-10-01",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/46928428",
+    "url": "https://www.hoyolab.com/article/46928428"
+  },
+  {
     "id": "activity-103aef3626c1ebf99532",
     "game": "zzz",
     "name": "Chronicles of the Hobbling Crow",
@@ -432,6 +465,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "genshin-extra-47031716-cd68bc52",
+    "game": "genshin",
+    "name": "\"Predictive Victory Dynamics\" Event: Predict the Outcome of Battles",
+    "start": "2026-10-11",
+    "end": "2026-10-19",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47031716",
+    "url": "https://www.hoyolab.com/article/47031716"
+  },
+  {
     "id": "wiki-hsr-f2200a797cf5e3455b68",
     "game": "hsr",
     "name": "次元界分裂",
@@ -443,6 +487,28 @@
     "start_time": "05:00",
     "end_time": "04:59",
     "official_url": "https://www.hoyolab.com/article/47043223"
+  },
+  {
+    "id": "genshin-extra-47010361-9661455b",
+    "game": "genshin",
+    "name": "Version 7.1 Event Wishes Notice - Phase II",
+    "start": "2026-10-13",
+    "end": "2026-11-03",
+    "kind": "ガチャ",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47010361",
+    "url": "https://www.hoyolab.com/article/47010361"
+  },
+  {
+    "id": "genshin-extra-47066240-2bd9efa8",
+    "game": "genshin",
+    "name": "Version 7.1 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 2",
+    "start": "2026-10-13",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47066240",
+    "url": "https://www.hoyolab.com/article/47066240"
   },
   {
     "id": "activity-21809f167d148c9b1bae",
