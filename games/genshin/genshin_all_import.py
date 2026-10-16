@@ -15,7 +15,7 @@ from urllib.parse import urlencode
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'games' / 'hsr'))
 from hsr_maintenance_detail_probe import DETAIL, LIST, get_json  # noqa: E402
-from hsr_maintenance_time_preview import content_text, parse_window  # noqa: E402
+from hsr_maintenance_time_preview import content_text  # noqa: E402
 
 EVENTS = ROOT / 'events.json'
 JST = dt.timezone(dt.timedelta(hours=9))
@@ -26,8 +26,8 @@ RANGE = re.compile(r'(?<!\d)(20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+(\d{1,2}:\d{2})\s*
 CLASSIFY = [
     ('ガチャ', re.compile(r'event wish|character event wish|weapon event wish|祈愿|祈願|祈愿活动|祈願イベント', re.I)),
     ('チャレンジ', re.compile(r'spiral abyss|imaginarium theater|stygian onslaught|深境螺旋|幻想シアター|幽境の激戦|幻想真境劇詩', re.I)),
-    ('メンテナンス', re.compile(r'maintenance|维护公告|停服更新|メンテナンス', re.I)),
-    ('イベント', re.compile(r'event|web event|login|イベント|活动|ログイン|update notice|update details|version.*update', re.I)),
+    ('メンテナンス', re.compile(r'^(?=.*(?:update maintenance|update.*maintenance preview|版本更新维护|アップデートメンテナンス))(?!.*(?:payment system|stellar reunion))', re.I)),
+    ('イベント', re.compile(r'\bevent\b|web event|ログイン|活动|イベント', re.I)),
 ]
 
 def classify(title):
@@ -49,6 +49,38 @@ def explicit_range(body):
         except ValueError:
             pass
     return found[0] if len(found) == 1 else None
+
+# Match only official full-game update notices; avoid store/payment maintenance.
+MAINT_START = re.compile(
+    r'(?:update\s+maintenance\s+begins(?:\s+at)?|maintenance\s+is\s+scheduled\s+to\s+begin\s+on|'
+    r'begin\s+update\s+maintenance\s+on|begin\s+performing\s+update\s+maintenance\s+at)\s*'
+    r'(20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+(\d{1,2}:\d{2})\s*\(\s*UTC\s*\+\s*8\s*\)', re.I)
+MAINT_DURATION = re.compile(
+    r'(?:is\s+estimated\s+to\s+(?:take|last)|estimated\s+to\s+(?:take|last)|'
+    r'(?:approximately|about|around)\s*)\s*(\d{1,2})\s*hours?', re.I)
+
+def genshin_maintenance_window(body):
+    # The same article can mention the time twice; both must agree.
+    starts = set()
+    for match in MAINT_START.finditer(body):
+        try:
+            starts.add(convert(match.group(1), match.group(2)))
+        except ValueError:
+            continue
+    if len(starts) != 1:
+        return None, 'No unique official update maintenance start with UTC+8'
+    start = next(iter(starts))
+    # Require duration near a maintenance-start occurrence, not compensation text.
+    durations = set()
+    for match in MAINT_START.finditer(body):
+        nearby = body[match.end():match.end()+180]
+        duration = MAINT_DURATION.search(nearby)
+        if duration:
+            durations.add(int(duration.group(1)))
+    if len(durations) != 1 or not 1 <= next(iter(durations)) <= 12:
+        return None, 'No unique explicit maintenance duration near start'
+    hours = next(iter(durations))
+    return (start, start + dt.timedelta(hours=hours), hours), None
 
 def news():
     data = get_json(LIST + '?' + urlencode(NEWS_PARAMS))
@@ -77,7 +109,7 @@ def make_event(pid, title, now, diagnose=False):
     if diagnose:
         diagnose_article(pid, title, kind, body)
     if kind == 'メンテナンス':
-        window, reason = parse_window(body)
+        window, reason = genshin_maintenance_window(body)
         if not window:
             return None, reason
         start, end, hours = window
