@@ -78,6 +78,9 @@ jobs:
       - name: Import HSR maintenance
         run: python games/hsr/hsr_maintenance_import.py
 
+      - name: Preview HSR maintenance times
+        run: python games/hsr/hsr_maintenance_time_preview.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
