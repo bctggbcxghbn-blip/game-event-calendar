@@ -26,8 +26,8 @@ RANGE = re.compile(r'(?<!\d)(20\d{2}[/-]\d{1,2}[/-]\d{1,2})\s+(\d{1,2}:\d{2})\s*
 CLASSIFY = [
     ('ガチャ', re.compile(r'event wish|character event wish|weapon event wish|祈愿|祈願|祈愿活动|祈願イベント', re.I)),
     ('チャレンジ', re.compile(r'spiral abyss|imaginarium theater|stygian onslaught|深境螺旋|幻想シアター|幽境の激戦|幻想真境劇詩', re.I)),
-    ('メンテナンス', re.compile(r'maintenance|update notice|维护公告|停服更新|メンテナンス', re.I)),
-    ('イベント', re.compile(r'event|web event|login|イベント|活动|ログイン', re.I)),
+    ('メンテナンス', re.compile(r'maintenance|维护公告|停服更新|メンテナンス', re.I)),
+    ('イベント', re.compile(r'event|web event|login|イベント|活动|ログイン|update notice|update details|version.*update', re.I)),
 ]
 
 def classify(title):
@@ -66,7 +66,7 @@ def news():
             seen.add(pid)
             yield pid, title
 
-def make_event(pid, title, now):
+def make_event(pid, title, now, diagnose=False):
     detail = get_json(DETAIL + '?' + urlencode({'post_id': pid}))
     outer = detail.get('post', {}) if isinstance(detail, dict) else {}
     post = outer.get('post', outer) if isinstance(outer, dict) else {}
@@ -74,6 +74,8 @@ def make_event(pid, title, now):
         return None, 'Game ID mismatch'
     body = content_text(detail)
     kind = classify(title)
+    if diagnose:
+        diagnose_article(pid, title, kind, body)
     if kind == 'メンテナンス':
         window, reason = parse_window(body)
         if not window:
@@ -90,7 +92,7 @@ def make_event(pid, title, now):
         start, end = window
         name = title
         status = 'HoYoLAB公式記事・UTC+8日時をJST換算（要確認）'
-    if not now < end and end.date() < now.date():
+    if end <= now:
         return None, 'Already ended'
     if start > now + dt.timedelta(days=120):
         return None, 'Beyond 120-day window'
@@ -104,10 +106,32 @@ def make_event(pid, title, now):
         'official_url': url, 'url': url,
     }, None
 
+def diagnose_article(pid, title, kind, body):
+    """Print bounded date/time contexts to diagnose official formatting; no writes."""
+    print(f'DIAG ARTICLE {pid} [{kind}] {title[:130]}', flush=True)
+    print(f'DIAG BODY length={len(body)}', flush=True)
+    # Include only contexts containing dates, UTC offsets, or schedule terms.
+    # Keep output bounded so Actions logs stay manageable.
+    pattern = re.compile(r'20\d{2}[-/.]\d{1,2}[-/.]\d{1,2}|UTC\s*[+＋]\s*8|GMT\s*[+＋]\s*8|server time|maintenance|event duration|event wish|期間|时间|時間', re.I)
+    shown = 0
+    for match in pattern.finditer(body):
+        fragment = re.sub(r'\s+', ' ', body[max(0, match.start()-95):match.end()+145]).strip()
+        if fragment:
+            print('DIAG CONTEXT:', fragment[:240], flush=True)
+            shown += 1
+        if shown >= 6:
+            break
+    if not shown:
+        print('DIAG CONTEXT: no date/time markers found', flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--apply', action='store_true', help='Write safe candidates to events.json')
+    parser.add_argument('--diagnose', action='store_true', help='Print article titles and date/time contexts (read only)')
     args = parser.parse_args()
+    if args.apply and args.diagnose:
+        parser.error('--diagnose cannot be combined with --apply')
     events = json.loads(EVENTS.read_text(encoding='utf-8'))
     if not isinstance(events, list) or any(not isinstance(e, dict) or not e.get('id') for e in events):
         raise ValueError('Invalid events.json')
@@ -121,11 +145,12 @@ def main():
         print(f'WARNING: Genshin news unavailable: {type(exc).__name__}: {exc}')
         return
     print(f'Genshin all categories: checking {len(articles)} official notice(s)')
+    print('CLASSIFICATION COUNTS:', {kind: sum(classify(t) == kind for _, t in articles) for kind, _ in CLASSIFY})
     additions = []
     now = dt.datetime.now(JST)
     for pid, title in articles:
         try:
-            event, reason = make_event(pid, title, now)
+            event, reason = make_event(pid, title, now, diagnose=args.diagnose)
             if not event:
                 print(f'SKIP {pid} [{classify(title)}]: {reason}')
                 continue

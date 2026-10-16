@@ -97,7 +97,7 @@ jobs:
         run: python games/genshin/genshin_maintenance_auto_import.py
 
       - name: Preview all Genshin content
-        run: python games/genshin/genshin_all_import.py
+        run: python games/genshin/genshin_all_import.py --diagnose
 
       - name: Commit changes
         run: |
