@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Preview ZZZ official events
+        run: python games/zzz/zzz_preview.py
+
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
