@@ -177,6 +177,19 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "hsr-maintenance-4.6-20260928",
+    "game": "hsr",
+    "name": "Ver.4.6 アップデートメンテナンス（終了予定）",
+    "start": "2026-09-28",
+    "end": "2026-09-28",
+    "start_time": "07:00",
+    "end_time": "12:00",
+    "time_zone": "Asia/Tokyo",
+    "kind": "メンテナンス",
+    "source_status": "公式発表・終了時刻は約5時間の予定",
+    "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
+  },
+  {
     "id": "activity-12ab999013ccb5e30b3d",
     "game": "hsr",
     "name": "「星間幻獣」パーク：パークのお土産",
