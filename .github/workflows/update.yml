@@ -69,6 +69,9 @@ jobs:
       - name: Check Wuwa event timezone V18
         run: python games/wuwa/wuwa_server_time_crosscheck_v18.py
 
+      - name: Preview Wuwa server dates V19
+        run: python games/wuwa/wuwa_server_date_preview_v19.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
