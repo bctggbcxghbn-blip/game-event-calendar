@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Discover Wuwa official news
+        run: python games/wuwa/wuwa_news_discovery.py
+
       - name: Test all four Wuwa categories
         run: python games/wuwa/wuwa_four_probe.py
 
