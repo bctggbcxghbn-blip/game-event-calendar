@@ -84,15 +84,6 @@
     "url": "https://www.hoyolab.com/article/46615127"
   },
   {
-    "id": "activity-c5ec004aa16864015bbc",
-    "game": "zzz",
-    "name": "Clink, Clank, Pinball Knight!",
-    "start": "2026-09-10",
-    "end": "2026-10-19",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-ed7108d63aa4adb856ef",
     "game": "hsr",
     "name": "虚構叙事",
@@ -168,15 +159,6 @@
     "name": "Advanced Bounty: Area Patrol",
     "start": "2026-09-23",
     "end": "2026-09-28",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-022edf478ccac7bafc01",
-    "game": "zzz",
-    "name": "Surprise Screening Plan",
-    "start": "2026-09-23",
-    "end": "2026-10-20",
     "kind": "イベント",
     "source_status": "外部API・要確認"
   },
@@ -446,15 +428,6 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-db206794b4e172a82ba3",
-    "game": "zzz",
-    "name": "Diary of an Orbie Parent",
-    "start": "2026-09-30",
-    "end": "2026-10-19",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "zzz-official-46863847-ガチャ",
     "game": "zzz",
     "name": "V3.2 Limited-Time Channels (Phase II)",
@@ -486,15 +459,6 @@
     "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
     "official_url": "https://www.hoyolab.com/article/46913357",
     "url": "https://www.hoyolab.com/article/46913357"
-  },
-  {
-    "id": "activity-103aef3626c1ebf99532",
-    "game": "zzz",
-    "name": "Chronicles of the Hobbling Crow",
-    "start": "2026-10-03",
-    "end": "2026-10-19",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-cbf4dfbc7242a20808d0",
@@ -575,15 +539,6 @@
     "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
     "official_url": "https://www.hoyolab.com/article/47055658",
     "url": "https://www.hoyolab.com/article/47055658"
-  },
-  {
-    "id": "activity-21809f167d148c9b1bae",
-    "game": "zzz",
-    "name": "Data Bounty: Combat Simulation",
-    "start": "2026-10-14",
-    "end": "2026-10-19",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
   },
   {
     "id": "activity-26fce6c066ae6fe4f8ac",
