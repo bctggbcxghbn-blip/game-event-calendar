@@ -72,8 +72,8 @@ jobs:
       - name: Preview Wuwa server dates V19
         run: python games/wuwa/wuwa_server_date_preview_v19.py
 
-      - name: Preview Wuwa server dates V20
-        run: python games/wuwa/wuwa_server_date_import_v20.py
+      - name: Import Wuwa server dates V20
+        run: python games/wuwa/wuwa_server_date_import_v20.py --apply
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
