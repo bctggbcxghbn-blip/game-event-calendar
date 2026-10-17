@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test all four Wuwa categories
+        run: python games/wuwa/wuwa_four_probe.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
