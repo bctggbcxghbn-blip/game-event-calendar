@@ -33,6 +33,9 @@ jobs:
       - name: Discover Wuwa official JSON
         run: python games/wuwa/wuwa_json_discovery.py
 
+      - name: Test Wuwa Japanese and English JSON
+        run: python games/wuwa/wuwa_json_locale_probe.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
