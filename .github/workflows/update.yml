@@ -51,6 +51,9 @@ jobs:
       - name: Preview Wuwa imports V4
         run: python games/wuwa/wuwa_auto_import_v4.py
 
+      - name: Preview Wuwa imports V5
+        run: python games/wuwa/wuwa_auto_import_v5.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
