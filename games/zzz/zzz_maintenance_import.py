@@ -17,7 +17,7 @@ UTC8 = dt.timezone(dt.timedelta(hours=8))
 JST = dt.timezone(dt.timedelta(hours=9))
 TITLE = re.compile(r'pre.download\s*&\s*update notice|update\s*(?:and|&)\s*maintenance|maintenance notice|メンテナンス|アップデート.*お知らせ|维护公告', re.I)
 START = re.compile(r'(?:\[\s*Version Update Time\s*\]|Version Update Time|Update Maintenance (?:Begins|Starts)|Maintenance (?:Begins|Starts))\s*[:：]?\s*(20\d{2})[/-](\d{1,2})[/-](\d{1,2})\s+(\d{1,2}):(\d{2})\s*\(?\s*UTC\s*\+\s*8\s*\)?', re.I)
-DURATION = re.compile(r'(?:estimate(?:d)?\s*(?:it\s+will\s+|to\s+)?take|approximately|about|around|roughly)\s*(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s*hours?|(?:预计|约)\s*(\d{1,2})\s*小时', re.I)
+DURATION = re.compile(r'(?:estimate(?:d)?\s+(?:(?:this|it)\s+will\s+|to\s+)?take|(?:approximately|about|around|roughly)\s+)(?:\s*)(\d{1,2}|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s*hours?|(?:预计|约)\s*(\d{1,2})\s*小时', re.I)
 WORDS = dict(one=1,two=2,three=3,four=4,five=5,six=6,seven=7,eight=8,nine=9,ten=10,eleven=11,twelve=12)
 
 def parse_window(body):
@@ -28,7 +28,7 @@ def parse_window(body):
         start = dt.datetime(*map(int, match.groups()), tzinfo=UTC8)
     except ValueError:
         return None, 'Invalid start time'
-    duration = DURATION.search(body[match.end():match.end()+400])
+    duration = DURATION.search(body[match.end():match.end()+800])
     if not duration:
         return None, 'No estimated duration near update time'
     raw = next(v for v in duration.groups() if v)
