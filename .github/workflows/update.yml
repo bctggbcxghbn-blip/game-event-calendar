@@ -63,8 +63,8 @@ jobs:
       - name: Import Wuwa safe events V14
         run: python games/wuwa/wuwa_safe_import_v14.py --apply
 
-      - name: Preview Wuwa gacha V15 fixed
-        run: python games/wuwa/wuwa_gacha_complete_v15_fixed.py
+      - name: Diagnose Wuwa gacha V16
+        run: python games/wuwa/wuwa_gacha_diagnostic_v16.py
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
