@@ -57,8 +57,8 @@ jobs:
       - name: Probe Wuwa article bodies V6
         run: python games/wuwa/wuwa_body_probe_v6.py
 
-      - name: Probe Wuwa event names V8
-        run: python games/wuwa/wuwa_event_pair_probe_v8.py
+      - name: Probe Wuwa event names V9
+        run: python games/wuwa/wuwa_event_pair_probe_v9.py
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
