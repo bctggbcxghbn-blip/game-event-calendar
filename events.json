@@ -536,6 +536,17 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wuwa-serverdate-5570-1",
+    "game": "wuwa",
+    "name": "天工の探し物",
+    "start": "2026-10-08",
+    "end": "2026-10-26",
+    "kind": "event",
+    "source_status": "公式（サーバー日付のみ・日本時間未確認）",
+    "time_zone": "server (unverified)",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
+  },
+  {
     "id": "genshin-extra-47031716-cd68bc52",
     "game": "genshin",
     "name": "\"Predictive Victory Dynamics\" Event: Predict the Outcome of Battles",
@@ -705,6 +716,28 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wuwa-serverdate-5570-4",
+    "game": "wuwa",
+    "name": "傍らに響く雨音のプレゼント",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "kind": "event",
+    "source_status": "公式（サーバー日付のみ・日本時間未確認）",
+    "time_zone": "server (unverified)",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
+  },
+  {
+    "id": "wuwa-serverdate-5570-2",
+    "game": "wuwa",
+    "name": "無音イレイサー",
+    "start": "2026-10-22",
+    "end": "2026-11-09",
+    "kind": "event",
+    "source_status": "公式（サーバー日付のみ・日本時間未確認）",
+    "time_zone": "server (unverified)",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
+  },
+  {
     "id": "zzz-predicted-deadly-20261023",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
@@ -735,6 +768,17 @@
     "end": "2026-11-11",
     "kind": "イベント",
     "source_status": "外部API・要確認"
+  },
+  {
+    "id": "wuwa-serverdate-5570-3",
+    "game": "wuwa",
+    "name": "潮騒探検・玄方地界",
+    "start": "2026-10-29",
+    "end": "2026-11-11",
+    "kind": "event",
+    "source_status": "公式（サーバー日付のみ・日本時間未確認）",
+    "time_zone": "server (unverified)",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
   },
   {
     "id": "wiki-hsr-edd4a68277d8af03ecaf",
