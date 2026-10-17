@@ -24,6 +24,9 @@ jobs:
       - name: Test all four Wuwa categories
         run: python games/wuwa/wuwa_four_probe.py
 
+      - name: Discover Wuwa news API
+        run: python games/wuwa/wuwa_js_api_probe.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
