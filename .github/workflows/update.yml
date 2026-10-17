@@ -132,6 +132,9 @@ jobs:
       - name: Preview HSR structured maintenance content
         run: python games/hsr/hsr_maintenance_structured_preview.py
 
+      - name: Final ZZZ duplicate cleanup
+        run: python games/zzz/zzz_final_dedupe.py --apply
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
