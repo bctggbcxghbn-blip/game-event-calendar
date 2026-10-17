@@ -57,8 +57,8 @@ jobs:
       - name: Probe Wuwa article bodies V6
         run: python games/wuwa/wuwa_body_probe_v6.py
 
-      - name: Probe Wuwa timezone V12
-        run: python games/wuwa/wuwa_timezone_probe_v12.py
+      - name: Preview Wuwa safe imports V13
+        run: python games/wuwa/wuwa_safe_import_v13.py
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
