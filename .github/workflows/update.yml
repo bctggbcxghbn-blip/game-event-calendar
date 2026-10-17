@@ -27,6 +27,9 @@ jobs:
       - name: Preview ZZZ challenges and maintenance
         run: python games/zzz/zzz_challenge_maintenance_probe.py
 
+      - name: Import ZZZ maintenance
+        run: python games/zzz/zzz_maintenance_import.py --apply
+
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
