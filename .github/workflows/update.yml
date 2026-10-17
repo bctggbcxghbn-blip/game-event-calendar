@@ -45,6 +45,9 @@ jobs:
       - name: Preview Wuwa official imports V2
         run: python games/wuwa/wuwa_auto_import_v2.py
 
+      - name: Test Wuwa periods V3
+        run: python games/wuwa/wuwa_period_probe_v3.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
