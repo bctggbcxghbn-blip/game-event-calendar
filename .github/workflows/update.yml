@@ -39,6 +39,9 @@ jobs:
       - name: Find ZZZ official challenge dates
         run: python games/zzz/zzz_challenge_official_probe.py
 
+      - name: Find ZZZ challenge schedules
+        run: python games/zzz/zzz_challenge_schedule_probe.py
+
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
