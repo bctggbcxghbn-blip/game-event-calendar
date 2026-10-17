@@ -39,6 +39,9 @@ jobs:
       - name: Test Wuwa four article categories
         run: python games/wuwa/wuwa_four_article_probe.py
 
+      - name: Preview Wuwa official imports
+        run: python games/wuwa/wuwa_auto_import.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
