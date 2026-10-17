@@ -408,6 +408,32 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wuwa-v13-4048971913f18b8c",
+    "game": "wuwa",
+    "name": "武器集音：万物を書き留める月相（開始予定）",
+    "start": "2026-09-30",
+    "end": "2026-10-22",
+    "kind": "gacha",
+    "source_status": "公式（開始予定時刻）",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5547",
+    "start_time": "12:00",
+    "end_time": "10:59",
+    "time_zone": "Asia/Tokyo"
+  },
+  {
+    "id": "wuwa-v13-5c1c98be8c784e42",
+    "game": "wuwa",
+    "name": "武器集音：曇斬（開始予定）",
+    "start": "2026-09-30",
+    "end": "2026-10-22",
+    "kind": "gacha",
+    "source_status": "公式（開始予定時刻）",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5547",
+    "start_time": "12:00",
+    "end_time": "10:59",
+    "time_zone": "Asia/Tokyo"
+  },
+  {
     "id": "wuwa-v13-89797c1178a967fe",
     "game": "wuwa",
     "name": "移りゆく月相と共に（開始予定）",
