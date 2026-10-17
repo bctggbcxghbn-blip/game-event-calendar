@@ -60,6 +60,9 @@ jobs:
       - name: Preview Wuwa safe imports V13
         run: python games/wuwa/wuwa_safe_import_v13.py
 
+      - name: Import Wuwa safe events V14
+        run: python games/wuwa/wuwa_safe_import_v14.py --apply
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
