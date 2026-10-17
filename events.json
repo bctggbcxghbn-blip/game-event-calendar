@@ -604,6 +604,19 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "zzz-predicted-shiyu-20261016",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-10-16",
+    "end": "2026-10-30",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
     "id": "activity-9f810533ae9981cb7351",
     "game": "hsr",
     "name": "虚構叙事",
@@ -672,6 +685,19 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "zzz-predicted-deadly-20261023",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2026-10-23",
+    "end": "2026-11-06",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
     "id": "wiki-hsr-cd35ea2075bc0eb0528c",
     "game": "hsr",
     "name": "笑いの神様、miHoYoを出し抜く",
@@ -701,6 +727,19 @@
     "source_status": "日本語Wiki・日付確認済み"
   },
   {
+    "id": "zzz-predicted-shiyu-20261030",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-10-30",
+    "end": "2026-11-13",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
     "id": "activity-a0ac38d207da0790bb27",
     "game": "hsr",
     "name": "混沌の記憶",
@@ -722,5 +761,148 @@
     "end": "2026-11-11",
     "kind": "イベント",
     "source_status": "外部API・要確認"
+  },
+  {
+    "id": "zzz-predicted-deadly-20261106",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2026-11-06",
+    "end": "2026-11-20",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-shiyu-20261113",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-11-13",
+    "end": "2026-11-27",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-deadly-20261120",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2026-11-20",
+    "end": "2026-12-04",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-shiyu-20261127",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-11-27",
+    "end": "2026-12-11",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-deadly-20261204",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2026-12-04",
+    "end": "2026-12-18",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-shiyu-20261211",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-12-11",
+    "end": "2026-12-25",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-deadly-20261218",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2026-12-18",
+    "end": "2027-01-01",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-shiyu-20261225",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2026-12-25",
+    "end": "2027-01-08",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-deadly-20270101",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2027-01-01",
+    "end": "2027-01-15",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-shiyu-20270108",
+    "game": "zzz",
+    "name": "【予測】式輿防衛戦・激変ノード",
+    "start": "2027-01-08",
+    "end": "2027-01-22",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "zzz-predicted-deadly-20270115",
+    "game": "zzz",
+    "name": "【予測】危局強襲戦",
+    "start": "2027-01-15",
+    "end": "2027-01-29",
+    "start_time": "05:00",
+    "end_time": "04:59",
+    "time_zone": "Asia/Tokyo",
+    "kind": "チャレンジ",
+    "source_status": "予測（14日周期から算出・公式個別日程未確認）",
+    "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   }
 ]
