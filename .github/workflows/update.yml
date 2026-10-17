@@ -30,6 +30,9 @@ jobs:
       - name: Inspect Wuwa API details
         run: python games/wuwa/wuwa_api_detail_probe.py
 
+      - name: Discover Wuwa official JSON
+        run: python games/wuwa/wuwa_json_discovery.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
