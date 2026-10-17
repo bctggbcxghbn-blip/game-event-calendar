@@ -42,6 +42,9 @@ jobs:
       - name: Find ZZZ challenge schedules
         run: python games/zzz/zzz_challenge_schedule_probe.py
 
+      - name: Import ZZZ predicted challenges
+        run: python games/zzz/zzz_challenge_prediction_import.py --apply
+
       - name: Preview Genshin maintenance
         run: python games/genshin/genshin_maintenance_auto_import.py
 
