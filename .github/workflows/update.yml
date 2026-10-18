@@ -78,8 +78,8 @@ jobs:
       - name: Probe Wuwa challenges V21
         run: python games/wuwa/wuwa_challenge_probe_v21.py
 
-      - name: Preview Wuwa challenges V22
-        run: python games/wuwa/wuwa_challenge_import_v22.py
+      - name: Import Wuwa challenges V22
+        run: python games/wuwa/wuwa_challenge_import_v22.py --apply
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
