@@ -108,8 +108,8 @@ jobs:
       - name: Import Wuwa Wiki auto V37
         run: python games/wuwa/wuwa_wiki_auto_runner_v37.py --apply
 
-      - name: Preview Wuwa Wiki auto V38
-        run: python games/wuwa/wuwa_wiki_auto_runner_v38.py
+      - name: Preview Wuwa Wiki auto V39
+        run: python games/wuwa/wuwa_wiki_auto_runner_v39.py
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
