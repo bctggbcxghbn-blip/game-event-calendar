@@ -84,6 +84,9 @@ jobs:
       - name: Preview Wuwa dynamic gacha V28
         run: python games/wuwa/wuwa_dynamic_gacha_preview_v28.py
 
+      - name: Preview Wuwa gacha import V29
+        run: python games/wuwa/wuwa_dynamic_gacha_import_v29.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
