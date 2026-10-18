@@ -90,6 +90,9 @@ jobs:
       - name: Crosscheck Wuwa gacha V30
         run: python games/wuwa/wuwa_official_start_crosscheck_v30.py
 
+      - name: Crosscheck Wuwa gacha V31
+        run: python games/wuwa/wuwa_official_broad_crosscheck_v31.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
