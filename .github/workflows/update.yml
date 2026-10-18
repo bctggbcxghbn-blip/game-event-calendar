@@ -1,5 +1,5 @@
- name: Update Game EventsCommit 
-
+name: Update Game EventsCommit 
+ 
 on:
   schedule:
     - cron: '0 0 * * *'
