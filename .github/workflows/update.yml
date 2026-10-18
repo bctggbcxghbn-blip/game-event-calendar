@@ -75,6 +75,9 @@ jobs:
       - name: Inspect Wuwa official articles V25
         run: python games/wuwa/wuwa_article_structure_v25.py
 
+      - name: Preview Wuwa dynamic gacha V26
+        run: python games/wuwa/wuwa_dynamic_gacha_preview_v26.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
