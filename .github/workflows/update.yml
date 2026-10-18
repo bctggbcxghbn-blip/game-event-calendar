@@ -60,29 +60,14 @@ jobs:
       - name: Preview Wuwa safe imports V13
         run: python games/wuwa/wuwa_safe_import_v13.py
 
-      - name: Import Wuwa safe events V14
-        run: python games/wuwa/wuwa_safe_import_v14.py --apply
-
-      - name: Import Wuwa gacha V17
-        run: python games/wuwa/wuwa_gacha_import_v17.py --apply
-
       - name: Check Wuwa event timezone V18
         run: python games/wuwa/wuwa_server_time_crosscheck_v18.py
 
       - name: Preview Wuwa server dates V19
         run: python games/wuwa/wuwa_server_date_preview_v19.py
 
-      - name: Import Wuwa server dates V20
-        run: python games/wuwa/wuwa_server_date_import_v20.py --apply
-
-      - name: Probe Wuwa challenges V21
-        run: python games/wuwa/wuwa_challenge_probe_v21.py
-
-      - name: Import Wuwa challenges V22
-        run: python games/wuwa/wuwa_challenge_import_v22.py --apply
-
-      - name: Preview Wuwa auto runner V23
-        run: python games/wuwa/wuwa_auto_runner_v23.py
+      - name: Import Wuwa automatically V23
+        run: python games/wuwa/wuwa_auto_runner_v23.py --apply
 
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
