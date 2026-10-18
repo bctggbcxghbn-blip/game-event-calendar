@@ -352,6 +352,17 @@
     "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
+    "id": "wuwa-challenge-9f24ea7db8e9c2",
+    "game": "wuwa",
+    "kind": "challenge",
+    "name": "死の歌が纏う海の廃墟",
+    "start": "2026-09-28",
+    "end": "2026-10-26",
+    "source_status": "日本語Wiki掲載（日時のタイムゾーン未確認・暫定）",
+    "time_zone": "unverified (wiki)",
+    "official_url": "https://wikiwiki.jp/w-w/%E6%AD%BB%E3%81%AE%E6%AD%8C%E3%81%8C%E7%BA%8F%E3%81%86%E6%B5%B7%E3%81%AE%E5%BB%83%E5%A2%9F"
+  },
+  {
     "id": "genshin-extra-46863654-4f8829c6",
     "game": "genshin",
     "name": "Stygian Onslaught Event: Disturbance-affected Ley Line challenges",
@@ -527,6 +538,17 @@
     "time_source_url": "https://hsr.hoyoverse.com/ja-jp/news/166468"
   },
   {
+    "id": "wuwa-challenge-474194d3aae5c3",
+    "game": "wuwa",
+    "kind": "challenge",
+    "name": "終焉マトリクス",
+    "start": "2026-10-07",
+    "end": "2026-11-12",
+    "source_status": "日本語Wiki掲載（日時のタイムゾーン未確認・暫定）",
+    "time_zone": "unverified (wiki)",
+    "official_url": "https://wikiwiki.jp/w-w/%E7%B5%82%E7%84%89%E3%83%9E%E3%83%88%E3%83%AA%E3%82%AF%E3%82%B9"
+  },
+  {
     "id": "activity-1589dc9a2119725a6ec6",
     "game": "wuwa",
     "name": "Artisan's Search",
@@ -569,6 +591,17 @@
     "start_time": "05:00",
     "end_time": "04:59",
     "official_url": "https://www.hoyolab.com/article/47043223"
+  },
+  {
+    "id": "wuwa-challenge-2d2a92de98bda4",
+    "game": "wuwa",
+    "kind": "challenge",
+    "name": "逆境深塔",
+    "start": "2026-10-12",
+    "end": "2026-11-09",
+    "source_status": "日本語Wiki掲載（日時のタイムゾーン未確認・暫定）",
+    "time_zone": "unverified (wiki)",
+    "official_url": "https://wikiwiki.jp/w-w/%E9%80%86%E5%A2%83%E6%B7%B1%E5%A1%94"
   },
   {
     "id": "genshin-extra-47010361-9661455b",
