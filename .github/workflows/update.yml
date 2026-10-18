@@ -69,6 +69,9 @@ jobs:
       - name: Import Wuwa automatically V23
         run: python games/wuwa/wuwa_auto_runner_v23.py --apply
 
+      - name: Discover Wuwa official articles V24
+        run: python games/wuwa/wuwa_official_discovery_v24.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
