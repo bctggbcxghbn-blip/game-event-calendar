@@ -87,6 +87,9 @@ jobs:
       - name: Import Wuwa gacha V29
         run: python games/wuwa/wuwa_dynamic_gacha_import_v29.py --apply
 
+      - name: Crosscheck Wuwa gacha V30
+        run: python games/wuwa/wuwa_official_start_crosscheck_v30.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
