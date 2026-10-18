@@ -96,6 +96,9 @@ jobs:
       - name: Probe Wuwa official schedules V32
         run: python games/wuwa/wuwa_official_schedule_probe_v32.py
 
+      - name: Preview Wuwa Wiki schedules V33
+        run: python games/wuwa/wuwa_wiki_schedule_preview_v33.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
