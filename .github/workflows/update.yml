@@ -105,9 +105,6 @@ jobs:
       - name: Preview Wuwa Wiki merge V35
         run: python games/wuwa/wuwa_wiki_merge_preview_v35.py
 
-      - name: Import Wuwa Wiki auto V37
-        run: python games/wuwa/wuwa_wiki_auto_runner_v37.py --apply
-
       - name: Preview Wuwa Wiki auto V38
         run: python games/wuwa/wuwa_wiki_auto_runner_v38.py
 
