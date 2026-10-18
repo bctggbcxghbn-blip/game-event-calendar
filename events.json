@@ -445,6 +445,19 @@
     "time_zone": "Asia/Tokyo"
   },
   {
+    "id": "wuwa-wiki-gacha-b2651668cce598ba",
+    "game": "wuwa",
+    "name": "玉殿に咲き満ちる玄華",
+    "kind": "gacha",
+    "start": "2026-09-30",
+    "end": "2026-10-22",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "weapon",
+    "phase": "3.7前"
+  },
+  {
     "id": "wuwa-v13-89797c1178a967fe",
     "game": "wuwa",
     "name": "移りゆく月相と共に（開始予定）",
@@ -749,6 +762,58 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "wuwa-wiki-gacha-5cc3332a78b756a3",
+    "game": "wuwa",
+    "name": "スペクトル・ブラスター",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "weapon",
+    "phase": "3.7後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-0e33e191cce912fd",
+    "game": "wuwa",
+    "name": "フリーズフレーム",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "weapon",
+    "phase": "3.7後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-30b0ce121f13201e",
+    "game": "wuwa",
+    "name": "リンネー",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "character",
+    "phase": "3.7後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-6be8bb34316b0136",
+    "game": "wuwa",
+    "name": "ルシラー",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "character",
+    "phase": "3.7後"
+  },
+  {
     "id": "wuwa-serverdate-5570-4",
     "game": "wuwa",
     "name": "傍らに響く雨音のプレゼント",
@@ -760,6 +825,19 @@
     "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
   },
   {
+    "id": "wuwa-wiki-gacha-9912be00baa1442c",
+    "game": "wuwa",
+    "name": "沈冥",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "weapon",
+    "phase": "3.7後"
+  },
+  {
     "id": "wuwa-serverdate-5570-2",
     "game": "wuwa",
     "name": "無音イレイサー",
@@ -769,6 +847,19 @@
     "source_status": "公式（サーバー日付のみ・日本時間未確認）",
     "time_zone": "server (unverified)",
     "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5570"
+  },
+  {
+    "id": "wuwa-wiki-gacha-9e4bd135535bd4c8",
+    "game": "wuwa",
+    "name": "鎖暝",
+    "kind": "gacha",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
+    "gacha_type": "character",
+    "phase": "3.7後"
   },
   {
     "id": "zzz-predicted-deadly-20261023",
