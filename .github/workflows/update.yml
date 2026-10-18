@@ -116,6 +116,9 @@ jobs:
         run: python games/wuwa/wuwa_wiki_auto_runner_v38.py
 >>>>>>> 020b73bb6520f0dc6cba46ed871ec0157eb03cd6
 
+      - name: Preview Wuwa Wiki auto V40
+        run: python games/wuwa/wuwa_wiki_auto_runner_v40.py
+
       - name: Preview ZZZ official events
         run: python games/zzz/zzz_preview.py
 
