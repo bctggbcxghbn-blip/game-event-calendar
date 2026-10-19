@@ -29,6 +29,9 @@
     },
     "Stygian Onslaught Event: Disturbance-affected Ley Line challenges": {
       "name": "幽境の激戦"
+    },
+    "\"Predictive Victory Dynamics\" Event: Predict the Outcome of Battles": {
+      "name": "勝者は誰だ！？"
     }
   },
   "wuwa": {
@@ -151,6 +154,12 @@
     },
     "\"Data Bounty: Combat Simulation\" Event Details": {
       "name": "データ懸賞-模擬実戦"
+    },
+    "All-New Program": {
+      "name": "放送開始"
+    },
+    "V3.2 Limited-Time Channels (Phase II)": {
+      "name": "Ver.3.2期間限定チャンネル（後半）"
     }
   }
 }
