@@ -188,6 +188,22 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test calendar Actions summary V58 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v58.py' -v
+
+      - name: Publish calendar Actions summary V58
+        if: always()
+        run: python tests/calendar_summary_v58.py
+
+      - name: Upload calendar Actions summary V58
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-actions-summary-v58
+          path: .reports/calendar-v58/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
