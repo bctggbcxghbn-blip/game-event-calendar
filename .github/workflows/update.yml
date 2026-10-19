@@ -101,6 +101,21 @@ jobs:
       - name: Validate calendar display data V46 (offline)
         run: python -m unittest discover -s tests -p 'test_calendar_v46.py' -v
 
+      - name: Test calendar quality V47 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v47.py' -v
+
+      - name: Audit calendar quality V47
+        run: python tests/calendar_quality_v47.py
+
+      - name: Upload calendar quality V47 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-quality-v47
+          path: .reports/calendar-v47/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
