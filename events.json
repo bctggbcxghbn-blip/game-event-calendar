@@ -165,11 +165,12 @@
   {
     "id": "activity-bc81d737cb11be685c60",
     "game": "zzz",
-    "name": "Advanced Bounty: Area Patrol",
+    "name": "先遣賞金-区域防衛",
     "start": "2026-09-23",
     "end": "2026-09-28",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Advanced Bounty: Area Patrol"
   },
   {
     "id": "activity-e72909f414377495b608",
@@ -579,16 +580,6 @@
     "official_url": "https://wikiwiki.jp/w-w/%E7%B5%82%E7%84%89%E3%83%9E%E3%83%88%E3%83%AA%E3%82%AF%E3%82%B9"
   },
   {
-    "id": "activity-1589dc9a2119725a6ec6",
-    "game": "wuwa",
-    "name": "天工の探し物",
-    "start": "2026-10-08",
-    "end": "2026-10-26",
-    "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Artisan's Search"
-  },
-  {
     "id": "wuwa-serverdate-5570-1",
     "game": "wuwa",
     "name": "天工の探し物",
@@ -676,16 +667,6 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "Bountiful Crescendo"
-  },
-  {
-    "id": "activity-1b7dfb68d0054903b4a2",
-    "game": "wuwa",
-    "name": "朝月の魚群",
-    "start": "2026-10-15",
-    "end": "2026-11-01",
-    "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Waking Moon Fishing"
   },
   {
     "id": "wuwa-v13-d182ffc7ab9d5b97",
@@ -827,16 +808,6 @@
     "phase": "3.7後"
   },
   {
-    "id": "activity-307d2da296ee4fe5f418",
-    "game": "wuwa",
-    "name": "傍らに響く雨音のプレゼント",
-    "start": "2026-10-22",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Gifts of Singing Drizzle"
-  },
-  {
     "id": "wuwa-serverdate-5570-4",
     "game": "wuwa",
     "name": "傍らに響く雨音のプレゼント",
@@ -859,16 +830,6 @@
     "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
     "gacha_type": "weapon",
     "phase": "3.7後"
-  },
-  {
-    "id": "activity-9340d9e657e47bfcde1d",
-    "game": "wuwa",
-    "name": "無音イレイサー",
-    "start": "2026-10-22",
-    "end": "2026-11-09",
-    "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Echo Erase"
   },
   {
     "id": "wuwa-serverdate-5570-2",
@@ -916,16 +877,6 @@
     "kind": "イベント",
     "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
     "source_status": "日本語Wiki・日付確認済み"
-  },
-  {
-    "id": "activity-1b66d81bb5b7c7150ead",
-    "game": "wuwa",
-    "name": "潮騒探検・玄方地界",
-    "start": "2026-10-29",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Beyond the Waves: Land of Xuanfang"
   },
   {
     "id": "wuwa-serverdate-5570-3",
