@@ -1,31 +1,68 @@
 {
   "genshin": {},
-  "wuwa": {},
+  "wuwa": {
+    "Back to Solaris": {
+      "name": "ソラリスへの復帰招待"
+    },
+    "Cubie Wars": {
+      "name": "勇者ダンダン大乱闘"
+    },
+    "Dreams in the Capsule": {
+      "name": "匣の中の夢"
+    },
+    "Gifts of Waking Moon": {
+      "name": "朝月のプレゼント"
+    },
+    "Moonlit Path": {
+      "name": "月が照らす道"
+    },
+    "Artisan's Search": {
+      "name": "天工の探し物"
+    },
+    "Waking Moon Fishing": {
+      "name": "朝月の魚群"
+    },
+    "Echo Erase": {
+      "name": "無音イレイサー"
+    },
+    "Gifts of Singing Drizzle": {
+      "name": "傍らに響く雨音のプレゼント"
+    },
+    "Beyond the Waves: Land of Xuanfang": {
+      "name": "潮騒探検・玄方地界"
+    },
+    "Bountiful Crescendo": {
+      "name": "反響領域"
+    },
+    "Chord Cleansing": {
+      "name": "響き渡る音弦"
+    }
+  },
   "hsr": {
     "Astral Imagea Park: Park Souvenir": {
-  "name": "「星間幻獣」パーク：パークのお土産",
-  "kind": "ログイン"
-},
+      "name": "「星間幻獣」パーク：パークのお土産",
+      "kind": "ログイン"
+    },
     "Fate Contract: Renewal": {
-  "name": "運命の契約・再び",
-  "kind": "ログイン"
-},
-"Anomaly Arbitration: Return to Roots": {
-  "name": "異相の仲裁",
-  "kind": "チャレンジ"
-},
-"Astral Imagea Park: Astral Trendible": {
-  "name": "「星間幻獣」パーク：星間カプセルトイ",
-  "kind": "イベント"
-},
-"Astral Slammers Squad!": {
-  "name": "ぽよよん星間タッグ大作戦！",
-  "kind": "イベント"
-},
-"Wishpower UP! Down with Voracity!": {
-  "name": "「貪慾」を鎮め、願力を集めよう",
-  "kind": "イベント"
-},
+      "name": "運命の契約・再び",
+      "kind": "ログイン"
+    },
+    "Anomaly Arbitration: Return to Roots": {
+      "name": "異相の仲裁",
+      "kind": "チャレンジ"
+    },
+    "Astral Imagea Park: Astral Trendible": {
+      "name": "「星間幻獣」パーク：星間カプセルトイ",
+      "kind": "イベント"
+    },
+    "Astral Slammers Squad!": {
+      "name": "ぽよよん星間タッグ大作戦！",
+      "kind": "イベント"
+    },
+    "Wishpower UP! Down with Voracity!": {
+      "name": "「貪慾」を鎮め、願力を集めよう",
+      "kind": "イベント"
+    },
     "Love, Ghosts & Robots": {
       "name": "愛、幽霊とロボット",
       "kind": "イベント"
