@@ -158,6 +158,21 @@ jobs:
       - name: Audit translated display duplicates V54 (read-only)
         run: python tests/calendar_dedupe_v54.py
 
+      - name: Test calendar update quality V56 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v56.py' -v
+
+      - name: Audit calendar update quality V56 (read-only)
+        run: python tests/calendar_update_audit_v56.py --strict
+
+      - name: Upload calendar update quality V56 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-update-quality-v56
+          path: .reports/calendar-v56/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
