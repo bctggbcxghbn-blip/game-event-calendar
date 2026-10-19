@@ -18,9 +18,16 @@ class CalendarV51(unittest.TestCase):
    self.assertTrue(r['source_url'].startswith('https://'))
    self.assertIn(r['source_type'],{'jp_wiki','official'})
   self.assertEqual(sum(r['source_type']=='official' for r in self.rows),1)
- def test_source_names_present(self):
-  existing={(e.get('game'),e.get('name')) for e in self.events}
-  self.assertTrue({(r['game'],r['english_name']) for r in self.rows}<=existing)
+ def test_source_names_optional_in_live_events(self):
+  # An approved translation is a dictionary entry, not a requirement that
+  # every source event remains in the rolling events.json on every run.
+  # When a source event is present, ensure that the lookup is valid.
+  names={(e.get('game'),value) for e in self.events
+         for value in (e.get('name'),e.get('original_name')) if value}
+  for row in self.rows:
+   key=(row['game'],row['english_name'])
+   if key in names:
+    self.assertEqual(self.labels[row['game']][row['english_name']]['name'],row['japanese_name'])
  def test_translation_candidates_exclude_approved(self):
   pending={(r['game'],r['english_name']) for r in candidates(self.events,self.labels)}
   self.assertFalse(pending & {(r['game'],r['english_name']) for r in self.rows})
