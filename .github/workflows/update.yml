@@ -116,6 +116,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test calendar translation V48 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v48.py' -v
+
+      - name: Export unverified English names V48
+        run: python tests/calendar_translation_v48.py
+
+      - name: Upload calendar translation V48 candidates
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-translation-v48
+          path: .reports/calendar-v48/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
