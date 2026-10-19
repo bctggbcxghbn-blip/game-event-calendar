@@ -12,20 +12,22 @@
   {
     "id": "activity-4708b5d24ce34ea04569",
     "game": "genshin",
-    "name": "To Temper Thyself and Journey Far",
+    "name": "鍛錬の道",
     "start": "2026-08-10",
     "end": "2026-11-02",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "To Temper Thyself and Journey Far"
   },
   {
     "id": "activity-33a1fbea351c98eb941d",
     "game": "genshin",
-    "name": "The Godforsaken Frostlands",
+    "name": "神に愛されぬ凍土",
     "start": "2026-08-12",
     "end": "2026-11-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "The Godforsaken Frostlands"
   },
   {
     "id": "activity-ee3d8db54c7dcb1c96e4",
@@ -46,31 +48,34 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-0835cb3215aa2808ffb2",
+    "id": "activity-4a58efa71b2c5f186d3a",
     "game": "zzz",
-    "name": "All-New Program",
+    "name": "ポテンシャル予行・鉄槌烈火",
     "start": "2026-09-09",
-    "end": "2026-10-20",
+    "end": "2026-10-21",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Potential Hypothesis: Reforged in Fire"
   },
   {
     "id": "activity-fcbd05eedd33f0b47a08",
     "game": "zzz",
-    "name": "Angels Support Operation",
+    "name": "天使応援大作戦",
     "start": "2026-09-09",
     "end": "2026-11-30",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Angels Support Operation"
   },
   {
-    "id": "activity-4a58efa71b2c5f186d3a",
+    "id": "activity-0835cb3215aa2808ffb2",
     "game": "zzz",
-    "name": "Potential Hypothesis: Reforged in Fire",
+    "name": "放送開始",
     "start": "2026-09-09",
-    "end": "2026-10-21",
+    "end": "2026-10-20",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "All-New Program"
   },
   {
     "id": "zzz-official-46615127-イベント",
@@ -107,40 +112,44 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-e82611d5265ebfd87f1e",
+    "id": "activity-65782ccca9c183164d0d",
     "game": "genshin",
-    "name": "A Rekviem for the Underworld",
+    "name": "テーブルトークシアター・冒険の前夜会",
     "start": "2026-09-23",
     "end": "2026-11-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Tabletop Troupe: A Gathering on Adventure's Eve"
+  },
+  {
+    "id": "activity-e82611d5265ebfd87f1e",
+    "game": "genshin",
+    "name": "冥府へのレクイエム",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "A Rekviem for the Underworld"
   },
   {
     "id": "activity-451bf8df5d218444044e",
     "game": "genshin",
-    "name": "Across the Frozen Wilds, Honing One's Edge",
+    "name": "澄み渡る雪原の鋭気",
     "start": "2026-09-23",
     "end": "2026-11-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Across the Frozen Wilds, Honing One's Edge"
   },
   {
     "id": "activity-3df112a7a8391d49da0d",
     "game": "genshin",
-    "name": "Raiment Collection: Warmth of a Sunny Day",
+    "name": "美しき褒賞・暖かな晴れの日",
     "start": "2026-09-23",
     "end": "2026-11-04",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-65782ccca9c183164d0d",
-    "game": "genshin",
-    "name": "Tabletop Troupe: A Gathering on Adventure's Eve",
-    "start": "2026-09-23",
-    "end": "2026-11-03",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Raiment Collection: Warmth of a Sunny Day"
   },
   {
     "id": "zzz-official-46771693-イベント",
@@ -165,20 +174,12 @@
   {
     "id": "activity-e72909f414377495b608",
     "game": "genshin",
-    "name": "Silverwing in Pursuit of the Moon",
+    "name": "銀翎月を遡りて、玄鳥煌めきを結ぶ",
     "start": "2026-09-24",
     "end": "2026-10-12",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-ceb48fcb733bc4793dc8",
-    "game": "genshin",
-    "name": "Rainbow's End: Resplendent Starlight",
-    "start": "2026-09-28",
-    "end": "2026-11-04",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Silverwing in Pursuit of the Moon"
   },
   {
     "id": "genshin-extra-46863658-1ee6585d",
@@ -190,6 +191,16 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/46863658",
     "url": "https://www.hoyolab.com/article/46863658"
+  },
+  {
+    "id": "activity-ceb48fcb733bc4793dc8",
+    "game": "genshin",
+    "name": "虹の彼方の宝物・降り注ぐ星",
+    "start": "2026-09-28",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Rainbow's End: Resplendent Starlight"
   },
   {
     "id": "hsr-maintenance-4.6-20260928",
@@ -376,47 +387,52 @@
   {
     "id": "activity-9ad83dbc1c367e4f5a4c",
     "game": "wuwa",
-    "name": "Back to Solaris",
+    "name": "ソラリスへの復帰招待",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Back to Solaris"
   },
   {
     "id": "activity-2dc7c41d2ccb853878f3",
     "game": "wuwa",
-    "name": "Cubie Wars",
+    "name": "勇者ダンダン大乱闘",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Cubie Wars"
   },
   {
     "id": "activity-8afe332c6be537f7caf5",
     "game": "wuwa",
-    "name": "Dreams in the Capsule",
+    "name": "匣の中の夢",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-e3d1733c6e2c05e31298",
-    "game": "wuwa",
-    "name": "Gifts of Waking Moon",
-    "start": "2026-09-30",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Dreams in the Capsule"
   },
   {
     "id": "activity-5f5b5164c581e8d647e9",
     "game": "wuwa",
-    "name": "Moonlit Path",
+    "name": "月が照らす道",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Moonlit Path"
+  },
+  {
+    "id": "activity-e3d1733c6e2c05e31298",
+    "game": "wuwa",
+    "name": "朝月のプレゼント",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Gifts of Waking Moon"
   },
   {
     "id": "wuwa-v13-4048971913f18b8c",
@@ -495,15 +511,6 @@
     "url": "https://www.hoyolab.com/article/46864094"
   },
   {
-    "id": "activity-c862eeceda7f14b83e4e",
-    "game": "zzz",
-    "name": "\"En-Nah\" Into Your Lap",
-    "start": "2026-09-30",
-    "end": "2026-10-20",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "zzz-official-46863847-ガチャ",
     "game": "zzz",
     "name": "V3.2 Limited-Time Channels (Phase II)",
@@ -513,6 +520,16 @@
     "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
     "official_url": "https://www.hoyolab.com/article/46863847",
     "url": "https://www.hoyolab.com/article/46863847"
+  },
+  {
+    "id": "activity-c862eeceda7f14b83e4e",
+    "game": "zzz",
+    "name": "棚から「ンナンナ」",
+    "start": "2026-09-30",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "\"En-Nah\" Into Your Lap"
   },
   {
     "id": "genshin-extra-46928428-8206bd42",
@@ -564,11 +581,12 @@
   {
     "id": "activity-1589dc9a2119725a6ec6",
     "game": "wuwa",
-    "name": "Artisan's Search",
+    "name": "天工の探し物",
     "start": "2026-10-08",
     "end": "2026-10-26",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Artisan's Search"
   },
   {
     "id": "wuwa-serverdate-5570-1",
@@ -652,20 +670,22 @@
   {
     "id": "activity-26fce6c066ae6fe4f8ac",
     "game": "wuwa",
-    "name": "Bountiful Crescendo",
+    "name": "反響領域",
     "start": "2026-10-15",
     "end": "2026-10-22",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Bountiful Crescendo"
   },
   {
     "id": "activity-1b7dfb68d0054903b4a2",
     "game": "wuwa",
-    "name": "Waking Moon Fishing",
+    "name": "朝月の魚群",
     "start": "2026-10-15",
     "end": "2026-11-01",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Waking Moon Fishing"
   },
   {
     "id": "wuwa-v13-d182ffc7ab9d5b97",
@@ -708,6 +728,17 @@
     "time_source_url": "https://hsr.hoyoverse.com/ja-jp/news/166468"
   },
   {
+    "id": "genshin-extra-47130835-2015ae4b",
+    "game": "genshin",
+    "name": "\"Carefree Snowball Fight\" Event: Fun Throwing Challenge",
+    "start": "2026-10-21",
+    "end": "2026-11-02",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47130835",
+    "url": "https://www.hoyolab.com/article/47130835"
+  },
+  {
     "id": "activity-6e4715ad764f28577a5a",
     "game": "hsr",
     "name": "スターピースフェスティバル：ワンカット?",
@@ -742,24 +773,6 @@
     "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
     "start_time": "13:00",
     "end_time": "15:59"
-  },
-  {
-    "id": "activity-9340d9e657e47bfcde1d",
-    "game": "wuwa",
-    "name": "Echo Erase",
-    "start": "2026-10-22",
-    "end": "2026-11-09",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-307d2da296ee4fe5f418",
-    "game": "wuwa",
-    "name": "Gifts of Singing Drizzle",
-    "start": "2026-10-22",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
   },
   {
     "id": "wuwa-wiki-gacha-5cc3332a78b756a3",
@@ -814,6 +827,16 @@
     "phase": "3.7後"
   },
   {
+    "id": "activity-307d2da296ee4fe5f418",
+    "game": "wuwa",
+    "name": "傍らに響く雨音のプレゼント",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Gifts of Singing Drizzle"
+  },
+  {
     "id": "wuwa-serverdate-5570-4",
     "game": "wuwa",
     "name": "傍らに響く雨音のプレゼント",
@@ -836,6 +859,16 @@
     "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
     "gacha_type": "weapon",
     "phase": "3.7後"
+  },
+  {
+    "id": "activity-9340d9e657e47bfcde1d",
+    "game": "wuwa",
+    "name": "無音イレイサー",
+    "start": "2026-10-22",
+    "end": "2026-11-09",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Echo Erase"
   },
   {
     "id": "wuwa-serverdate-5570-2",
@@ -887,11 +920,12 @@
   {
     "id": "activity-1b66d81bb5b7c7150ead",
     "game": "wuwa",
-    "name": "Beyond the Waves: Land of Xuanfang",
+    "name": "潮騒探検・玄方地界",
     "start": "2026-10-29",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Beyond the Waves: Land of Xuanfang"
   },
   {
     "id": "wuwa-serverdate-5570-3",
@@ -944,11 +978,12 @@
   {
     "id": "activity-f61c018524082aed1b4c",
     "game": "wuwa",
-    "name": "Chord Cleansing",
+    "name": "響き渡る音弦",
     "start": "2026-11-04",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Chord Cleansing"
   },
   {
     "id": "zzz-predicted-deadly-20261106",
