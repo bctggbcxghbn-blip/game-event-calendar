@@ -130,5 +130,21 @@ function translatedEvent(e, labels){
   const name = found && typeof found.name === 'string' ? found.name.trim() : '';
   return name ? {...e, name, original_name: e.original_name || fallback} : e;
 }
-async function load(){let data=[];let labels={};try{const r=await fetch('./labels_ja.json?t='+Date.now(),{cache:'no-store'});if(r.ok)labels=await r.json()}catch(e){console.warn('Japanese labels unavailable',e)}try{let r=await fetch('./events.json?t='+Date.now(),{cache:'no-store'});if(r.ok){let j=await r.json();if(Array.isArray(j))data=j}}catch(e){console.warn(e)}let saved=[];try{saved=JSON.parse(localStorage.getItem('sevenGameEvents')||localStorage.getItem('fourGameEvents')||'[]')}catch{}let map=new Map();for(let e of [...saved,...data])if(e&&G[e.game]&&e.name&&/^\d{4}-\d\d-\d\d$/.test(e.start)&&/^\d{4}-\d\d-\d\d$/.test(e.end))map.set(e.id||`${e.game}:${e.name}:${e.start}`,e);events=[...map.values()].map(e=>translatedEvent(e,labels));render()}render();load();
+// V54: collapse only identical translated-name/date entries, never merge different periods.
+function dedupeDisplayEvents(items){
+  const selected = new Map();
+  const order = [];
+  for(const e of items){
+    const key = JSON.stringify([e.game, e.name, e.start, e.end, type(e)]);
+    if(!selected.has(key)){ selected.set(key,e); order.push(key); continue; }
+    const old = selected.get(key);
+    // Prefer a record with a direct source URL; otherwise prefer a Wuwa source-specific ID.
+    const score = x => (x.official_url || x.url ? 10 : 0) +
+      (String(x.id||'').startsWith('wuwa-serverdate-') ? 2 : 0) +
+      (String(x.id||'').startsWith('wuwa-v13-') ? 1 : 0);
+    if(score(e)>score(old)) selected.set(key,e);
+  }
+  return order.map(k=>selected.get(k));
+}
+async function load(){let data=[];let labels={};try{const r=await fetch('./labels_ja.json?t='+Date.now(),{cache:'no-store'});if(r.ok)labels=await r.json()}catch(e){console.warn('Japanese labels unavailable',e)}try{let r=await fetch('./events.json?t='+Date.now(),{cache:'no-store'});if(r.ok){let j=await r.json();if(Array.isArray(j))data=j}}catch(e){console.warn(e)}let saved=[];try{saved=JSON.parse(localStorage.getItem('sevenGameEvents')||localStorage.getItem('fourGameEvents')||'[]')}catch{}let map=new Map();for(let e of [...saved,...data])if(e&&G[e.game]&&e.name&&/^\d{4}-\d\d-\d\d$/.test(e.start)&&/^\d{4}-\d\d-\d\d$/.test(e.end))map.set(e.id||`${e.game}:${e.name}:${e.start}`,e);events=dedupeDisplayEvents([...map.values()].map(e=>translatedEvent(e,labels)));render()}render();load();
 </script></body></html>

@@ -146,6 +146,12 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test calendar display deduplication V54 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v54.py' -v
+
+      - name: Audit translated display duplicates V54 (read-only)
+        run: python tests/calendar_dedupe_v54.py
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
