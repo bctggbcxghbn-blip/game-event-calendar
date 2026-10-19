@@ -37,8 +37,18 @@ jobs:
           restore-keys: |
             wuwa-wiki-${{ runner.os }}-
 
-      - name: Import Wuwa Wiki auto V43
-        run: python games/wuwa/wuwa_wiki_auto_runner_v43.py --apply
+      - name: Import Wuwa Wiki auto V44
+        id: wuwa_wiki
+        run: python games/wuwa/wuwa_wiki_auto_runner_v44.py --apply
+
+      - name: Upload Wuwa Wiki monitoring report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wuwa-wiki-v44-report
+          path: .reports/wuwa-v44/
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
