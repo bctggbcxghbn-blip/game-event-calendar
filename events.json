@@ -22,11 +22,12 @@
   {
     "id": "activity-33a1fbea351c98eb941d",
     "game": "genshin",
-    "name": "The Godforsaken Frostlands",
+    "name": "神に愛されぬ凍土",
     "start": "2026-08-12",
     "end": "2026-11-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "The Godforsaken Frostlands"
   },
   {
     "id": "activity-ee3d8db54c7dcb1c96e4",
@@ -110,31 +111,14 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-451bf8df5d218444044e",
-    "game": "genshin",
-    "name": "Across the Frozen Wilds, Honing One's Edge",
-    "start": "2026-09-23",
-    "end": "2026-11-03",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-3df112a7a8391d49da0d",
-    "game": "genshin",
-    "name": "Raiment Collection: Warmth of a Sunny Day",
-    "start": "2026-09-23",
-    "end": "2026-11-04",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-65782ccca9c183164d0d",
     "game": "genshin",
-    "name": "Tabletop Troupe: A Gathering on Adventure's Eve",
+    "name": "テーブルトークシアター・冒険の前夜会",
     "start": "2026-09-23",
     "end": "2026-11-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Tabletop Troupe: A Gathering on Adventure's Eve"
   },
   {
     "id": "activity-e82611d5265ebfd87f1e",
@@ -145,6 +129,26 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "A Rekviem for the Underworld"
+  },
+  {
+    "id": "activity-451bf8df5d218444044e",
+    "game": "genshin",
+    "name": "澄み渡る雪原の鋭気",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Across the Frozen Wilds, Honing One's Edge"
+  },
+  {
+    "id": "activity-3df112a7a8391d49da0d",
+    "game": "genshin",
+    "name": "美しき褒賞・暖かな晴れの日",
+    "start": "2026-09-23",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Raiment Collection: Warmth of a Sunny Day"
   },
   {
     "id": "zzz-official-46771693-イベント",
@@ -177,15 +181,6 @@
     "original_name": "Silverwing in Pursuit of the Moon"
   },
   {
-    "id": "activity-ceb48fcb733bc4793dc8",
-    "game": "genshin",
-    "name": "Rainbow's End: Resplendent Starlight",
-    "start": "2026-09-28",
-    "end": "2026-11-04",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "genshin-extra-46863658-1ee6585d",
     "game": "genshin",
     "name": "The \"Anniversary Memories Album\" web event is now live for a limited time.",
@@ -195,6 +190,16 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/46863658",
     "url": "https://www.hoyolab.com/article/46863658"
+  },
+  {
+    "id": "activity-ceb48fcb733bc4793dc8",
+    "game": "genshin",
+    "name": "虹の彼方の宝物・降り注ぐ星",
+    "start": "2026-09-28",
+    "end": "2026-11-04",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Rainbow's End: Resplendent Starlight"
   },
   {
     "id": "hsr-maintenance-4.6-20260928",
@@ -381,47 +386,52 @@
   {
     "id": "activity-9ad83dbc1c367e4f5a4c",
     "game": "wuwa",
-    "name": "Back to Solaris",
+    "name": "ソラリスへの復帰招待",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Back to Solaris"
   },
   {
     "id": "activity-2dc7c41d2ccb853878f3",
     "game": "wuwa",
-    "name": "Cubie Wars",
+    "name": "勇者ダンダン大乱闘",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Cubie Wars"
   },
   {
     "id": "activity-8afe332c6be537f7caf5",
     "game": "wuwa",
-    "name": "Dreams in the Capsule",
+    "name": "匣の中の夢",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-e3d1733c6e2c05e31298",
-    "game": "wuwa",
-    "name": "Gifts of Waking Moon",
-    "start": "2026-09-30",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Dreams in the Capsule"
   },
   {
     "id": "activity-5f5b5164c581e8d647e9",
     "game": "wuwa",
-    "name": "Moonlit Path",
+    "name": "月が照らす道",
     "start": "2026-09-30",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Moonlit Path"
+  },
+  {
+    "id": "activity-e3d1733c6e2c05e31298",
+    "game": "wuwa",
+    "name": "朝月のプレゼント",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Gifts of Waking Moon"
   },
   {
     "id": "wuwa-v13-4048971913f18b8c",
@@ -570,11 +580,12 @@
   {
     "id": "activity-1589dc9a2119725a6ec6",
     "game": "wuwa",
-    "name": "Artisan's Search",
+    "name": "天工の探し物",
     "start": "2026-10-08",
     "end": "2026-10-26",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Artisan's Search"
   },
   {
     "id": "wuwa-serverdate-5570-1",
@@ -658,20 +669,22 @@
   {
     "id": "activity-26fce6c066ae6fe4f8ac",
     "game": "wuwa",
-    "name": "Bountiful Crescendo",
+    "name": "反響領域",
     "start": "2026-10-15",
     "end": "2026-10-22",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Bountiful Crescendo"
   },
   {
     "id": "activity-1b7dfb68d0054903b4a2",
     "game": "wuwa",
-    "name": "Waking Moon Fishing",
+    "name": "朝月の魚群",
     "start": "2026-10-15",
     "end": "2026-11-01",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Waking Moon Fishing"
   },
   {
     "id": "wuwa-v13-d182ffc7ab9d5b97",
@@ -750,24 +763,6 @@
     "end_time": "15:59"
   },
   {
-    "id": "activity-9340d9e657e47bfcde1d",
-    "game": "wuwa",
-    "name": "Echo Erase",
-    "start": "2026-10-22",
-    "end": "2026-11-09",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-307d2da296ee4fe5f418",
-    "game": "wuwa",
-    "name": "Gifts of Singing Drizzle",
-    "start": "2026-10-22",
-    "end": "2026-11-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "wuwa-wiki-gacha-5cc3332a78b756a3",
     "game": "wuwa",
     "name": "スペクトル・ブラスター",
@@ -820,6 +815,16 @@
     "phase": "3.7後"
   },
   {
+    "id": "activity-307d2da296ee4fe5f418",
+    "game": "wuwa",
+    "name": "傍らに響く雨音のプレゼント",
+    "start": "2026-10-22",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Gifts of Singing Drizzle"
+  },
+  {
     "id": "wuwa-serverdate-5570-4",
     "game": "wuwa",
     "name": "傍らに響く雨音のプレゼント",
@@ -842,6 +847,16 @@
     "source_url": "https://wikiwiki.jp/w-w/Ver3.7",
     "gacha_type": "weapon",
     "phase": "3.7後"
+  },
+  {
+    "id": "activity-9340d9e657e47bfcde1d",
+    "game": "wuwa",
+    "name": "無音イレイサー",
+    "start": "2026-10-22",
+    "end": "2026-11-09",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Echo Erase"
   },
   {
     "id": "wuwa-serverdate-5570-2",
@@ -893,11 +908,12 @@
   {
     "id": "activity-1b66d81bb5b7c7150ead",
     "game": "wuwa",
-    "name": "Beyond the Waves: Land of Xuanfang",
+    "name": "潮騒探検・玄方地界",
     "start": "2026-10-29",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Beyond the Waves: Land of Xuanfang"
   },
   {
     "id": "wuwa-serverdate-5570-3",
@@ -950,11 +966,12 @@
   {
     "id": "activity-f61c018524082aed1b4c",
     "game": "wuwa",
-    "name": "Chord Cleansing",
+    "name": "響き渡る音弦",
     "start": "2026-11-04",
     "end": "2026-11-11",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Chord Cleansing"
   },
   {
     "id": "zzz-predicted-deadly-20261106",
