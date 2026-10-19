@@ -71,6 +71,12 @@ jobs:
       - name: Update events
         run: python update_events.py
 
+      - name: Test NTE official Ver.1.4 V59 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v59.py' -v
+
+      - name: Import NTE official Ver.1.4 V59
+        run: python games/nte/nte_official_v59.py --apply
+
       - name: Import Japanese HSR Wiki
         run: python games/hsr/wiki_hsr_import.py
 
