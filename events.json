@@ -12,11 +12,12 @@
   {
     "id": "activity-4708b5d24ce34ea04569",
     "game": "genshin",
-    "name": "To Temper Thyself and Journey Far",
+    "name": "鍛錬の道",
     "start": "2026-08-10",
     "end": "2026-11-02",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "To Temper Thyself and Journey Far"
   },
   {
     "id": "activity-33a1fbea351c98eb941d",
@@ -55,22 +56,24 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-fcbd05eedd33f0b47a08",
-    "game": "zzz",
-    "name": "Angels Support Operation",
-    "start": "2026-09-09",
-    "end": "2026-11-30",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-4a58efa71b2c5f186d3a",
     "game": "zzz",
-    "name": "Potential Hypothesis: Reforged in Fire",
+    "name": "ポテンシャル予行・鉄槌烈火",
     "start": "2026-09-09",
     "end": "2026-10-21",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Potential Hypothesis: Reforged in Fire"
+  },
+  {
+    "id": "activity-fcbd05eedd33f0b47a08",
+    "game": "zzz",
+    "name": "天使応援大作戦",
+    "start": "2026-09-09",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Angels Support Operation"
   },
   {
     "id": "zzz-official-46615127-イベント",
@@ -107,15 +110,6 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-e82611d5265ebfd87f1e",
-    "game": "genshin",
-    "name": "A Rekviem for the Underworld",
-    "start": "2026-09-23",
-    "end": "2026-11-03",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-451bf8df5d218444044e",
     "game": "genshin",
     "name": "Across the Frozen Wilds, Honing One's Edge",
@@ -143,6 +137,16 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "activity-e82611d5265ebfd87f1e",
+    "game": "genshin",
+    "name": "冥府へのレクイエム",
+    "start": "2026-09-23",
+    "end": "2026-11-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "A Rekviem for the Underworld"
+  },
+  {
     "id": "zzz-official-46771693-イベント",
     "game": "zzz",
     "name": "\"Surprise Screening Plan\" Event Details",
@@ -165,11 +169,12 @@
   {
     "id": "activity-e72909f414377495b608",
     "game": "genshin",
-    "name": "Silverwing in Pursuit of the Moon",
+    "name": "銀翎月を遡りて、玄鳥煌めきを結ぶ",
     "start": "2026-09-24",
     "end": "2026-10-12",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Silverwing in Pursuit of the Moon"
   },
   {
     "id": "activity-ceb48fcb733bc4793dc8",
@@ -495,15 +500,6 @@
     "url": "https://www.hoyolab.com/article/46864094"
   },
   {
-    "id": "activity-c862eeceda7f14b83e4e",
-    "game": "zzz",
-    "name": "\"En-Nah\" Into Your Lap",
-    "start": "2026-09-30",
-    "end": "2026-10-20",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "zzz-official-46863847-ガチャ",
     "game": "zzz",
     "name": "V3.2 Limited-Time Channels (Phase II)",
@@ -513,6 +509,16 @@
     "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
     "official_url": "https://www.hoyolab.com/article/46863847",
     "url": "https://www.hoyolab.com/article/46863847"
+  },
+  {
+    "id": "activity-c862eeceda7f14b83e4e",
+    "game": "zzz",
+    "name": "棚から「ンナンナ」",
+    "start": "2026-09-30",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "\"En-Nah\" Into Your Lap"
   },
   {
     "id": "genshin-extra-46928428-8206bd42",
