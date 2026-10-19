@@ -37,8 +37,8 @@ jobs:
           restore-keys: |
             wuwa-wiki-${{ runner.os }}-
 
-      - name: Import Wuwa Wiki auto V41
-        run: python games/wuwa/wuwa_wiki_auto_runner_v41.py --apply
+      - name: Import Wuwa Wiki auto V42
+        run: python games/wuwa/wuwa_wiki_auto_runner_v42.py --apply
 
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
