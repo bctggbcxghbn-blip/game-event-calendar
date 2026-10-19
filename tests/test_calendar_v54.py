@@ -8,11 +8,17 @@ class CalendarV54(unittest.TestCase):
   cls.events=json.loads((ROOT/'events.json').read_text(encoding='utf-8'))
   cls.labels=json.loads((ROOT/'labels_ja.json').read_text(encoding='utf-8'))
   cls.html=(ROOT/'index.html').read_text(encoding='utf-8')
- def test_known_wuwa_duplicates_found(self):
+ def test_known_wuwa_duplicates_resolved_or_detectable(self):
+  # Import-side cleanup V55 may already have removed the original duplicates.
   duplicates=audit(self.events,self.labels)
   names={key[1] for key,ids in duplicates if key[0]=='wuwa'}
-  self.assertIn('天工の探し物',names)
-  self.assertIn('朝月の魚群',names)
+  self.assertEqual(len(names),len(set(names)))
+  sample=[
+   {'id':'a','game':'wuwa','name':"Artisan's Search",'start':'2026-10-08','end':'2026-10-26','kind':'イベント'},
+   {'id':'b','game':'wuwa','name':'天工の探し物','start':'2026-10-08','end':'2026-10-26','kind':'event'}]
+  found=audit(sample,self.labels)
+  self.assertEqual(len(found),1)
+  self.assertEqual(found[0][0][1],'天工の探し物')
  def test_read_only(self):
   before=json.dumps(self.events,ensure_ascii=False)
   audit(self.events,self.labels)

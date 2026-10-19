@@ -146,6 +146,12 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test Wuwa safe source deduplication V55 (offline)
+        run: python -m unittest discover -s games/wuwa -p 'test_wuwa_final_dedupe_v55.py' -v
+
+      - name: Final Wuwa source deduplication V55
+        run: python games/wuwa/wuwa_final_dedupe_v55.py --apply
+
       - name: Test calendar display deduplication V54 (offline)
         run: python -m unittest discover -s tests -p 'test_calendar_v54.py' -v
 
