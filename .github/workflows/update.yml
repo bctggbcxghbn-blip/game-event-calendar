@@ -98,6 +98,9 @@ jobs:
       - name: Final ZZZ duplicate cleanup
         run: python games/zzz/zzz_final_dedupe.py --apply
 
+      - name: Validate calendar display data V46 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v46.py' -v
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
