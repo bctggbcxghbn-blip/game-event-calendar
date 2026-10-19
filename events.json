@@ -48,15 +48,6 @@
     "source_status": "外部API・要確認"
   },
   {
-    "id": "activity-0835cb3215aa2808ffb2",
-    "game": "zzz",
-    "name": "All-New Program",
-    "start": "2026-09-09",
-    "end": "2026-10-20",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-4a58efa71b2c5f186d3a",
     "game": "zzz",
     "name": "ポテンシャル予行・鉄槌烈火",
@@ -75,6 +66,16 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "Angels Support Operation"
+  },
+  {
+    "id": "activity-0835cb3215aa2808ffb2",
+    "game": "zzz",
+    "name": "放送開始",
+    "start": "2026-09-09",
+    "end": "2026-10-20",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "All-New Program"
   },
   {
     "id": "zzz-official-46615127-イベント",
