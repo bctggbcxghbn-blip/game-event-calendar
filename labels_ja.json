@@ -8,6 +8,27 @@
     },
     "Silverwing in Pursuit of the Moon": {
       "name": "銀翎月を遡りて、玄鳥煌めきを結ぶ"
+    },
+    "The Godforsaken Frostlands": {
+      "name": "神に愛されぬ凍土"
+    },
+    "Across the Frozen Wilds, Honing One's Edge": {
+      "name": "澄み渡る雪原の鋭気"
+    },
+    "Raiment Collection: Warmth of a Sunny Day": {
+      "name": "美しき褒賞・暖かな晴れの日"
+    },
+    "Tabletop Troupe: A Gathering on Adventure's Eve": {
+      "name": "テーブルトークシアター・冒険の前夜会"
+    },
+    "Rainbow's End: Resplendent Starlight": {
+      "name": "虹の彼方の宝物・降り注ぐ星"
+    },
+    "The \"Anniversary Memories Album\" web event is now live for a limited time.": {
+      "name": "周年メモリアルブック"
+    },
+    "Stygian Onslaught Event: Disturbance-affected Ley Line challenges": {
+      "name": "幽境の激戦"
     }
   },
   "wuwa": {
@@ -127,6 +148,9 @@
     },
     "\"Chronicles of the Hobbling Crow\" Event Details": {
       "name": "ホブリング・クロウ奇探録"
+    },
+    "\"Data Bounty: Combat Simulation\" Event Details": {
+      "name": "データ懸賞-模擬実戦"
     }
   }
 }
