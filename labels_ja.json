@@ -1,5 +1,15 @@
 {
-  "genshin": {},
+  "genshin": {
+    "To Temper Thyself and Journey Far": {
+      "name": "鍛錬の道"
+    },
+    "A Rekviem for the Underworld": {
+      "name": "冥府へのレクイエム"
+    },
+    "Silverwing in Pursuit of the Moon": {
+      "name": "銀翎月を遡りて、玄鳥煌めきを結ぶ"
+    }
+  },
   "wuwa": {
     "Back to Solaris": {
       "name": "ソラリスへの復帰招待"
@@ -96,5 +106,27 @@
       "kind": "チャレンジ"
     }
   },
-  "zzz": {}
+  "zzz": {
+    "Angels Support Operation": {
+      "name": "天使応援大作戦"
+    },
+    "Potential Hypothesis: Reforged in Fire": {
+      "name": "ポテンシャル予行・鉄槌烈火"
+    },
+    "\"Clink, Clank, Pinball Knight!\" Event Details": {
+      "name": "弾けろ！ピンボールナイト！"
+    },
+    "\"Surprise Screening Plan\" Event Details": {
+      "name": "サプライズ上映企画"
+    },
+    "\"Diary of an Orbie Parent\" Event Details": {
+      "name": "じゃーん！コロるん成長日記"
+    },
+    "\"En-Nah\" Into Your Lap": {
+      "name": "棚から「ンナンナ」"
+    },
+    "\"Chronicles of the Hobbling Crow\" Event Details": {
+      "name": "ホブリング・クロウ奇探録"
+    }
+  }
 }
