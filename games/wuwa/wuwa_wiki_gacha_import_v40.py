@@ -170,6 +170,9 @@ def main():
         return 1
     records, holds = v35.get_rows(raw, args.version)
     print('WIKI_RECORDS:', len(records), 'EXISTING_EVENTS:', len(events))
+    if not records:
+        print('STOP: no parseable Wiki gacha rows; refusing all writes')
+        return 2
     for h in holds:
         print('HOLD PARSE:', *h)
     # Fail closed if any source cell cannot be parsed.

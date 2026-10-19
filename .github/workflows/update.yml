@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test Wuwa Wiki importer V45 (offline)
+        run: python -m unittest discover -s games/wuwa -p 'test_wuwa_wiki_v45.py' -v
+
       - name: Import Wuwa automatically V23
         run: python games/wuwa/wuwa_auto_runner_v23.py --apply
 
