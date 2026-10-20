@@ -240,6 +240,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test NTE candidate review V62 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v62.py' -v
+
+      - name: Review NTE V61 candidates V62 (read-only)
+        run: python games/nte/nte_review_v62.py
+
+      - name: Upload NTE review V62 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nte-candidate-review-v62
+          path: .reports/nte-v62/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
