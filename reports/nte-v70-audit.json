@@ -1,0 +1,31 @@
+{
+  "total_events": 108,
+  "nte_events": 15,
+  "candidates": [
+    {
+      "id": "nte-official-v14-treasure",
+      "name": "炭団子の秘宝",
+      "matches": 1,
+      "status": "present"
+    },
+    {
+      "id": "nte-official-v14-stamina",
+      "name": "スタミナブースト",
+      "matches": 1,
+      "status": "present"
+    },
+    {
+      "id": "nte-official-v14-pixel",
+      "name": "ピクセルオーバーフロー",
+      "matches": 1,
+      "status": "present"
+    },
+    {
+      "id": "nte-official-v14-invitation",
+      "name": "クロバネの招待状（Webイベント）",
+      "matches": 1,
+      "status": "present"
+    }
+  ],
+  "safe_to_skip": true
+}

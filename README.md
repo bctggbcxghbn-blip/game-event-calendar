@@ -1,11 +1,14 @@
-# NTE V69 review patch
+# NTE V70 — duplicate audit (read-only)
 
-V68 report (`nte-official-candidates-v68.zip`) contained one official article and 70 extracted lines. This patch records four clearly named event leads with adjacent period lines. It does **not** add events automatically, alter `events.json`, edit the calendar UI, or replace `update.yml`.
+Based on the user-supplied `events(5).json` (108 events, 15 NTE events). All four V69 candidates already exist. No event data or calendar UI is changed.
 
-## Install
-Upload `games/nte/nte_review_v69.py` and `reports/nte-v69-review.json` into matching repository paths. To run: `python games/nte/nte_review_v69.py`.
+Copy `games/nte/nte_check_v70.py` and `tests/test_nte_v70.py` to matching paths in your GitHub repository. Do not delete existing files.
 
-## Before registering
-Compare each lead against the latest `events.json` to prevent duplicates. Confirm the server timezone for the two server-time events. Some other leads (including gacha and other events) lack confidently associated dates in the V68 extraction and need further review.
+Run from repository root:
 
-Source: https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html
+```bash
+python -m unittest discover -s tests -p 'test_nte_v70.py' -v
+python games/nte/nte_check_v70.py --events events.json
+```
+
+Audit output: `reports/nte-v70-audit.json` (generated locally). This patch does NOT edit `update.yml` or automatically schedule the audit. It is a safe read-only diagnostic, not a new-event discovery engine.
