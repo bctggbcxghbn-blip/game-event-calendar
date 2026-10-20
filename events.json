@@ -857,6 +857,45 @@
     "url": "https://www.hoyolab.com/article/47055658"
   },
   {
+    "id": "endfield-danqingdu-stamp1",
+    "game": "endfield",
+    "name": "「万物宿魂」スタンプラリー",
+    "kind": "ログイン",
+    "start": "2026-10-15",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "11:59",
+    "start_label": "丹青渡アップデート後（開始時刻未確定）"
+  },
+  {
+    "id": "endfield-danqingdu-suu",
+    "game": "endfield",
+    "name": "スー「万象一新」",
+    "kind": "新キャラガチャ",
+    "start": "2026-10-15",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "11:59",
+    "start_label": "丹青渡アップデート後（開始時刻未確定）"
+  },
+  {
+    "id": "endfield-danqingdu-ink",
+    "game": "endfield",
+    "name": "墨に彩あり",
+    "kind": "イベント",
+    "start": "2026-10-15",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "12:00",
+    "start_label": "丹青渡アップデート後（開始時刻未確定）"
+  },
+  {
     "id": "activity-26fce6c066ae6fe4f8ac",
     "game": "wuwa",
     "name": "反響領域",
@@ -967,6 +1006,32 @@
     "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
     "start_time": "13:00",
     "end_time": "15:59"
+  },
+  {
+    "id": "endfield-danqingdu-photo",
+    "game": "endfield",
+    "name": "カーリーの花いろ絵本",
+    "kind": "イベント",
+    "start": "2026-10-22",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-danqingdu-memory",
+    "game": "endfield",
+    "name": "記憶の痕・呪林",
+    "kind": "チャレンジ",
+    "start": "2026-10-22",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "12:00"
   },
   {
     "id": "wuwa-wiki-gacha-5cc3332a78b756a3",
@@ -1103,6 +1168,58 @@
     "source_status": "日本語Wiki・日付確認済み"
   },
   {
+    "id": "endfield-danqingdu-tantan",
+    "game": "endfield",
+    "name": "タンタン「祖泉の新流」",
+    "kind": "復刻キャラガチャ",
+    "start": "2026-10-29",
+    "end": "2026-11-19",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "11:59",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-danqingdu-crisis",
+    "game": "endfield",
+    "name": "危機準備",
+    "kind": "イベント",
+    "start": "2026-10-29",
+    "end": "2026-11-05",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "04:00"
+  },
+  {
+    "id": "endfield-danqingdu-weapon",
+    "game": "endfield",
+    "name": "武庫申請「小枝・申請」",
+    "kind": "武器・装備ガチャ",
+    "start": "2026-10-29",
+    "end": "2026-11-19",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "11:59",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-danqingdu-martial",
+    "game": "endfield",
+    "name": "百趣演武",
+    "kind": "チャレンジ",
+    "start": "2026-10-29",
+    "end": "2026-11-19",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "12:00"
+  },
+  {
     "id": "wuwa-serverdate-5570-3",
     "game": "wuwa",
     "name": "潮騒探検・玄方地界",
@@ -1135,6 +1252,19 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "endfield-danqingdu-web",
+    "game": "endfield",
+    "name": "魂に捧ぐ新たな一幕",
+    "kind": "イベント",
+    "start": "2026-10-31",
+    "end": "2026-11-14",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "12:00"
   },
   {
     "id": "activity-a0ac38d207da0790bb27",
@@ -1185,6 +1315,19 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "endfield-danqingdu-supply",
+    "game": "endfield",
+    "name": "理性補給（Asia）",
+    "kind": "イベント",
+    "start": "2026-11-19",
+    "end": "2026-11-26",
+    "source_status": "エンドフィールド公式「丹青渡」",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_time": "04:00",
+    "start_time": "04:00"
   },
   {
     "id": "zzz-predicted-deadly-20261120",
