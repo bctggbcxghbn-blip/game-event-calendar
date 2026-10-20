@@ -1,0 +1,50 @@
+{
+  "version": "V69",
+  "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html",
+  "article_count": 1,
+  "candidate_count": 70,
+  "reviewed_event_candidates": [
+    {
+      "name": "炭団子の秘宝",
+      "candidate_index": 38,
+      "start": "2026-10-08 11:00",
+      "end": "2026-11-11 06:59",
+      "timezone": "JST",
+      "source_text": "イベント期間:10月8日11:00 - 11月11日06:59 (JST)",
+      "status": "needs_existing_events_dedupe"
+    },
+    {
+      "name": "スタミナブースト",
+      "candidate_index": 41,
+      "start": "2026-10-05 05:00",
+      "end": "2026-10-19 04:59",
+      "timezone": "server",
+      "source_text": "イベント期間: 10月5日05:00 - 10月19日04:59 (サーバー時間)",
+      "status": "needs_existing_events_dedupe"
+    },
+    {
+      "name": "ピクセルオーバーフロー",
+      "candidate_index": 44,
+      "start": "2026-10-19 05:00",
+      "end": "2026-10-26 04:59",
+      "timezone": "server",
+      "source_text": "イベント期間: 10月19日05:00 - 10月26日04:59 (サーバー時間)",
+      "status": "needs_existing_events_dedupe"
+    },
+    {
+      "name": "クロバネの招待状",
+      "candidate_index": 54,
+      "start": "2026-09-30 12:00",
+      "end": "2026-11-11 06:59",
+      "timezone": "JST",
+      "source_text": "イベント期間:9月30日12:00 - 11月11日06:59 (JST)",
+      "status": "needs_existing_events_dedupe"
+    }
+  ],
+  "auto_imported": 0,
+  "notes": [
+    "Server time is not assumed to be JST.",
+    "No modifications to events.json or calendar design.",
+    "Other candidate lines include gacha, rewards, and update notes; not safe to register automatically."
+  ]
+}
