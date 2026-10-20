@@ -1,17 +1,7 @@
-# V67 NTE GitHub Actions パッチ
+# V68 NTE official candidate discovery
 
-既存の `game-event-calendar-main(4).zip` の `update.yml` を元に、NTE ハンター褒章の重複防止登録処理を追加しました。UI/CSSは変更しません。
+Upload the three code/workflow files at their exact paths to GitHub (overwrite update.yml). No calendar UI or events.json edits.
 
-## 導入
-ZIPの次の3ファイルを、GitHubリポジトリの**同じパス**にアップロードしてください。
+GitHub Actions > Update Game Events > Run workflow. Download artifact `nte-official-candidates-v68` and inspect report.json.
 
-- `.github/workflows/update.yml`（既存ファイルを置換）
-- `games/nte/nte_v67_add_hunter.py`（追加）
-- `tests/test_nte_v67.py`（追加）
-
-`Actions` → `Update Game Events` → `Run workflow` で手動実行し、ログの `Import NTE Hunter Pass V67` と `Commit changes` を確認してください。
-
-## 動作
-毎日のワークフローにNTE V67を追加します。既存のNTE V59とV60～V62の処理は維持します。対象イベントが登録済みならスキップします。新規なら `events.json` に1件追加し、既存のコミット処理で保存します。
-
-**注意**: V67は公式サイトから新しいイベントを自動発見する機能ではありません。検証済みのハンター褒章1件を冪等に追加するものです。公式告知の日時は再検証が必要なら確認してください。元ZIP以降に `update.yml` が更新されている場合は丸ごと上書きせず差分を統合してください。
+V68 detects up to five latest official update notices and extracts candidate text and nearby date evidence. **It does not auto-register candidates**: a nearby date is not proof of an event's precise start/end. The existing V67 verified Hunter Pass import continues unchanged. Network failures are recorded in the report, not silently treated as new events. For confirmed future events, a later patch can add exact verified dates safely.

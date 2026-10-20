@@ -261,6 +261,21 @@ jobs:
       - name: Import NTE Hunter Pass V67
         run: python games/nte/nte_v67_add_hunter.py --apply
 
+      - name: Test NTE official discovery V68 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v68.py' -v
+
+      - name: Discover NTE official articles V68 (read-only)
+        run: python games/nte/nte_discover_v68.py
+
+      - name: Upload NTE V68 candidate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nte-official-candidates-v68
+          path: .reports/nte-v68/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
