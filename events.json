@@ -1276,5 +1276,20 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "nte-hunter-pass-v14-20260930",
+    "game": "nte",
+    "name": "Ver.1.4 ハンター褒章",
+    "start": "2026-09-30",
+    "end": "2026-11-11",
+    "kind": "イベント",
+    "source_status": "NTE公式Ver.1.4",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html",
+    "start_label": "Ver.1.4アップデート後",
+    "end_time": "00:59",
+    "time_zone": "JST",
+    "start_note": "正確な開始時刻は未発表",
+    "end_note": "公式表記11月10日24:59 = 11月11日00:59 JST"
   }
 ]
