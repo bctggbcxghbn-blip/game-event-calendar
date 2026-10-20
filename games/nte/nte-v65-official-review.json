@@ -1,0 +1,44 @@
+{
+  "version": 65,
+  "mode": "official_source_verified_read_only",
+  "base": "V64 patch / V63 56 candidate classification",
+  "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html",
+  "original_unmatched_count": 56,
+  "original_review_count": 1,
+  "findings": [
+    {
+      "name": "クロバネ「蒼羽ソワレ」割引",
+      "decision": "既存登録を維持・期間確認済み",
+      "start": "2026-10-07 07:30 JST",
+      "end": "2026-11-11 06:59 JST",
+      "reason": "公式告知「四、新コスチューム&デコパーツ」に割引期間を明記。V59の登録期間と一致。",
+      "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html"
+    },
+    {
+      "name": "プカプラン",
+      "decision": "期間限定イベントとして追加しない",
+      "start": "2026-09-30 アップデート後",
+      "end": null,
+      "reason": "公式告知「七、その他」ではシティ名声コンテンツ。終了日時の記載なし。恒常コンテンツの可能性があり、イベント期間を捏造しない。",
+      "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html"
+    },
+    {
+      "name": "精鋭ハンター補給／名誉ハンター補給",
+      "decision": "単独イベントとして追加しない",
+      "start": null,
+      "end": null,
+      "reason": "ハンター褒章の購入プランであり独立した開催イベントではない。親コンテンツの公式開催期間は2026-09-30アップデート後～2026-11-10 24:59 JST（原文表記）。",
+      "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html"
+    },
+    {
+      "name": "Ver.1.4 ハンター褒章",
+      "decision": "新規登録候補・自動反映しない",
+      "start": "2026-09-30 アップデート後",
+      "end": "2026-11-10 24:59 JST（公式原文）",
+      "reason": "公式告知に独立した開催期間が明記されている。24:59表記はそのまま保持し、日付境界を勝手に変換しない。",
+      "source": "https://nte.perfectworld.com/jp/article/news/gamenews/20260929/264412.html"
+    }
+  ],
+  "newly_imported": 0,
+  "remaining_56_policy": "V63分類を保持。日時のある文は公式記事の見出しと対応づける必要がある。本文断片のみを独立イベントとして自動登録しない。"
+}
