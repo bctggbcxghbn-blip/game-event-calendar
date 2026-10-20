@@ -1,13 +1,28 @@
-# NTE V71 — safe reviewed-only import
+# エンドフィールド V72 パッチ（丹青渡）
 
-V71 integrates with the V68 daily discovery step, but **does not infer event dates from nearby text**. New articles continue to be reported as candidates. Only entries manually verified and added to `games/nte/approved/v71.json` with `reviewed: true`, exact `start`/`end`, and a NTE official URL can be imported. The manifest is deliberately empty, so this patch adds **zero** events until reviewed entries are supplied.
+公式: https://endfield.gryphline.com/ja-jp/news/9560
 
-Upload these four files preserving paths:
-- `.github/workflows/update.yml` (replace; based on V68/V67 workflow)
-- `games/nte/nte_import_v71.py`
-- `games/nte/approved/v71.json`
-- `tests/test_nte_v71.py`
+既存カレンダーのデザインは変更しません。**events.json は同梱していません。**
 
-Run Actions → Update Game Events → Run workflow. The `nte-review-v71` artifact reports approved additions, duplicates and rejected records. Raw V68 candidates are **never** directly imported. V67 and V68 steps remain. Calendar HTML/CSS unchanged.
+## 導入
+ZIP内の `games/endfield/` と `tests/test_endfield_v72.py` をリポジトリに追加。
 
-**Caution:** If `update.yml` has changed since V68, merge only the three V71 steps before `Commit changes` rather than replacing newer workflow modifications. Approvals should only be entered after verifying the official event period, not based on a date near a candidate sentence. V71 does not yet provide autonomous reliable date verification or a fully automatic new-event importer.
+```bash
+python -m unittest discover -s tests -p 'test_endfield_v72.py' -v
+python games/endfield/import_v72.py          # プレビュー
+python games/endfield/import_v72.py --apply  # events.json に追記
+```
+
+GitHub Actionsの `update.yml` で自動実行する場合、`Commit changes` の直前に以下のステップを追加してください（既存のworkflow全体は上書きしないでください）。
+
+```yaml
+      - name: Import Endfield Danqingdu V72
+        run: python games/endfield/import_v72.py --apply
+```
+
+## 注意
+- 公式記事で終了日が明示されている11件のみ収録。無期限・次回メンテまでのイベントは、終了日未確定のため保留。
+- 「丹青渡開始後」は10月15日付けで記録し、正確な開始時刻は未確定として扱います。
+- 日時は原則サーバー時間。JSTへの自動変換はしません。
+- Asiaサーバーの「理性補給」を採用しています。
+- 今回は新規イベントを探し続ける自動発見ではなく、公式確認済み11件を重複なく取り込む処理です。
