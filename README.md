@@ -1,14 +1,13 @@
-# NTE V70 — duplicate audit (read-only)
+# NTE V71 — safe reviewed-only import
 
-Based on the user-supplied `events(5).json` (108 events, 15 NTE events). All four V69 candidates already exist. No event data or calendar UI is changed.
+V71 integrates with the V68 daily discovery step, but **does not infer event dates from nearby text**. New articles continue to be reported as candidates. Only entries manually verified and added to `games/nte/approved/v71.json` with `reviewed: true`, exact `start`/`end`, and a NTE official URL can be imported. The manifest is deliberately empty, so this patch adds **zero** events until reviewed entries are supplied.
 
-Copy `games/nte/nte_check_v70.py` and `tests/test_nte_v70.py` to matching paths in your GitHub repository. Do not delete existing files.
+Upload these four files preserving paths:
+- `.github/workflows/update.yml` (replace; based on V68/V67 workflow)
+- `games/nte/nte_import_v71.py`
+- `games/nte/approved/v71.json`
+- `tests/test_nte_v71.py`
 
-Run from repository root:
+Run Actions → Update Game Events → Run workflow. The `nte-review-v71` artifact reports approved additions, duplicates and rejected records. Raw V68 candidates are **never** directly imported. V67 and V68 steps remain. Calendar HTML/CSS unchanged.
 
-```bash
-python -m unittest discover -s tests -p 'test_nte_v70.py' -v
-python games/nte/nte_check_v70.py --events events.json
-```
-
-Audit output: `reports/nte-v70-audit.json` (generated locally). This patch does NOT edit `update.yml` or automatically schedule the audit. It is a safe read-only diagnostic, not a new-event discovery engine.
+**Caution:** If `update.yml` has changed since V68, merge only the three V71 steps before `Commit changes` rather than replacing newer workflow modifications. Approvals should only be entered after verifying the official event period, not based on a date near a candidate sentence. V71 does not yet provide autonomous reliable date verification or a fully automatic new-event importer.

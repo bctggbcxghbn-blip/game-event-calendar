@@ -276,6 +276,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test NTE approved importer V71 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v71.py' -v
+
+      - name: Import reviewed NTE events V71
+        run: python games/nte/nte_import_v71.py --apply
+
+      - name: Upload NTE V71 review report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nte-review-v71
+          path: .reports/nte-v71/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
