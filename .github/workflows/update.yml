@@ -225,6 +225,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test NTE official article preview V61 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v61.py' -v
+
+      - name: Preview NTE official article V61 (read-only)
+        run: python games/nte/nte_article_preview_v61.py
+
+      - name: Upload NTE article preview V61 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nte-article-preview-v61
+          path: .reports/nte-v61/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
