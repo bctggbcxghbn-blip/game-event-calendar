@@ -1069,6 +1069,17 @@
     "phase": "3.7後"
   },
   {
+    "id": "zzz-official-47142378-イベント",
+    "game": "zzz",
+    "name": "\"Spooky Funhouse Tales\" Event Details",
+    "start": "2026-10-22",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47142378",
+    "url": "https://www.hoyolab.com/article/47142378"
+  },
+  {
     "id": "zzz-predicted-deadly-20261023",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
