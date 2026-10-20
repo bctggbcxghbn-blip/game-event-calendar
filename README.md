@@ -1,28 +1,29 @@
-# エンドフィールド V72 パッチ（丹青渡）
+# エンドフィールド V73 — 公式記事の自動検出（読み取り専用）
 
-公式: https://endfield.gryphline.com/ja-jp/news/9560
+既存のカレンダーデザイン、`events.json`、NTEなどの更新処理は変更しません。
 
-既存カレンダーのデザインは変更しません。**events.json は同梱していません。**
+## 追加するファイル
+- `games/endfield/discover_v73.py`
+- `tests/test_endfield_v73.py`
 
-## 導入
-ZIP内の `games/endfield/` と `tests/test_endfield_v72.py` をリポジトリに追加。
-
-```bash
-python -m unittest discover -s tests -p 'test_endfield_v72.py' -v
-python games/endfield/import_v72.py          # プレビュー
-python games/endfield/import_v72.py --apply  # events.json に追記
-```
-
-GitHub Actionsの `update.yml` で自動実行する場合、`Commit changes` の直前に以下のステップを追加してください（既存のworkflow全体は上書きしないでください）。
+## `.github/workflows/update.yml` に追記
+既存の `Commit changes` ステップより前に以下を挿入してください（既存の `update.yml` 全体は上書きしない）。
 
 ```yaml
-      - name: Import Endfield Danqingdu V72
-        run: python games/endfield/import_v72.py --apply
+      - name: Test Endfield discovery V73 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v73.py' -v
+
+      - name: Discover Endfield official news V73 (read-only)
+        run: python games/endfield/discover_v73.py
+
+      - name: Upload Endfield V73 candidate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-candidates-v73
+          path: reports/endfield-v73-candidates.json
+          if-no-files-found: warn
 ```
 
-## 注意
-- 公式記事で終了日が明示されている11件のみ収録。無期限・次回メンテまでのイベントは、終了日未確定のため保留。
-- 「丹青渡開始後」は10月15日付けで記録し、正確な開始時刻は未確定として扱います。
-- 日時は原則サーバー時間。JSTへの自動変換はしません。
-- Asiaサーバーの「理性補給」を採用しています。
-- 今回は新規イベントを探し続ける自動発見ではなく、公式確認済み11件を重複なく取り込む処理です。
+## 実行結果
+Actions の `endfield-candidates-v73` Artifact からJSONレポートを取得できます。候補文はイベント確定データではありません。記事のHTML構造やJavaScriptレンダリングの変更で候補を拾えない場合があります。開催日時と既存イベントとの照合は次の段階で行います。**自動登録は0件です。**
