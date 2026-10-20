@@ -255,6 +255,12 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test NTE Hunter Pass V67 (offline)
+        run: python -m unittest discover -s tests -p 'test_nte_v67.py' -v
+
+      - name: Import NTE Hunter Pass V67
+        run: python games/nte/nte_v67_add_hunter.py --apply
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
