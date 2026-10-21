@@ -1,33 +1,31 @@
-# エンドフィールド V78 — 新着記事取得の診断（読み取り専用）
+# エンドフィールド V79 — JavaScript内のニュース取得先を診断
 
-V77のレポートで公式記事が1件しか見つからなかったため、ニュース一覧・サイトマップ・robots.txt のHTTP応答とリンク抽出を可視化します。**記事を新規登録したり、終了日を承認したりはしません。**
+V78でニュース一覧HTMLから記事URLを発見できなかったため、V79では公式ページが読み込む**同一ドメインのJavaScriptファイル**を調べ、ニュースAPIらしい文字列を抽出します。候補は未検証のため**APIにはアクセスしません**。`events.json` と既存の更新処理は変更しません。
 
-## GitHubに追加するファイル
-- `games/endfield/diagnose_v78.py`
-- `tests/test_endfield_v78.py`
-
-**依存:** V76の `games/endfield/monitor_v76.py` とV77の `games/endfield/monitor_v77.py` は残してください。
+## アップロードするファイル
+- `games/endfield/diagnose_v79.py`
+- `tests/test_endfield_v79.py`
 
 ## `.github/workflows/update.yml` の `Commit changes` より前に追加
 
 ```yaml
-      - name: Test Endfield V78 (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v78.py' -v
+      - name: Test Endfield V79 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v79.py' -v
 
-      - name: Diagnose Endfield news discovery V78 (read-only)
-        run: python games/endfield/diagnose_v78.py
+      - name: Diagnose Endfield JS news endpoints V79 (read-only)
+        run: python games/endfield/diagnose_v79.py
 
-      - name: Upload Endfield V78 diagnostics
+      - name: Upload Endfield V79 diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-discovery-diagnostics-v78
-          path: .reports/endfield-v78/
+          name: endfield-js-diagnostics-v79
+          path: .reports/endfield-v79/
           if-no-files-found: warn
           retention-days: 14
 ```
 
-## 実行後
-Actions → Update Game Events → Run workflow → Artifact `endfield-discovery-diagnostics-v78` をダウンロードして、このチャットにアップロードしてください。
+## 次の手順
+GitHub Actionsで `Update Game Events` を手動実行し、Artifactsの `endfield-js-diagnostics-v79` をこのチャットにアップロードしてください。レポートに含まれる `endpoint_candidates` を確認して、V80で実際に使える公式取得先かを検証します。
 
-`report.json` の `sources` に取得先ごとの `http_status`、`final_url`、`content_type`、`html_anchor_count`、`anchor_samples`、`new_article_count`、`error` が出力されます。HTML全文や個人情報は保存しません。記事の発見件数が1件なら警告を出します。カレンダーの `events.json` は変更しません。
+**注意:** JavaScriptにAPIのURLが含まれていない構成では候補が0件になる場合があります。これはエラーとは限りません。
