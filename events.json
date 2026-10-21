@@ -1008,6 +1008,16 @@
     "end_time": "15:59"
   },
   {
+    "id": "activity-e189c8f651c414757047",
+    "game": "zzz",
+    "name": "放送開始",
+    "start": "2026-10-21",
+    "end": "2026-12-01",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "All-New Program"
+  },
+  {
     "id": "endfield-danqingdu-photo",
     "game": "endfield",
     "name": "カーリーの花いろ絵本",
@@ -1168,6 +1178,15 @@
     "source_status": "日本語Wiki・日付確認済み"
   },
   {
+    "id": "activity-3d050cf2a63beef84237",
+    "game": "zzz",
+    "name": "Cyber Miracle Healer, on Duty!",
+    "start": "2026-10-28",
+    "end": "2026-11-16",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
     "id": "endfield-danqingdu-tantan",
     "game": "endfield",
     "name": "タンタン「祖泉の新流」",
@@ -1291,6 +1310,16 @@
     "original_name": "Chord Cleansing"
   },
   {
+    "id": "activity-31da4b9b58b39df2baf4",
+    "game": "zzz",
+    "name": "先遣賞金-区域防衛",
+    "start": "2026-11-04",
+    "end": "2026-11-09",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Advanced Bounty: Area Patrol"
+  },
+  {
     "id": "zzz-predicted-deadly-20261106",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
@@ -1304,6 +1333,25 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "activity-90876b56b5fc700c4751",
+    "game": "zzz",
+    "name": "Trails of the Hobbling Crow",
+    "start": "2026-11-11",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-bc2bb961aa510b2c5239",
+    "game": "zzz",
+    "name": "棚から「ンナンナ」",
+    "start": "2026-11-11",
+    "end": "2026-12-01",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "\"En-Nah\" Into Your Lap"
+  },
+  {
     "id": "zzz-predicted-shiyu-20261113",
     "game": "zzz",
     "name": "【予測】式輿防衛戦・激変ノード",
@@ -1315,6 +1363,15 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-70b6e740e9bf0cfb09cd",
+    "game": "zzz",
+    "name": "Repair! Drifting Art",
+    "start": "2026-11-16",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "endfield-danqingdu-supply",
@@ -1341,6 +1398,15 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-98dcd61fa8eb276de42a",
+    "game": "zzz",
+    "name": "Data Bounty: Combat Simulation",
+    "start": "2026-11-25",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "zzz-predicted-shiyu-20261127",
