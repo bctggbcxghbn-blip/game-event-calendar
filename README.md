@@ -1,32 +1,32 @@
-# Endfield V76 — official notice end-date monitoring
+# Endfield V77 — 公式新着記事の検出拡張（読み取り専用）
 
-Read-only monitor for the 7 V75 pending events. Scans the official Japanese news index (up to 20 linked articles plus the original notice), searches for event names and date mentions, and writes a review artifact. It does NOT decide which date is the end date, modify `events.json`, or change `approved_ends_v75.json`.
+V76の実行結果では公式記事を1件しか確認できませんでした。V77は公式ニュース一覧・sitemap.xml・robots.txtに現れる記事URLを収集し、未確定7件と照合します。公式サイトが動的に記事を読み込む場合は、依然として全件を検出できない可能性があります。
 
-Upload these two files to your repository:
-- `games/endfield/monitor_v76.py`
-- `tests/test_endfield_v76.py`
+## GitHubに追加するファイル
+- `games/endfield/monitor_v77.py`
+- `tests/test_endfield_v77.py`
 
-The script reads the **existing** `games/endfield/pending_v75.json`, so V75 must already be installed.
+**V76が必要です。** `games/endfield/monitor_v76.py` と V75の `pending_v75.json` はそのまま残してください。
 
-Add the following steps to `.github/workflows/update.yml` before `Commit changes`:
+## `.github/workflows/update.yml` の `Commit changes` より前に追加
 
 ```yaml
-      - name: Test Endfield V76 (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v76.py' -v
+      - name: Test Endfield V77 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v77.py' -v
 
-      - name: Monitor Endfield official end dates V76 (read-only)
-        run: python games/endfield/monitor_v76.py
+      - name: Monitor Endfield official news V77 (read-only)
+        run: python games/endfield/monitor_v77.py
 
-      - name: Upload Endfield V76 review
+      - name: Upload Endfield V77 review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-enddate-review-v76
-          path: .reports/endfield-v76/
+          name: endfield-news-review-v77
+          path: .reports/endfield-v77/
           if-no-files-found: warn
           retention-days: 14
 ```
 
-Then run Actions > Update Game Events > Run workflow and upload the `endfield-enddate-review-v76` artifact here.
+GitHub Actionsでワークフローを実行後、Artifact `endfield-news-review-v77` をダウンロードしてください。
 
-**Caution:** A date found near an event name is only a clue, not an approved end date. The report records `verified_end: null` for every event. Review the cited official notice manually before adding a verified date to the V75 approval file. Some news listing entries may be loaded dynamically and not appear in HTML links; the original official article is always included.
+**安全性:** `events.json` や承認ファイルは変更しません。記事中の年月日は終了日と断定しません。`articles_discovered` が1のままなら公式ニュース一覧の動的読み込み等を調査する必要があります。
