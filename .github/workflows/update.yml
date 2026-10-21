@@ -86,6 +86,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test Endfield V76 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v76.py' -v
+
+      - name: Monitor Endfield official end dates V76 (read-only)
+        run: python games/endfield/monitor_v76.py
+
+      - name: Upload Endfield V76 review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-enddate-review-v76
+          path: .reports/endfield-v76/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
 
