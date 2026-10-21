@@ -1,32 +1,30 @@
-# エンドフィールド V80 — 公式CDNのニュース用JavaScript診断
+# エンドフィールド V81 — ニュースAPI候補の安全な検証
 
-V79のレポートで、公式ニュースページのJavaScriptが `web-static.hg-cdn.com` に置かれていることが分かりました。V80はこの公式ページから参照されるCDN上のJavaScriptを読み取り、ニュースAPIらしいURLの候補を抽出します。V79で見つかったニュース用JSも取得対象に含めます。
+V80で検出された `/api/bulletin` が実際に利用できるか調べる**診断専用パッチ**です。公式CDNのJavaScript内でAPI文字列の前後を抽出し、公式ドメインに対してGETを2回だけ試します。HTTPステータス、Content-Type、JSONのキーなどをレポートに残します。認証情報の取得やPOSTはしません。
 
-**読み取り専用です。** `events.json`、カレンダーデザイン、既存の更新処理は変更しません。抽出した文字列は未検証で、APIへのリクエストは行いません。
+**既存の events.json、デザイン、イベント更新処理は変更しません。** APIの存在や仕様はまだ確定していません。JavaScriptのファイル名が変わると取得できない場合があります。
 
-## GitHubに追加するファイル
-- `games/endfield/diagnose_v80.py`
-- `tests/test_endfield_v80.py`
+## アップロードするファイル
+- `games/endfield/diagnose_v81.py`
+- `tests/test_endfield_v81.py`
 
 ## `.github/workflows/update.yml` の `Commit changes` より前に追加
 
 ```yaml
-      - name: Test Endfield V80 (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v80.py' -v
+      - name: Test Endfield V81 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v81.py' -v
 
-      - name: Diagnose Endfield CDN JS V80 (read-only)
-        run: python games/endfield/diagnose_v80.py
+      - name: Diagnose Endfield bulletin API V81 (read-only)
+        run: python games/endfield/diagnose_v81.py
 
-      - name: Upload Endfield V80 diagnostics
+      - name: Upload Endfield V81 API diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-cdn-js-v80
-          path: .reports/endfield-v80/
+          name: endfield-api-diagnostics-v81
+          path: .reports/endfield-v81/
           if-no-files-found: warn
           retention-days: 14
 ```
 
-Actions → Update Game Events → Run workflow を実行して、Artifacts の `endfield-cdn-js-v80` をアップロードしてください。V81で候補を検証します。
-
-**注意**: CDNファイル名はサイト更新により変わる可能性があります。取得失敗時は `report.json` の `error` を確認してください。
+Actions → Update Game Events → Run workflow の後、Artifacts の `endfield-api-diagnostics-v81` をここにアップロードしてください。
