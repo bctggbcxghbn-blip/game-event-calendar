@@ -1,29 +1,32 @@
-# Endfield V74 — safe audit patch
+# Endfield V75 — conditional-date safe importer
 
-This patch uses the **V73 snapshot from 2026-10-20** to compare named candidate events against the repository's current `events.json`. It does not fetch new articles, alter event data, or change the calendar UI. `possibly_registered` is an approximate name match, not verification of correct dates. The snapshot must be refreshed for newer articles.
+Latest events.json review: 127 total, 11 Endfield entries, 7 missing candidates.
 
-Upload all three files preserving paths:
-- `games/endfield/audit_v74.py`
-- `games/endfield/endfield-v73-candidates.json`
-- `tests/test_endfield_v74.py`
+This patch does NOT invent end dates. All 7 are held in pending_v75.json. The approved_ends_v75.json file starts empty, so the default import makes no changes.
 
-Insert before `Commit changes` in `.github/workflows/update.yml`:
+Upload these three files to the repository at their included paths:
+- games/endfield/import_v75.py
+- games/endfield/pending_v75.json
+- games/endfield/approved_ends_v75.json
+- tests/test_endfield_v75.py
 
-```yaml
-      - name: Test Endfield V74 audit (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v74.py' -v
+Add to `.github/workflows/update.yml` before `Commit changes`:
 
-      - name: Audit Endfield V73 candidates V74 (read-only)
-        run: python games/endfield/audit_v74.py
+      - name: Test Endfield V75 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v75.py' -v
 
-      - name: Upload Endfield V74 audit
+      - name: Import Endfield verified end dates V75
+        run: python games/endfield/import_v75.py --apply
+
+      - name: Upload Endfield V75 review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-audit-v74
-          path: .reports/endfield-v74/
+          name: endfield-review-v75
+          path: .reports/endfield-v75/
           if-no-files-found: warn
           retention-days: 14
-```
 
-Then run `Update Game Events` manually and download `endfield-audit-v74` artifact. Note: V73 discovery may run in the same workflow, but this V74 patch compares the supplied snapshot, not the newly discovered report. Future version can connect the live report safely.
+When an end date is verified, edit `approved_ends_v75.json` with the event ID and YYYY-MM-DD end date, e.g. {"endfield-v75-minho":{"end":"YYYY-MM-DD"}} (replace placeholder with a verified date). Never approve based on an estimate.
+
+The importer is idempotent by ID and exact name. The UI and all other games are unchanged. The 7 candidates' start dates and end conditions come from the V74 official-article audit; specific start times omitted where unverified.

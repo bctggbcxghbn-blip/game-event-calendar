@@ -1,0 +1,83 @@
+[
+  {
+    "id": "endfield-v75-weapon-yushu",
+    "game": "endfield",
+    "name": "武庫申請「玉書・申請」",
+    "kind": "武器ガチャ",
+    "start": "2026-10-15",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "特別スカウトが3回開催されると終了（万象一新からカウント）",
+    "review_status": "終了日未確定"
+  },
+  {
+    "id": "endfield-v75-minho",
+    "game": "endfield",
+    "name": "ミンホ「人煙の牽く天河」",
+    "kind": "新キャラガチャ",
+    "start": "2026-11-05",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "次回バージョンアップメンテナンス前",
+    "review_status": "終了日未確定",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-v75-weapon-yueying",
+    "game": "endfield",
+    "name": "武庫申請「月映・申請」",
+    "kind": "武器ガチャ",
+    "start": "2026-11-05",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "特別スカウトが3回開催されると終了（人煙の牽く天河からカウント）",
+    "review_status": "終了日未確定",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-v75-worldly",
+    "game": "endfield",
+    "name": "俗世の縁",
+    "kind": "イベント",
+    "start": "2026-10-15",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "次回バージョンアップメンテナンス前",
+    "review_status": "終了日未確定"
+  },
+  {
+    "id": "endfield-v75-guiye",
+    "game": "endfield",
+    "name": "帰野",
+    "kind": "イベント",
+    "start": "2026-11-05",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "次回バージョンアップメンテナンス前",
+    "review_status": "終了日未確定",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-v75-tianhe",
+    "game": "endfield",
+    "name": "「天河と共に」スタンプラリー",
+    "kind": "ログイン",
+    "start": "2026-11-05",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "次回バージョンアップメンテナンス前",
+    "review_status": "終了日未確定",
+    "start_time": "12:00"
+  },
+  {
+    "id": "endfield-v75-contingency",
+    "game": "endfield",
+    "name": "危機契約 青藍試験作戦",
+    "kind": "チャレンジ",
+    "start": "2026-11-05",
+    "official_url": "https://endfield.gryphline.com/ja-jp/news/9560",
+    "time_zone": "サーバー時間",
+    "end_condition": "次回バージョンアップメンテナンス前",
+    "review_status": "終了日未確定"
+  }
+]
