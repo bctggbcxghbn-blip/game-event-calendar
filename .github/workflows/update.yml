@@ -146,6 +146,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test Endfield V80 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v80.py' -v
+
+      - name: Diagnose Endfield CDN JS V80 (read-only)
+        run: python games/endfield/diagnose_v80.py
+
+      - name: Upload Endfield V80 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-cdn-js-v80
+          path: .reports/endfield-v80/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
 
