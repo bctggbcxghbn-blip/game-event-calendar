@@ -221,6 +221,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Test Endfield V85 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v85.py' -v
+
+      - name: Diagnose Endfield API tabs array V85 (read-only)
+        run: python games/endfield/diagnose_v85.py
+
+      - name: Upload Endfield V85 API diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-api-probe-v85
+          path: .reports/endfield-v85/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
 
