@@ -284,6 +284,21 @@ jobs:
       - name: Test Endfield V89 verified candidates (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v89.py' -v
 
+      - name: Test Endfield V90 audit (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v90_audit.py' -v
+
+      - name: Run Endfield V90 repository audit (read-only)
+        run: python tools/endfield_v90_repo_audit.py
+
+      - name: Upload Endfield V90 audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v90-repo-audit
+          path: |
+            artifacts/endfield-v90-repo-audit.json
+            artifacts/endfield-v90-repo-audit.md
+          if-no-files-found: error
+
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
 

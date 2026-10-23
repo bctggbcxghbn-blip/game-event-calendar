@@ -1,32 +1,41 @@
-# Endfield V89 patch — verified date candidates (review only)
+# V90 — Endfield repository schema audit (read-only)
 
-This patch records seven Endfield events/scout banners grounded in the V88 report of official bulletin article CID `9560` (and CID `2652` for 「玉書・申請」).
+V90 is a diagnostic patch only. It does **not** change `events.json`, register events, alter the calendar UI, or replace the existing update workflow.
 
-## Included files
+## Add these files
 
-- `games/endfield/v89_verified_candidates.json`: seven review-only candidate records.
-- `tests/test_endfield_v89.py`: offline validation tests.
+Copy into the repository, preserving paths:
 
-## Important safety/data behavior
+- `tools/endfield_v90_repo_audit.py`
+- `tests/test_endfield_v90_audit.py`
 
-- This patch **does not edit `events.json`** and does not change the calendar UI.
-- Every candidate remains `review_required`.
-- Exact start dates/times and source wording are preserved where available.
-- Relative end conditions are kept as text; end dates are intentionally `null` rather than guessed.
-- The Dec 3, 2026 04:00 deadline in the article is the 「機密聖堂」 reward shop deadline, not the confirmed end of 「危機契約 青藍試験作戦」 itself.
+## Add steps to the existing `.github/workflows/update.yml`
 
-## Install
-
-1. Download and extract this ZIP.
-2. Upload `games/endfield/v89_verified_candidates.json` to the same path in the GitHub repository.
-3. Upload `tests/test_endfield_v89.py` to `tests/test_endfield_v89.py`.
-4. If the existing workflow already runs `python -m unittest discover -s tests`, the test will be picked up automatically. Otherwise, add this step before the existing commit step without replacing any existing workflow steps:
+Insert these steps after the repository checkout and Python setup, before the existing commit/push step. Keep all existing workflow steps:
 
 ```yaml
-      - name: Test Endfield V89 verified candidates (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v89.py' -v
+      - name: Test Endfield V90 audit (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v90_audit.py' -v
+
+      - name: Run Endfield V90 repository audit (read-only)
+        run: python tools/endfield_v90_repo_audit.py
+
+      - name: Upload Endfield V90 audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v90-repo-audit
+          path: |
+            artifacts/endfield-v90-repo-audit.json
+            artifacts/endfield-v90-repo-audit.md
+          if-no-files-found: error
 ```
 
-5. Run **Actions → Update Game Events → Run workflow** and check the test result.
+If the workflow has a different filename, add the steps to the workflow that runs the current event updater. Do not replace the workflow with a sample.
 
-This is a staging patch only. It does not import the candidates into the live calendar; the next patch can connect reviewed candidates to the existing importer after the repository's current data schema is confirmed.
+## Run and retrieve
+
+1. Commit the files and workflow additions.
+2. Open **Actions → Update Game Events → Run workflow**.
+3. Download the `endfield-v90-repo-audit` artifact and upload it in the chat.
+
+The report identifies the actual `events.json` schema, current Endfield entries, possible duplicate-key candidates, related importer scripts, and workflow files. V90 intentionally does not guess a schema or write events; the next patch can use the report to make a narrow, duplicate-safe integration.
