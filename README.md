@@ -1,41 +1,34 @@
-# V90 — Endfield repository schema audit (read-only)
+# Endfield V91 ZIP patch
 
-V90 is a diagnostic patch only. It does **not** change `events.json`, register events, alter the calendar UI, or replace the existing update workflow.
+Purpose: read-only reconciliation of the 7 V89 candidates against the actual `events.json` schema and registered Endfield rows.
 
-## Add these files
+## Copy these files into the repository
+- `tools/endfield_v91_reconcile.py`
+- `tests/test_endfield_v91_reconcile.py`
 
-Copy into the repository, preserving paths:
+Do not replace `events.json`, `update_events.py`, `import_v75.py`, or the existing workflow.
 
-- `tools/endfield_v90_repo_audit.py`
-- `tests/test_endfield_v90_audit.py`
-
-## Add steps to the existing `.github/workflows/update.yml`
-
-Insert these steps after the repository checkout and Python setup, before the existing commit/push step. Keep all existing workflow steps:
-
+## Add steps to `.github/workflows/update.yml`
+Place these steps near the existing V90 audit steps, before the import steps. Keep all existing workflow steps:
 ```yaml
-      - name: Test Endfield V90 audit (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v90_audit.py' -v
+      - name: Test Endfield V91 reconciliation (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v91_reconcile.py' -v
 
-      - name: Run Endfield V90 repository audit (read-only)
-        run: python tools/endfield_v90_repo_audit.py
+      - name: Reconcile Endfield V89 candidates V91 (read-only)
+        run: python tools/endfield_v91_reconcile.py
 
-      - name: Upload Endfield V90 audit report
+      - name: Upload Endfield V91 reconciliation report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-v90-repo-audit
-          path: |
-            artifacts/endfield-v90-repo-audit.json
-            artifacts/endfield-v90-repo-audit.md
-          if-no-files-found: error
+          name: endfield-v91-reconciliation
+          path: .reports/endfield-v91/
+          if-no-files-found: warn
+          retention-days: 14
 ```
-
-If the workflow has a different filename, add the steps to the workflow that runs the current event updater. Do not replace the workflow with a sample.
-
-## Run and retrieve
-
-1. Commit the files and workflow additions.
-2. Open **Actions → Update Game Events → Run workflow**.
-3. Download the `endfield-v90-repo-audit` artifact and upload it in the chat.
-
-The report identifies the actual `events.json` schema, current Endfield entries, possible duplicate-key candidates, related importer scripts, and workflow files. V90 intentionally does not guess a schema or write events; the next patch can use the report to make a narrow, duplicate-safe integration.
+## Expected behavior
+- Does not modify `events.json`.
+- Detects exact ID and normalized exact-name matches.
+- Lists similar names as manual-review hints only.
+- Candidates without verified end dates remain `waiting_for_verified_end`.
+- Upload the `endfield-v91-reconciliation` artifact here for the next step.
