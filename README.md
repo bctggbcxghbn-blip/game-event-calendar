@@ -1,35 +1,33 @@
-# Endfield V87 — full news inventory (read-only)
+# Endfield V88 — Official article detail diagnostic (read-only)
 
-V86 verified that the official public API returns 131 total articles and 10 items per page when `tabs` is omitted. V87 paginates the unfiltered Japanese news list, saves article IDs/titles/categories/timestamps/briefs, and marks keyword matches for manual review. It does **not** import any article or modify `events.json` or the calendar.
+V87 successfully listed 131 official bulletin items. V88 fetches the official article detail endpoint for up to 35 high-relevance articles, prioritizing known article IDs `9560`, `2652`, `4489`, `7013`, `5207`, and `0744`. It saves detail responses and errors to `.reports/endfield-details-v88/report.json`.
 
-## Upload these files
-- `games/endfield/diagnose_v87.py`
-- `tests/test_endfield_v87.py`
+**Safety:** this patch only makes public HTTP GET requests and writes a diagnostic report. It does not edit `events.json`, event data, the calendar UI, or any existing update script.
 
-## Add before the existing `Commit changes` step in `.github/workflows/update.yml`
-Keep all existing workflow steps; add only these:
+## Files
+- `games/endfield/diagnose_v88.py`
+- `tests/test_endfield_v88.py`
 
+## Add these workflow steps before `Commit changes`
 ```yaml
-      - name: Test Endfield V87 (offline)
-        run: python -m unittest discover -s tests -p 'test_endfield_v87.py' -v
+      - name: Test Endfield V88 (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v88.py' -v
 
-      - name: Inventory Endfield official news V87 (read-only)
-        run: python games/endfield/diagnose_v87.py
+      - name: Diagnose Endfield official article details V88 (read-only)
+        run: python games/endfield/diagnose_v88.py
 
-      - name: Upload Endfield V87 news inventory
+      - name: Upload Endfield V88 article detail report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: endfield-news-inventory-v87
-          path: .reports/endfield-v87/
+          name: endfield-article-details-v88
+          path: .reports/endfield-details-v88/
           if-no-files-found: warn
           retention-days: 14
 ```
 
-## Run
-1. Upload the two files above.
-2. Add the YAML steps above before `Commit changes`.
+## Run and return results
+1. Upload the two files to the matching paths in the repository.
+2. Add the three workflow steps above to `.github/workflows/update.yml` before the existing commit step. Keep all existing steps.
 3. Run **Actions → Update Game Events → Run workflow**.
-4. Download `endfield-news-inventory-v87` from Artifacts and upload its ZIP to this chat.
-
-The script makes public GET requests only. Keyword matches are not automatically registered events; all results require review. Existing calendar design and `events.json` remain unchanged.
+4. Download the `endfield-article-details-v88` artifact and upload its ZIP to the chat.
