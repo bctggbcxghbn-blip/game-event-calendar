@@ -1168,6 +1168,17 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "genshin-extra-47185414-a82d6d8a",
+    "game": "genshin",
+    "name": "\"Overflowing Favor\" Event: Double Drops With Artifacts",
+    "start": "2026-10-26",
+    "end": "2026-11-02",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47185414",
+    "url": "https://www.hoyolab.com/article/47185414"
+  },
+  {
     "id": "wiki-hsr-cd35ea2075bc0eb0528c",
     "game": "hsr",
     "name": "笑いの神様、miHoYoを出し抜く",
