@@ -1311,6 +1311,20 @@
     "time_source_url": "https://hsr.hoyoverse.com/ja-jp/news/166468"
   },
   {
+    "id": "genshin-official-47283828-fc13e308",
+    "game": "genshin",
+    "name": "Version 7.2 Update Maintenance Preview（終了予定）",
+    "start": "2026-11-04",
+    "end": "2026-11-04",
+    "kind": "メンテナンス",
+    "start_time": "07:00",
+    "end_time": "12:00",
+    "time_zone": "Asia/Tokyo",
+    "source_status": "HoYoLAB公式記事・終了は約5時間後の予定",
+    "official_url": "https://www.hoyolab.com/article/47283828",
+    "url": "https://www.hoyolab.com/article/47283828"
+  },
+  {
     "id": "activity-f61c018524082aed1b4c",
     "game": "wuwa",
     "name": "響き渡る音弦",
@@ -1319,6 +1333,17 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "Chord Cleansing"
+  },
+  {
+    "id": "zzz-official-47284170-イベント",
+    "game": "zzz",
+    "name": "\"Advanced Bounty: Area Patrol\" Event Details",
+    "start": "2026-11-04",
+    "end": "2026-11-09",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47284170",
+    "url": "https://www.hoyolab.com/article/47284170"
   },
   {
     "id": "activity-31da4b9b58b39df2baf4",
