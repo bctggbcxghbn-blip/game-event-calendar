@@ -305,11 +305,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: endfield-v91-reconciliation
-          path: .reports/endfield-v91/
-<<<<<<< HEAD
+          path: .reports/endfield-v91
+          
           overwrite: true
-=======
->>>>>>> 30d2d6bc3398e3ef367e15a9333e45c5983d0cac
+          
           if-no-files-found: warn
           retention-days: 14
 
