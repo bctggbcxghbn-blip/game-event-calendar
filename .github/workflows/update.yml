@@ -45,7 +45,7 @@ jobs:
             wuwa-wiki-${{ runner.os }}-
 
       - name: Import Wuwa Wiki auto V44
-        id: wuwa_wiki
+        id: wuwa_wiki_v46
         run: python games/wuwa/wuwa_wiki_auto_runner_v44.py --apply
 
       - name: Upload Wuwa Wiki monitoring report
