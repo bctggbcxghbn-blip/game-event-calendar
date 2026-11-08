@@ -1,32 +1,10 @@
-# 鳴潮 V46 — HTTP 429 安全継続パッチ
+# Endfield V91 Artifact 409 修正
 
-## GitHubへの配置
-- `games/wuwa/wuwa_wiki_runner_v46.py`
-- `tests/test_wuwa_v46.py`
+調査結果: 提供された update.yml には V91 のアップロードステップが1件だけあります。409は同一workflow run内に同名artifactが既に存在する場合に起きます。GitHub ActionsのRe-runで前回作成済みのartifactと衝突した可能性があります。
 
-## `.github/workflows/update.yml` の変更（2か所のみ）
+## 導入
+1. ZIPの `.github/workflows/update.yml` をリポジトリの同じパスに上書きアップロードします。元のworkflowは保持し、V91 uploadに `overwrite: true` を1行だけ追加しています。
+2. Actions > Update Game Events > Run workflow で新規実行してください。
+3. Artifactsの `endfield-v91-reconciliation` をダウンロードして送ってください。
 
-既存の `Import Wuwa Wiki auto V44` ステップを次のように変更します（ステップ名と `id` は維持）：
-
-```yaml
-      - name: Import Wuwa Wiki auto V44
-        id: wuwa_wiki
-        run: python games/wuwa/wuwa_wiki_runner_v46.py
-```
-
-このステップより**前**にテストを追加します：
-
-```yaml
-      - name: Test Wuwa V46 safe rate-limit handling (offline)
-        run: python -m unittest discover -s tests -p 'test_wuwa_v46.py' -v
-```
-
-既存の監視レポートアップロードとEndfield以降のステップは変更しません。
-
-## 挙動
-- V44が成功：通常通り継続。
-- V44がHTTP 429で停止し、ログに `NO_WRITES` があり、レポートと終了コードが一致：警告を出して他ゲームの更新を継続。
-- それ以外の失敗：従来通りジョブを失敗にします。
-- HTTP 429の回避や再試行追加はしません。既存キャッシュ・安全停止はそのままです。
-
-注意：`NO_WRITES` はV43が出力した宣言に基づきます。ファイル内容の差分検証ではありません。
+`overwrite: true` は同名artifactが存在する場合に置換します。V91のレポートにだけ適用し、events.jsonやUIは変更しません。なお Re-run と新規実行は異なり、新規実行は新しいrun IDを使います。

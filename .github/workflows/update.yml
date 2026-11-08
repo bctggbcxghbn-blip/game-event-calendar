@@ -287,12 +287,28 @@ jobs:
 
       - name: Test Endfield V89 verified candidates (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v89.py' -v
-
+        
       - name: Test Endfield V90 audit (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v90_audit.py' -v
 
       - name: Run Endfield V90 repository audit (read-only)
         run: python tools/endfield_v90_repo_audit.py
+
+      - name: Test Endfield V91 reconciliation (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v91_reconcile.py' -v
+
+      - name: Reconcile Endfield V89 candidates V91 (read-only)
+        run: python tools/endfield_v91_reconcile.py
+
+      - name: Upload Endfield V91 reconciliation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v91-reconciliation
+          path: .reports/endfield-v91/
+          overwrite: true
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Upload Endfield V90 audit report
         uses: actions/upload-artifact@v4
@@ -302,12 +318,6 @@ jobs:
             artifacts/endfield-v90-repo-audit.json
             artifacts/endfield-v90-repo-audit.md
           if-no-files-found: error
-
-- name: Upload Endfield V91 reconciliation report
-  uses: actions/upload-artifact@v4
-  with:
-    name: endfield-v91-reconciliation
-    path: .reports/endfield-v91/
 
       - name: Import ZZZ official events
         run: python games/zzz/zzz_import.py --apply --clean-duplicates
