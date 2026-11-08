@@ -6,6 +6,7 @@ Preview by default. --apply uses the importers' --apply switches.
 """
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -29,6 +30,13 @@ def read_events():
     if len(ids) != len(set(ids)):
         raise ValueError('duplicate event IDs in events.json')
     return obj
+
+def is_safe_challenge_rate_limit(filename, returncode, output):
+    """Only a V22 extraction failure explicitly caused by HTTP 429 is skippable."""
+    return (filename == 'wuwa_challenge_import_v22.py'
+            and returncode != 0
+            and 'ERROR: extraction failed, no changes:' in output
+            and bool(re.search(r'\bHTTP(?: Error|_)?[ :_]*429\b', output, re.I)))
 
 def main():
     parser = argparse.ArgumentParser()
@@ -56,7 +64,22 @@ def main():
         for label, filename in STEPS:
             print('\nSTEP:', label, flush=True)
             command = [sys.executable, str(here / filename)] + (['--apply'] if args.apply else [])
-            proc = subprocess.run(command, cwd=ROOT, check=False)
+            if filename == 'wuwa_challenge_import_v22.py':
+                # Capture V22 diagnostics so we can distinguish a safe 429 from other failures.
+                before_step = EVENTS.read_bytes()
+                proc = subprocess.run(command, cwd=ROOT, check=False,
+                                      stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                      text=True, errors='replace')
+                output = proc.stdout or ''
+                print(output, end='' if output.endswith('\n') else '\n', flush=True)
+                if proc.returncode and is_safe_challenge_rate_limit(filename, proc.returncode, output):
+                    if EVENTS.read_bytes() != before_step:
+                        raise RuntimeError('V22 changed events.json during HTTP 429; refusing skip')
+                    print('WARNING: V22 Wiki challenge fetch HTTP 429; skipped without writes. '
+                          'Other WuWa imports retained; retry on next scheduled run.', flush=True)
+                    continue
+            else:
+                proc = subprocess.run(command, cwd=ROOT, check=False)
             if proc.returncode:
                 raise RuntimeError(f'{filename} failed (exit={proc.returncode})')
             # Preview scripts must never modify the file.
