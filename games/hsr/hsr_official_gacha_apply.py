@@ -60,7 +60,10 @@ def main():
             changed += 1
     missing = set(MAPPING) - matched
     if missing:
-        raise RuntimeError(f'Missing expected banners: {sorted(missing)}; refusing to write')
+        if not matched:
+            print('SKIP: all four historical v4.6 banners are absent after wiki import; no writes')
+            return
+        raise RuntimeError(f'Partially missing expected banners: {sorted(missing)}; refusing to write')
     print(f'Mode: {"APPLY" if args.apply else "PREVIEW"}; matched={len(matched)}, changed={changed}')
     if not args.apply or not changed:
         return
