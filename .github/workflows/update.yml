@@ -23,6 +23,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Import Endfield V92 unknown-end start markers
+        run: python games/endfield/import_v92.py
+
       - name: Import Wuwa Wiki auto V44
         id: wuwa_wiki
         run: python games/wuwa/wuwa_wiki_runner_v46.py

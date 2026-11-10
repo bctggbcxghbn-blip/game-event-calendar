@@ -1,0 +1,128 @@
+{
+  "version": 91,
+  "mode": "read_only",
+  "events_count": 142,
+  "endfield_count": 11,
+  "candidate_count": 7,
+  "status_counts": {
+    "waiting_for_verified_end": 7
+  },
+  "candidates": [
+    {
+      "candidate_id": "endfield-yushu-weapon-scout-2026-10",
+      "title": "武庫申請「玉書・申請」",
+      "start_date": "2026-10-15",
+      "start_time": null,
+      "end_date": null,
+      "end_condition": "「特別スカウト」が3回開催されると終了（「万象一新」からカウント）",
+      "source_cid": "2652",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": [
+        {
+          "id": "endfield-danqingdu-weapon",
+          "name": "武庫申請「小枝・申請」",
+          "start": "2026-10-29",
+          "end": "2026-11-19",
+          "similarity": 0.75
+        }
+      ]
+    },
+    {
+      "candidate_id": "endfield-zokuse-no-en-2026-10",
+      "title": "レジャーイベント「俗世の縁」",
+      "start_date": "2026-10-15",
+      "start_time": null,
+      "end_date": null,
+      "end_condition": "バージョンアップメンテナンス前",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": []
+    },
+    {
+      "candidate_id": "endfield-minho-scout-2026-11",
+      "title": "特別スカウト「人煙の牽く天河」",
+      "start_date": "2026-11-05",
+      "start_time": "12:00",
+      "end_date": null,
+      "end_condition": "バージョンアップメンテナンス前",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": []
+    },
+    {
+      "candidate_id": "endfield-moon-reflection-weapon-scout-2026-11",
+      "title": "武庫申請「月映・申請」",
+      "start_date": "2026-11-05",
+      "start_time": "12:00",
+      "end_date": null,
+      "end_condition": "「特別スカウト」が3回開催されると終了（「人煙の牽く天河」からカウント）",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": [
+        {
+          "id": "endfield-danqingdu-weapon",
+          "name": "武庫申請「小枝・申請」",
+          "start": "2026-10-29",
+          "end": "2026-11-19",
+          "similarity": 0.75
+        }
+      ]
+    },
+    {
+      "candidate_id": "endfield-kino-story-event-2026-11",
+      "title": "ミンホ物語イベント「帰野」",
+      "start_date": "2026-11-05",
+      "start_time": "12:00",
+      "end_date": null,
+      "end_condition": "バージョンアップメンテナンス前",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": []
+    },
+    {
+      "candidate_id": "endfield-tengawa-login-stamp-2026-11",
+      "title": "「天河と共に」スタンプラリー",
+      "start_date": "2026-11-05",
+      "start_time": "12:00",
+      "end_date": null,
+      "end_condition": "バージョンアップメンテナンス前",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": [
+        {
+          "id": "endfield-danqingdu-stamp1",
+          "name": "「万物宿魂」スタンプラリー",
+          "start": "2026-10-15",
+          "end": "2026-11-05",
+          "similarity": 0.609
+        }
+      ]
+    },
+    {
+      "candidate_id": "endfield-crisis-contract-seiran-2026-11",
+      "title": "上級者イベント「危機契約 青藍試験作戦」",
+      "start_date": "2026-11-05",
+      "start_time": "12:00",
+      "end_date": null,
+      "end_condition": "バージョンアップメンテナンス前",
+      "source_cid": "9560",
+      "status": "waiting_for_verified_end",
+      "exact_id_matches": [],
+      "exact_name_matches": [],
+      "similar_name_candidates": []
+    }
+  ],
+  "warning": "No events are added or modified. Similar-name matches are review hints, not proof of duplicates."
+}
