@@ -1,17 +1,17 @@
-# Endfield V92 — 終了日未定の開始日マーカー
+# 鳴潮 V48 — Endfield V92 終了日未定マーカーとの互換性修正
 
-- `index.html` をルートで上書き。既存のレイアウト・配色は変更しません。
-- `games/endfield/import_v92.py` を同じパスに追加。
-- `.github/workflows/update.yml` の **Commit changes より前**（他のイベント取り込みの後）に以下を追加：
+## 配置
+1. `games/wuwa/wuwa_dynamic_gacha_import_v29.py` を同じパスに上書き。
+2. `tests/test_wuwa_v48.py` を同じパスに追加。
+3. `.github/workflows/update.yml` は変更不要。
+4. Actions → Update Game Events → Run workflow を実行。
 
-```yaml
-      - name: Import Endfield V92 unknown-end start markers
-        run: python games/endfield/import_v92.py
-```
+## 変更点
+- `end: null` を認めるのは Endfield V92 の公式開始日確認済み・終了日未定マーカーに限る。
+- 他ゲームの終了日欠損、重複ID、既存レコードの改変は引き続きエラー。
+- ガチャ取得・登録のロジックやカレンダー表示は変更しない。
 
-- Actions → Update Game Events → Run workflow。
-- 終了日未定のイベントは開始日 **1日分のマーカー** として表示。開催中と誤認させる長いバーにはしません。
-- 詳細に「終了：未定（開始日のみ表示）」と公式の終了条件を表示。
-- 再実行しても同じIDを追加しません。既存11件や他ゲームのデータは変更しません。
-- 終了日が後日判明したら、別の検証済み更新で補完してください。
-- 注意：GitHub Actionsの他ステップが先に失敗した場合はこの取り込みは実行されません。
+## テスト
+`python -m unittest discover -s tests -p 'test_wuwa_v48.py' -v`
+
+注意: ZIPのevents.jsonは151件で終了日欠損がなく、実行中に追加されるV92マーカーが今回の不整合原因と考えられます。実際のActionsで再確認してください。

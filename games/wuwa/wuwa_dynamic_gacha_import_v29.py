@@ -91,8 +91,21 @@ def validate(data, original):
     if len(ids) != len(data) or any(not x for x in ids) or len(ids) != len(set(ids)):
         raise ValueError('missing or duplicate IDs')
     for e in data:
-        if not isinstance(e, dict) or not all(e.get(k) for k in ('id','game','kind','name','start','end')):
+        if not isinstance(e, dict) or not all(e.get(k) for k in ('id','game','kind','name','start')):
             raise ValueError('invalid event schema')
+        # Endfield V92 official start-only markers have no confirmed end date.
+        # Do not relax the end-date requirement for any other event.
+        if not e.get('end'):
+            is_v92_marker = (
+                e.get('game') == 'endfield'
+                and e.get('end') is None
+                and e.get('source_status') == '公式開始日確認済み・終了日未定'
+                and isinstance(e.get('end_note'), str) and bool(e['end_note'].strip())
+                and isinstance(e.get('official_url'), str)
+                and e['official_url'].startswith('https://endfield.gryphline.com/ja-jp/news/')
+            )
+            if not is_v92_marker:
+                raise ValueError('invalid event schema')
 
 def main():
     ap = argparse.ArgumentParser()
