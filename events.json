@@ -266,32 +266,6 @@
     "original_name": "Astral Slammers Squad!"
   },
   {
-    "id": "wiki-hsr-gacha-20d200007ca146c89d09",
-    "game": "hsr",
-    "name": "パール",
-    "start": "2026-09-28",
-    "end": "2026-11-10",
-    "kind": "ガチャ（新規・復刻未確認）",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
-    "end_time": "16:00",
-    "start_label": "アップデート後",
-    "official_url": "https://www.hoyolab.com/article/46851682"
-  },
-  {
-    "id": "wiki-hsr-gacha-96eb88227761f1076033",
-    "game": "hsr",
-    "name": "再び花が咲く季節に",
-    "start": "2026-09-28",
-    "end": "2026-10-21",
-    "kind": "武器・装備ガチャ",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
-    "end_time": "12:59",
-    "start_label": "アップデート後",
-    "official_url": "https://www.hoyolab.com/article/46851682"
-  },
-  {
     "id": "activity-6af2910e486ef14a9dd7",
     "game": "hsr",
     "name": "巡星の礼",
@@ -315,19 +289,6 @@
     "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
-    "id": "wiki-hsr-gacha-36d139ba0992c9be15b8",
-    "game": "hsr",
-    "name": "明日に捧げる色",
-    "start": "2026-09-28",
-    "end": "2026-11-10",
-    "kind": "武器・装備ガチャ",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
-    "end_time": "16:00",
-    "start_label": "アップデート後",
-    "official_url": "https://www.hoyolab.com/article/46851682"
-  },
-  {
     "id": "activity-97782a3ce594388d2203",
     "game": "hsr",
     "name": "混沌の記憶",
@@ -349,19 +310,6 @@
     "kind": "チャレンジ",
     "source_status": "外部API・要確認",
     "original_name": "Anomaly Arbitration: Return to Roots"
-  },
-  {
-    "id": "wiki-hsr-gacha-1f833199f28d028843f5",
-    "game": "hsr",
-    "name": "緋英",
-    "start": "2026-09-28",
-    "end": "2026-10-21",
-    "kind": "復刻キャラ",
-    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "HoYoLAB公式認証投稿・Asiaサーバー時刻をJST換算",
-    "end_time": "12:59",
-    "start_label": "アップデート後",
-    "official_url": "https://www.hoyolab.com/article/46851682"
   },
   {
     "id": "wuwa-challenge-9f24ea7db8e9c2",
@@ -984,12 +932,36 @@
     "official_url": "https://hsr.hoyoverse.com/en-us/news/166468"
   },
   {
+    "id": "wiki-hsr-gacha-c5eea1d917d6d611e256",
+    "game": "hsr",
+    "name": "パール",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
     "id": "wiki-hsr-gacha-1f4ec0896851a5562ba3",
     "game": "hsr",
     "name": "千冶・刃",
     "start": "2026-10-21",
     "end": "2026-11-11",
     "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-180b4ecf05d9600cc1e9",
+    "game": "hsr",
+    "name": "明日に捧げる色",
+    "start": "2026-10-21",
+    "end": "2026-11-11",
+    "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
     "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
     "start_time": "13:00",
@@ -1297,6 +1269,16 @@
     "start_time": "12:00"
   },
   {
+    "id": "activity-5fc1a5ed4871e210004b",
+    "game": "genshin",
+    "name": "鍛錬の道",
+    "start": "2026-11-02",
+    "end": "2027-01-25",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "To Temper Thyself and Journey Far"
+  },
+  {
     "id": "activity-a0ac38d207da0790bb27",
     "game": "hsr",
     "name": "混沌の記憶",
@@ -1309,6 +1291,53 @@
     "end_time": "04:59",
     "time_zone": "Asia/Tokyo",
     "time_source_url": "https://hsr.hoyoverse.com/ja-jp/news/166468"
+  },
+  {
+    "id": "activity-1b5c46e4e9d8429fcba7",
+    "game": "genshin",
+    "name": "\"Where Kristall Roots Run Deep\" Area Exploration Limited-Time Rewards",
+    "start": "2026-11-04",
+    "end": "2027-01-26",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-ac0eecd19ebb397e7233",
+    "game": "genshin",
+    "name": "Archon Quest \"Hour of Ruin\" Limited-Time Rewards",
+    "start": "2026-11-04",
+    "end": "2026-12-15",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-6e05ad2b5d32db77fb0d",
+    "game": "genshin",
+    "name": "Repertoire of Myriad Melodies Update - Encounter: Interlude of the Long Journey",
+    "start": "2026-11-04",
+    "end": "2026-12-15",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-a28e376aa4b3eab32697",
+    "game": "genshin",
+    "name": "The Grand Defense: Defy the Unjust Judgment",
+    "start": "2026-11-04",
+    "end": "2026-12-16",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "genshin-extra-47307205-5d0855a4",
+    "game": "genshin",
+    "name": "Version 7.2 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 1",
+    "start": "2026-11-04",
+    "end": "2026-11-24",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47307205",
+    "url": "https://www.hoyolab.com/article/47307205"
   },
   {
     "id": "genshin-official-47283828-fc13e308",
@@ -1369,6 +1398,51 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "activity-0ac98591aa13f47e3aaf",
+    "game": "genshin",
+    "name": "Perilous Realm Trials",
+    "start": "2026-11-11",
+    "end": "2026-12-15",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "genshin-extra-47375132-4f8829c6",
+    "game": "genshin",
+    "name": "Stygian Onslaught Event: Disturbance-affected Ley Line challenges",
+    "start": "2026-11-11",
+    "end": "2026-12-15",
+    "kind": "チャレンジ",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47375132",
+    "url": "https://www.hoyolab.com/article/47375132"
+  },
+  {
+    "id": "hsr-maintenance-official-47375930",
+    "game": "hsr",
+    "name": "Ver.4.7 アップデートメンテナンス（終了予定）",
+    "start": "2026-11-11",
+    "end": "2026-11-11",
+    "start_time": "07:00",
+    "end_time": "12:00",
+    "time_zone": "Asia/Tokyo",
+    "kind": "メンテナンス",
+    "source_status": "公式記事・終了時刻は約5時間後の予定",
+    "official_url": "https://www.hoyolab.com/article/47375930",
+    "url": "https://www.hoyolab.com/article/47375930"
+  },
+  {
+    "id": "zzz-official-47376180-イベント",
+    "game": "zzz",
+    "name": "\"'En-Nah' Into Your Lap\" Event Details",
+    "start": "2026-11-11",
+    "end": "2026-12-01",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47376180",
+    "url": "https://www.hoyolab.com/article/47376180"
+  },
+  {
     "id": "activity-90876b56b5fc700c4751",
     "game": "zzz",
     "name": "Trails of the Hobbling Crow",
@@ -1376,6 +1450,17 @@
     "end": "2026-11-30",
     "kind": "イベント",
     "source_status": "外部API・要確認"
+  },
+  {
+    "id": "zzz-official-47375931-ガチャ",
+    "game": "zzz",
+    "name": "V3.3 Limited-Time Channels (Phase II)",
+    "start": "2026-11-11",
+    "end": "2026-12-01",
+    "kind": "ガチャ",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47375931",
+    "url": "https://www.hoyolab.com/article/47375931"
   },
   {
     "id": "activity-bc2bb961aa510b2c5239",
@@ -1386,6 +1471,84 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "\"En-Nah\" Into Your Lap"
+  },
+  {
+    "id": "wuwa-wiki-gacha-908ccfdc7dca8547",
+    "game": "wuwa",
+    "name": "シグリカ",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8前"
+  },
+  {
+    "id": "wuwa-wiki-gacha-a46dd60e82a3bbe2",
+    "game": "wuwa",
+    "name": "ソル・スウォーンの注釈",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8前"
+  },
+  {
+    "id": "wuwa-wiki-gacha-8127c32979d6f599",
+    "game": "wuwa",
+    "name": "ララバイ",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8前"
+  },
+  {
+    "id": "wuwa-wiki-gacha-28d06bef11991267",
+    "game": "wuwa",
+    "name": "リリー",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8前"
+  },
+  {
+    "id": "wuwa-wiki-gacha-cf56a01ad3ff8080",
+    "game": "wuwa",
+    "name": "仇遠",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8前"
+  },
+  {
+    "id": "wuwa-wiki-gacha-39b2cc2a1642a553",
+    "game": "wuwa",
+    "name": "破敵の鋭竹",
+    "kind": "gacha",
+    "start": "2026-11-12",
+    "end": "2026-12-03",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8前"
   },
   {
     "id": "zzz-predicted-shiyu-20261113",
@@ -1456,6 +1619,84 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "wuwa-wiki-gacha-48c24a388ad3c7a0",
+    "game": "wuwa",
+    "name": "夕霞の飲露",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-2d098cd89b153da9",
+    "game": "wuwa",
+    "name": "天つ蒼淵",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-6a0b54f1c6ba8946",
+    "game": "wuwa",
+    "name": "灼霜",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "weapon",
+    "phase": "3.8後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-7c90b255513ab640",
+    "game": "wuwa",
+    "name": "秧秧・玄翎",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-0261aa8f02849b19",
+    "game": "wuwa",
+    "name": "穂穂",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8後"
+  },
+  {
+    "id": "wuwa-wiki-gacha-08a6627dbe26eb43",
+    "game": "wuwa",
+    "name": "緋雪",
+    "kind": "gacha",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki・日付のみ・要確認",
+    "time_zone": "unverified_date_only",
+    "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
+    "gacha_type": "character",
+    "phase": "3.8後"
   },
   {
     "id": "zzz-predicted-deadly-20261204",
