@@ -46,7 +46,14 @@ def main():
             print(f'SKIP: {name} | already deduplicated (official ID present)')
             continue
         if first is None and second is not None:
-            raise RuntimeError(f'{name}: stale ID exists without official ID; refusing to modify')
+            expected_second = {'game': 'hsr', 'name': name, 'start': '2026-10-21', 'end': '2026-11-11'}
+            bad = {k: (second.get(k), v) for k, v in expected_second.items() if second.get(k) != v}
+            if bad:
+                raise RuntimeError(f'{name}: stale-only row mismatch {bad}; refusing to modify')
+            if second.get('official_url'):
+                raise RuntimeError(f'{name}: stale-only row has official source; refusing to modify')
+            print(f'WARN: {name} | stale-only ID; retained unchanged for manual review')
+            continue
         expected_first = {'game': 'hsr', 'name': name, 'start': '2026-09-28',
                           'end': '2026-11-10', 'end_time': '16:00',
                           'start_label': 'アップデート後', 'official_url': OFFICIAL}
@@ -63,6 +70,9 @@ def main():
     print(f'Mode: {"APPLY" if args.apply else "PREVIEW"}; candidates={len(remove)}')
     if not args.apply:
         print('events.json unchanged')
+        return
+    if not remove:
+        print('No duplicates removed; events.json unchanged')
         return
     updated = [r for r in rows if not (isinstance(r, dict) and r.get('id') in remove)]
     fd, tmp = tempfile.mkstemp(prefix='.events-', suffix='.json', dir=PATH.parent)
