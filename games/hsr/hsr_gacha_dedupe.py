@@ -33,8 +33,20 @@ def main():
     remove = set()
     for name, (official_id, stale_id) in PAIRS.items():
         first, second = by_id.get(official_id), by_id.get(stale_id)
-        if first is None or second is None:
-            raise RuntimeError(f'Missing expected pair for {name}; refusing to modify')
+        if first is None and second is None:
+            print(f'SKIP: {name} | neither historical ID exists')
+            continue
+        if first is not None and second is None:
+            expected_first = {'game': 'hsr', 'name': name, 'start': '2026-09-28',
+                              'end': '2026-11-10', 'end_time': '16:00',
+                              'start_label': 'アップデート後', 'official_url': OFFICIAL}
+            bad = {k: (first.get(k), v) for k, v in expected_first.items() if first.get(k) != v}
+            if bad:
+                raise RuntimeError(f'{name} official mismatch {bad}; refusing to modify')
+            print(f'SKIP: {name} | already deduplicated (official ID present)')
+            continue
+        if first is None and second is not None:
+            raise RuntimeError(f'{name}: stale ID exists without official ID; refusing to modify')
         expected_first = {'game': 'hsr', 'name': name, 'start': '2026-09-28',
                           'end': '2026-11-10', 'end_time': '16:00',
                           'start_label': 'アップデート後', 'official_url': OFFICIAL}
