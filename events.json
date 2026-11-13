@@ -939,9 +939,7 @@
     "end": "2026-11-11",
     "kind": "復刻キャラ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "wiki-hsr-gacha-1f4ec0896851a5562ba3",
@@ -951,9 +949,7 @@
     "end": "2026-11-11",
     "kind": "復刻キャラ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "wiki-hsr-gacha-180b4ecf05d9600cc1e9",
@@ -963,9 +959,7 @@
     "end": "2026-11-11",
     "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "wiki-hsr-gacha-cda131ed4aefda5587a8",
@@ -975,9 +969,7 @@
     "end": "2026-11-11",
     "kind": "武器・装備ガチャ",
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
-    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
-    "start_time": "13:00",
-    "end_time": "15:59"
+    "source_status": "日本語Wiki・ガチャ日付確認済み"
   },
   {
     "id": "activity-e189c8f651c414757047",
@@ -1418,6 +1410,51 @@
     "url": "https://www.hoyolab.com/article/47375132"
   },
   {
+    "id": "activity-4c6c36824fdf1fb4e84f",
+    "game": "hsr",
+    "name": "Anomaly Arbitration: Hidden Stage",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-dd2e156fb31f280c7439",
+    "game": "hsr",
+    "name": "Grab Your Opening Gifts",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-10ae36b6121d4fb4d375",
+    "game": "hsr",
+    "name": "Interastral Peace Gala: Road to Fame",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-b1a956c21f7b5eb365bc",
+    "game": "hsr",
+    "name": "Relic Recon",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-3df898f40296ad3f6593",
+    "game": "hsr",
+    "name": "The Fluffy Movie: Overheated",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
     "id": "hsr-maintenance-official-47375930",
     "game": "hsr",
     "name": "Ver.4.7 アップデートメンテナンス（終了予定）",
@@ -1430,6 +1467,94 @@
     "source_status": "公式記事・終了時刻は約5時間後の予定",
     "official_url": "https://www.hoyolab.com/article/47375930",
     "url": "https://www.hoyolab.com/article/47375930"
+  },
+  {
+    "id": "wiki-hsr-gacha-8aa7fa52c7bfb56f0918",
+    "game": "hsr",
+    "name": "きらびやかな世界",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-bc50939068dd9b96e152",
+    "game": "hsr",
+    "name": "はじめの「アッハ」が響く時",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-46f971802e698c5771eb",
+    "game": "hsr",
+    "name": "彼女が視ると決めた時",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-f98cf088e91be3bcf98d",
+    "game": "hsr",
+    "name": "星神アッハ",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "新キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-5b2944a159b6ab505ab3",
+    "game": "hsr",
+    "name": "火花",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-65f9b8c60d4b2b820c11",
+    "game": "hsr",
+    "name": "爻光",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-f6e9a030a6d1168d3763",
+    "game": "hsr",
+    "name": "銀河シティへようこそ",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-ddbb9322816ec551141f",
+    "game": "hsr",
+    "name": "銀狼LV.999",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "end_time": "12:59"
   },
   {
     "id": "zzz-official-47376180-イベント",
@@ -1471,6 +1596,24 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "\"En-Nah\" Into Your Lap"
+  },
+  {
+    "id": "activity-4c6e51b54f62e9e01c32",
+    "game": "wuwa",
+    "name": "Lament of the Past",
+    "start": "2026-11-12",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-00868b9e1a67cac5a206",
+    "game": "wuwa",
+    "name": "Second Solaris: Dreams Untold",
+    "start": "2026-11-12",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "wuwa-wiki-gacha-908ccfdc7dca8547",
@@ -1564,6 +1707,15 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "activity-574d2393530d98314676",
+    "game": "hsr",
+    "name": "Apocalyptic Shadow: Navigator's Netherveil",
+    "start": "2026-11-16",
+    "end": "2026-12-28",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
     "id": "activity-70b6e740e9bf0cfb09cd",
     "game": "zzz",
     "name": "Repair! Drifting Art",
@@ -1584,6 +1736,15 @@
     "time_zone": "サーバー時間",
     "end_time": "04:00",
     "start_time": "04:00"
+  },
+  {
+    "id": "activity-4a1b111f59c78c892763",
+    "game": "wuwa",
+    "name": "Laelaro Cubes: Reverse",
+    "start": "2026-11-19",
+    "end": "2026-12-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "zzz-predicted-deadly-20261120",
@@ -1608,6 +1769,15 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "activity-f6b8d535b8bee872c2bb",
+    "game": "wuwa",
+    "name": "Echoing Realm",
+    "start": "2026-11-26",
+    "end": "2026-12-03",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
     "id": "zzz-predicted-shiyu-20261127",
     "game": "zzz",
     "name": "【予測】式輿防衛戦・激変ノード",
@@ -1619,6 +1789,138 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-0339680aa6f2913ad772",
+    "game": "hsr",
+    "name": "Pure Fiction: Fiction Made Truth",
+    "start": "2026-11-30",
+    "end": "2027-01-11",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "wiki-hsr-gacha-cff3b35f1538478133f5",
+    "game": "hsr",
+    "name": "はじめの「アッハ」が響く時",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-4762cadc2a0ff6c47664",
+    "game": "hsr",
+    "name": "丹恒・飲月",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-9b6b70e6f4dd0222cd98",
+    "game": "hsr",
+    "name": "夜明け前",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-3c944c12ae6e917e4030",
+    "game": "hsr",
+    "name": "星神アッハ",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-9042497c32009eafd64e",
+    "game": "hsr",
+    "name": "景元",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-05daf72bc6b91ef80189",
+    "game": "hsr",
+    "name": "流れ逝く岸を歩いて",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-03111699f653c471e636",
+    "game": "hsr",
+    "name": "陽光より輝くもの",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "武器・装備ガチャ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "wiki-hsr-gacha-c6f9327c5fd24860cd39",
+    "game": "hsr",
+    "name": "黄泉",
+    "start": "2026-12-02",
+    "end": "2026-12-22",
+    "kind": "復刻キャラ",
+    "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
+    "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
+    "start_time": "13:00",
+    "end_time": "15:59"
+  },
+  {
+    "id": "activity-84e436f8cbcdd026f477",
+    "game": "wuwa",
+    "name": "Dreamscape Odyssey",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-dfcbb9cc10082b3a37e3",
+    "game": "wuwa",
+    "name": "Where the Wind Leads",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-aac21e5be04b2086c727",
+    "game": "wuwa",
+    "name": "Wuthering Exploration: Maintenance",
+    "start": "2026-12-03",
+    "end": "2026-12-17",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "wuwa-wiki-gacha-48c24a388ad3c7a0",
@@ -1723,6 +2025,25 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-41d01c59dd1dc2a1b024",
+    "game": "hsr",
+    "name": "Memory of Chaos: Echo of Darkness",
+    "start": "2026-12-14",
+    "end": "2027-01-25",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "activity-8130bd74cd985e119f26",
+    "game": "wuwa",
+    "name": "響き渡る音弦",
+    "start": "2026-12-14",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Chord Cleansing"
   },
   {
     "id": "zzz-predicted-deadly-20261218",
