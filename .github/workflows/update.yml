@@ -26,6 +26,16 @@ jobs:
       - name: Import Endfield V92 unknown-end start markers
         run: python games/endfield/import_v92.py
 
+      - name: Endfield V94 official-source review
+        run: python tools/endfield_v94_official_review.py
+
+      - name: Upload Endfield V94 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v94-official-review
+          path: artifacts/endfield-v94/
+          overwrite: true
+
       - name: Import Wuwa Wiki auto V44
         id: wuwa_wiki
         run: python games/wuwa/wuwa_wiki_runner_v46.py

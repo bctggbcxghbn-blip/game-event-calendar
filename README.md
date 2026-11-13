@@ -1,11 +1,19 @@
-# Endfield V93 — 終了日監査（読み取り専用）
+# Endfield V94 — official notice review (read-only)
 
-3ファイルを同じ相対パスでリポジトリへ追加・上書きしてください：
-- `.github/workflows/update.yml` （V49適用前のアップロードZIPを基に作成。**V49以降の変更がある場合はこのファイルを丸ごと上書きしないこと**）
-- `tools/endfield_v93_end_audit.py`
-- `tests/test_endfield_v93.py`
+The official 「丹青渡」 notice (https://endfield.gryphline.com/ja-jp/news/9560) states relative end conditions for seven entries; it does **not** establish seven calendar end dates. This patch **does not fetch live notices**, **does not modify `events.json`**, and **does not change UI or other games**. It produces a fresh comparison against your repository's `events.json`.
 
-**重要**：既存ワークフローを守るため、推奨は新規2ファイルを追加し、`update.yml` には `Test Endfield V93...` から `Upload Endfield V93...` までの3ステップだけを追記することです。挿入場所は `Test Endfield V91 reconciliation (offline)` の直前。
+Upload `tools/endfield_v94_official_review.py` and `tests/test_endfield_v94.py` to the same paths in GitHub. Add the following steps to `.github/workflows/update.yml` (do not replace the whole workflow):
 
-Actions実行後、Artifact `endfield-v93-end-date-audit` を取得してください。
-V93は終了日の公式発表を新規に取得するものではありません。未確定日の現状監査のみで、イベントデータを変更しません。
+```yaml
+      - name: Endfield V94 official-source review
+        run: python tools/endfield_v94_official_review.py
+
+      - name: Upload Endfield V94 review
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v94-official-review
+          path: artifacts/endfield-v94/
+          overwrite: true
+```
+
+Then run `Update Game Events` and upload the artifact `endfield-v94-official-review` here. To determine actual dates, an official announcement with the next maintenance start or third special-scout schedule is still needed.
