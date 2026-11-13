@@ -1,13 +1,11 @@
-# 鳴潮 V49 HTTP 429 修正
+# Endfield V93 — 終了日監査（読み取り専用）
 
-今回の最新版リポジトリには、鳴潮Wiki更新が2回ありました（29行付近と50行付近）。前者はキャッシュ復元前、後者は復元後です。V49は前者を削除し、後者だけを残します。
+3ファイルを同じ相対パスでリポジトリへ追加・上書きしてください：
+- `.github/workflows/update.yml` （V49適用前のアップロードZIPを基に作成。**V49以降の変更がある場合はこのファイルを丸ごと上書きしないこと**）
+- `tools/endfield_v93_end_audit.py`
+- `tests/test_endfield_v93.py`
 
-## 導入
-1. ZIPの `.github/workflows/update.yml` をGitHubの同じ場所に上書き。既存の個別編集と競合する場合は差分を確認。
-2. `games/wuwa/wuwa_wiki_runner_v46.py` を上書き。
-3. `tests/test_wuwa_v49.py` を追加（任意）。
-4. Actions > Update Game Events > Run workflow で新規実行。
+**重要**：既存ワークフローを守るため、推奨は新規2ファイルを追加し、`update.yml` には `Test Endfield V93...` から `Upload Endfield V93...` までの3ステップだけを追記することです。挿入場所は `Test Endfield V91 reconciliation (offline)` の直前。
 
-## 動作
-トップページの `STOP_INDEX_ERROR` とバージョンの `STOP_VERSION_ERROR` のどちらも、レポートに429が記録され `NO_WRITES` が確認できた場合のみ警告として続行します。その他のエラーは停止します。
-`events.json`、画面デザイン、Endfieldの処理は変更しません。
+Actions実行後、Artifact `endfield-v93-end-date-audit` を取得してください。
+V93は終了日の公式発表を新規に取得するものではありません。未確定日の現状監査のみで、イベントデータを変更しません。

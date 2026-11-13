@@ -26,6 +26,10 @@ jobs:
       - name: Import Endfield V92 unknown-end start markers
         run: python games/endfield/import_v92.py
 
+      - name: Import Wuwa Wiki auto V44
+        id: wuwa_wiki
+        run: python games/wuwa/wuwa_wiki_runner_v46.py
+
       - name: Test Wuwa Wiki importer V45 (offline)
         run: python -m unittest discover -s games/wuwa -p 'test_wuwa_wiki_v45.py' -v
 
@@ -283,6 +287,20 @@ jobs:
 
       - name: Run Endfield V90 repository audit (read-only)
         run: python tools/endfield_v90_repo_audit.py
+
+      - name: Test Endfield V93 end-date audit (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v93.py' -v
+
+      - name: Audit Endfield V93 unknown end dates (read-only)
+        run: python tools/endfield_v93_end_audit.py
+
+      - name: Upload Endfield V93 end-date audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v93-end-date-audit
+          path: .reports/endfield-v93/
+          if-no-files-found: error
+          overwrite: true
 
       - name: Test Endfield V91 reconciliation (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v91_reconcile.py' -v
