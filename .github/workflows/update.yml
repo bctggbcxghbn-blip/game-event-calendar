@@ -26,9 +26,6 @@ jobs:
       - name: Import Endfield V92 unknown-end start markers
         run: python games/endfield/import_v92.py
 
-     - name: Import Wuwa Wiki auto V46
-        run: python games/wuwa/wuwa_wiki_runner_v46.py --apply
-
       - name: Test Wuwa Wiki importer V45 (offline)
         run: python -m unittest discover -s games/wuwa -p 'test_wuwa_wiki_v45.py' -v
 
@@ -46,7 +43,7 @@ jobs:
           restore-keys: |
             wuwa-wiki-${{ runner.os }}-
 
-     - name: Import Wuwa Wiki auto V46
+      - name: Import Wuwa Wiki auto V46
         run: python games/wuwa/wuwa_wiki_runner_v46.py --apply
 
 

@@ -1,17 +1,13 @@
-# 鳴潮 V48 — Endfield V92 終了日未定マーカーとの互換性修正
+# 鳴潮 V49 HTTP 429 修正
 
-## 配置
-1. `games/wuwa/wuwa_dynamic_gacha_import_v29.py` を同じパスに上書き。
-2. `tests/test_wuwa_v48.py` を同じパスに追加。
-3. `.github/workflows/update.yml` は変更不要。
-4. Actions → Update Game Events → Run workflow を実行。
+今回の最新版リポジトリには、鳴潮Wiki更新が2回ありました（29行付近と50行付近）。前者はキャッシュ復元前、後者は復元後です。V49は前者を削除し、後者だけを残します。
 
-## 変更点
-- `end: null` を認めるのは Endfield V92 の公式開始日確認済み・終了日未定マーカーに限る。
-- 他ゲームの終了日欠損、重複ID、既存レコードの改変は引き続きエラー。
-- ガチャ取得・登録のロジックやカレンダー表示は変更しない。
+## 導入
+1. ZIPの `.github/workflows/update.yml` をGitHubの同じ場所に上書き。既存の個別編集と競合する場合は差分を確認。
+2. `games/wuwa/wuwa_wiki_runner_v46.py` を上書き。
+3. `tests/test_wuwa_v49.py` を追加（任意）。
+4. Actions > Update Game Events > Run workflow で新規実行。
 
-## テスト
-`python -m unittest discover -s tests -p 'test_wuwa_v48.py' -v`
-
-注意: ZIPのevents.jsonは151件で終了日欠損がなく、実行中に追加されるV92マーカーが今回の不整合原因と考えられます。実際のActionsで再確認してください。
+## 動作
+トップページの `STOP_INDEX_ERROR` とバージョンの `STOP_VERSION_ERROR` のどちらも、レポートに429が記録され `NO_WRITES` が確認できた場合のみ警告として続行します。その他のエラーは停止します。
+`events.json`、画面デザイン、Endfieldの処理は変更しません。
