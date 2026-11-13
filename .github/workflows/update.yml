@@ -52,6 +52,21 @@ jobs:
           retention-days: 14
           overwrite: true
 
+      - name: Test Endfield V96 event/date context (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v96.py' -v
+
+      - name: Endfield V96 official event/date context (read-only)
+        run: python tools/endfield_v96_event_context.py
+
+      - name: Upload Endfield V96 event/date context
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v96-event-date-context
+          path: artifacts/endfield-v96/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Test Wuwa Wiki importer V45 (offline)
         run: python -m unittest discover -s games/wuwa -p 'test_wuwa_wiki_v45.py' -v
 
