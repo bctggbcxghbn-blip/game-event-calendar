@@ -36,6 +36,22 @@ jobs:
           path: artifacts/endfield-v94/
           overwrite: true
 
+      - name: Test Endfield V95 live review (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v95.py' -v
+
+      - name: Endfield V95 live official-source review (read-only)
+        run: python tools/endfield_v95_live_review.py
+
+      - name: Upload Endfield V95 live review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v95-official-live-review
+          path: artifacts/endfield-v95/
+          if-no-files-found: warn
+          retention-days: 14
+          overwrite: true
+
       - name: Test Wuwa Wiki importer V45 (offline)
         run: python -m unittest discover -s games/wuwa -p 'test_wuwa_wiki_v45.py' -v
 

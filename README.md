@@ -1,14 +1,11 @@
-# Wuwa V51 — update.yml 重複処理修正
+# Endfield V95 — 公式記事の再取得（読み取り専用）
 
-最新版リポジトリZIP（2026-11-13 07:43:40）を基に作成。
+最新版リポジトリZIPから作成した差分パッチです。フォルダ構造を維持してGitHubへアップロードしてください。
 
-## 変更内容
-- `Import Wuwa Wiki auto V44`（V46を引数なしで実行する旧ステップ）を削除。
-- `Import Wuwa Wiki auto V46`（`--apply`）は残す。
-- Endfield V94、キャッシュ復元、その他のゲーム処理は変更なし。
+- `.github/workflows/update.yml` — V51鳴潮修正・V94・他ゲームの既存ステップを維持し、V95の3ステップを追加
+- `tools/endfield_v95_live_review.py` — 公式APIの候補記事を実行時に取得し、日付表現を調査用に記録
+- `tests/test_endfield_v95.py` — オフラインテスト
 
-## 導入
-GitHubリポジトリの `.github/workflows/update.yml` をこのZIP内の同名ファイルで置き換える。
-その後 Actions → Update Game Events → Run workflow。
+**終了日を自動確定しません。** 記事にある日付がイベント終了日とは限りません。通信に失敗した場合もレポートに明示します。`events.json` やデザインは変更しません。
 
-注意: このZIPはワークフローのみ。現在のGitHubにアップロード後の変更がある場合は上書き前に確認。
+Actionsを実行後、Artifact `endfield-v95-official-live-review` をダウンロードして共有してください。
