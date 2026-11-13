@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             wuwa-wiki-${{ runner.os }}-
 
-     - name: Import Wuwa Wiki auto V46
+      - name: Import Wuwa Wiki auto V46
         run: python games/wuwa/wuwa_wiki_runner_v46.py --apply
 
 
