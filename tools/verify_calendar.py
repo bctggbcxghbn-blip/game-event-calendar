@@ -14,6 +14,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / 'tests')]
 from calendar_quality_v47 import analyze
 from calendar_update_audit_v56 import audit
 from calendar_update_monitor_v57 import assess
+from tools.auto_labels_ja import reconcile, reviewed_pairs
 
 
 def digest(data):
@@ -38,6 +39,13 @@ def main():
             result = subprocess.run(['git', 'show', f'{args.baseline}:{name}'], cwd=ROOT, capture_output=True)
             if result.returncode:
                 report['errors'].append(f'Cannot read baseline: {name}')
+            elif name == 'labels_ja.json':
+                baseline, current = json.loads(result.stdout), json.loads(before[name])
+                allowed, _ = reconcile(json.loads(before['events.json']), baseline, reviewed_pairs(ROOT))
+                preserved = all(current.get(game, {}).get(key) == value for game, rows in baseline.items() for key, value in rows.items())
+                supported = all(value == allowed.get(game, {}).get(key) for game, rows in current.items() for key, value in rows.items())
+                if not preserved or not supported:
+                    report['errors'].append('Japanese labels overwrite existing values or lack verified evidence')
             elif (css(result.stdout) != css(before[name]) if name == 'index.html' else
                   result.stdout.replace(b'\r\n', b'\n') != before[name].replace(b'\r\n', b'\n')):
                 report['errors'].append(f'Protected content differs from baseline: {name}')

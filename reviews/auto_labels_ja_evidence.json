@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "game": "zzz",
+      "english_name": "\"Advanced Bounty: Area Patrol\" Event Details",
+      "japanese_name": "先遣賞金-区域防衛",
+      "matching": "explicit_event_details_wrapper",
+      "sources": [
+        {
+          "game": "zzz",
+          "english_name": "Advanced Bounty: Area Patrol",
+          "japanese_name": "先遣賞金-区域防衛",
+          "source_url": "https://zenless-zone-zero.fandom.com/wiki/Advanced_Bounty%3A_Area_Patrol",
+          "source_type": "localization_index",
+          "reviewed_on": "2026-10-19",
+          "notes": "Community-maintained Other Languages official Japanese name table. Same recurring event; name equivalence verified, schedule not inferred.",
+          "evidence_file": "reviews/v53_verified_translations.csv"
+        }
+      ]
+    }
+  ]
+}
