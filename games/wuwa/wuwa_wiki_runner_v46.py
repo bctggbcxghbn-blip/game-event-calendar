@@ -16,7 +16,8 @@ def safe_rate_limit_abort(returncode, report, log):
             and report.get('rate_limits', 0) > 0
             and any('HTTP_429' in str(e) for e in errors)
             and 'NO_WRITES' in log
-            and any(marker in log for marker in ('STOP_VERSION_ERROR', 'STOP_INDEX_ERROR'))
+            and any(marker in log for marker in ('STOP_VERSION_ERROR', 'STOP_INDEX_ERROR',
+                                                 'STOP VERSION_ERROR', 'STOP INDEX_ERROR'))
             and 'HTTP_429' in log)
 
 def main():
