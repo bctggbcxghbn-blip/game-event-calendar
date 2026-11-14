@@ -1,3 +1,3 @@
-# Endfield V96
+Endfield V97: V96のイベント名近傍から「開催期間」節のみを抽出する読み取り専用レポート。終了日は自動設定しません。
 
-ZIP内の `.github`、`tools`、`tests` をGitHubリポジトリの同じ場所へアップロードし、同名ファイルは上書きしてください。`update.yml` はV51/V95を維持してV96を追加済みです。Actionsの `Update Game Events` を実行後、Artifact `endfield-v96-event-date-context` を送ってください。V96は読み取り専用で、終了日を自動登録しません。
+ZIPの .github / tools / tests をGitHubの同じ場所へアップロードし、update.ymlを上書き。Actions実行後、Artifactsの endfield-v97-period-review を送ってください。

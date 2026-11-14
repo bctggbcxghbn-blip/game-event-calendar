@@ -319,6 +319,22 @@ jobs:
       - name: Test Endfield V89 verified candidates (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v89.py' -v
         
+      - name: Test Endfield V97 period review (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_v97.py' -v
+
+      - name: Endfield V97 official period review (read-only)
+        run: python tools/endfield_v97_period_review.py
+
+      - name: Upload Endfield V97 period review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: endfield-v97-period-review
+          path: artifacts/endfield-v97/
+          if-no-files-found: warn
+          retention-days: 14
+          overwrite: true
+
       - name: Test Endfield V90 audit (offline)
         run: python -m unittest discover -s tests -p 'test_endfield_v90_audit.py' -v
 
