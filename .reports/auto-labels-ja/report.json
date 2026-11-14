@@ -1,0 +1,213 @@
+{
+  "applied": [
+    {
+      "game": "zzz",
+      "english_name": "\"Advanced Bounty: Area Patrol\" Event Details",
+      "japanese_name": "先遣賞金-区域防衛",
+      "matching": "explicit_event_details_wrapper",
+      "sources": [
+        {
+          "game": "zzz",
+          "english_name": "Advanced Bounty: Area Patrol",
+          "japanese_name": "先遣賞金-区域防衛",
+          "source_url": "https://zenless-zone-zero.fandom.com/wiki/Advanced_Bounty%3A_Area_Patrol",
+          "source_type": "localization_index",
+          "reviewed_on": "2026-10-19",
+          "notes": "Community-maintained Other Languages official Japanese name table. Same recurring event; name equivalence verified, schedule not inferred.",
+          "evidence_file": "reviews/v53_verified_translations.csv"
+        }
+      ]
+    }
+  ],
+  "pending": [
+    {
+      "game": "genshin",
+      "english_name": "\"Carefree Snowball Fight\" Event: Fun Throwing Challenge",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "\"Overflowing Favor\" Event: Double Drops With Artifacts",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "\"Where Kristall Roots Run Deep\" Area Exploration Limited-Time Rewards",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Archon Quest \"Hour of Ruin\" Limited-Time Rewards",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Genshin Impact Miliastra Wonderland \"Starlit Gala\" Web Event Now Live for a Limited Time!",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Perilous Realm Trials",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Repertoire of Myriad Melodies Update - Encounter: Interlude of the Long Journey",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "The Grand Defense: Defy the Unjust Judgment",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Version 7.1 Event Wishes Notice - Phase II",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Version 7.1 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 2",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "genshin",
+      "english_name": "Version 7.2 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 1",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Anomaly Arbitration: Hidden Stage",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Apocalyptic Shadow: Celestial Lupine",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Apocalyptic Shadow: Navigator's Netherveil",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Grab Your Opening Gifts",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Interastral Peace Gala: Road to Fame",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Memory of Chaos: Echo of Darkness",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Pure Fiction: Fiction Made Truth",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "Relic Recon",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "hsr",
+      "english_name": "The Fluffy Movie: Overheated",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Dreamscape Odyssey",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Echoing Realm",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Laelaro Cubes: Reverse",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Lament of the Past",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Second Solaris: Dreams Untold",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Where the Wind Leads",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "wuwa",
+      "english_name": "Wuthering Exploration: Maintenance",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "\"'En-Nah' Into Your Lap\" Event Details",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "\"Spooky Funhouse Tales\" Event Details",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Cyber Miracle Healer, on Duty!",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Data Bounty: Combat Simulation",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Ding-Dong! Delivery Training in Progress",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Repair! Drifting Art",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Shadow Chase Showdown",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "Trails of the Hobbling Crow",
+      "reason": "no_verified_pair"
+    },
+    {
+      "game": "zzz",
+      "english_name": "V3.3 Limited-Time Channels (Phase II)",
+      "reason": "no_verified_pair"
+    }
+  ],
+  "conflicts": [
+    {
+      "game": "hsr",
+      "english_name": "Interastral Peace Gala: One Take",
+      "reason": "conflicting_names"
+    }
+  ],
+  "rejected": [],
+  "mode": "apply"
+}
