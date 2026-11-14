@@ -9,6 +9,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from html import unescape
 from urllib.parse import urlparse
+from event_dates import valid_event_dates
 
 ROOT = pathlib.Path(__file__).resolve().parent
 GAMES = {'genshin', 'wuwa', 'hsr', 'zzz', 'nte', 'arknights', 'endfield'}
@@ -18,10 +19,10 @@ RANGE = re.compile(DATE + r'\s*(?:\([^)]*\)\s*)?(?:[〜～~–—－]|から|至
 def valid(e):
     if not isinstance(e, dict) or e.get('game') not in GAMES:
         return False
-    if any(not isinstance(e.get(k), str) or not e[k].strip() for k in ('id','name','start','end','kind')):
+    if any(not isinstance(e.get(k), str) or not e[k].strip() for k in ('id','name','start','kind')):
         return False
     try:
-        return dt.date.fromisoformat(e['start']) <= dt.date.fromisoformat(e['end']) and len(e['id']) <= 180 and len(e['name']) <= 180 and (not e.get('url') or str(e['url']).startswith('https://'))
+        return valid_event_dates(e) and len(e['id']) <= 180 and len(e['name']) <= 180 and (not e.get('url') or str(e['url']).startswith('https://'))
     except ValueError:
         return False
 

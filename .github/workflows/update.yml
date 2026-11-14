@@ -23,6 +23,16 @@ jobs:
         with:
           python-version: '3.12'
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Test Endfield unknown-end regression (offline)
+        run: python -m unittest discover -s tests -p 'test_endfield_unknown_end.py' -v
+
+      - name: Test timezone display and final audit regression (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_runtime.py' -v
+
       - name: Import Endfield V92 unknown-end start markers
         run: python games/endfield/import_v92.py
 
@@ -491,52 +501,6 @@ jobs:
       - name: Audit translated display duplicates V54 (read-only)
         run: python tests/calendar_dedupe_v54.py
 
-      - name: Test calendar update quality V56 (offline)
-        run: python -m unittest discover -s tests -p 'test_calendar_v56.py' -v
-
-      - name: Audit calendar update quality V56 (read-only)
-        run: python tests/calendar_update_audit_v56.py --strict
-
-      - name: Upload calendar update quality V56 report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: calendar-update-quality-v56
-          path: .reports/calendar-v56/
-          if-no-files-found: warn
-          retention-days: 14
-
-      - name: Test calendar update monitoring V57 (offline)
-        run: python -m unittest discover -s tests -p 'test_calendar_v57.py' -v
-
-      - name: Monitor calendar update V57 (read-only)
-        run: python tests/calendar_update_monitor_v57.py --strict
-
-      - name: Upload calendar update monitoring V57 report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: calendar-update-monitor-v57
-          path: .reports/calendar-v57/
-          if-no-files-found: warn
-          retention-days: 14
-
-      - name: Test calendar Actions summary V58 (offline)
-        run: python -m unittest discover -s tests -p 'test_calendar_v58.py' -v
-
-      - name: Publish calendar Actions summary V58
-        if: always()
-        run: python tests/calendar_summary_v58.py
-
-      - name: Upload calendar Actions summary V58
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: calendar-actions-summary-v58
-          path: .reports/calendar-v58/
-          if-no-files-found: warn
-          retention-days: 14
-
       - name: Test NTE official update discovery V60 (offline)
         run: python -m unittest discover -s tests -p 'test_nte_v60.py' -v
 
@@ -630,6 +594,52 @@ jobs:
         with:
           name: endfield-candidates-v73
           path: reports/endfield-v73-candidates.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Test calendar update quality V56 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v56.py' -v
+
+      - name: Audit calendar update quality V56 (read-only)
+        run: python tests/calendar_update_audit_v56.py --strict
+
+      - name: Upload calendar update quality V56 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-update-quality-v56
+          path: .reports/calendar-v56/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Test calendar update monitoring V57 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v57.py' -v
+
+      - name: Monitor calendar update V57 (read-only)
+        run: python tests/calendar_update_monitor_v57.py --strict
+
+      - name: Upload calendar update monitoring V57 report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-update-monitor-v57
+          path: .reports/calendar-v57/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Test calendar Actions summary V58 (offline)
+        run: python -m unittest discover -s tests -p 'test_calendar_v58.py' -v
+
+      - name: Publish calendar Actions summary V58
+        if: always()
+        run: python tests/calendar_summary_v58.py
+
+      - name: Upload calendar Actions summary V58
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-actions-summary-v58
+          path: .reports/calendar-v58/
           if-no-files-found: warn
           retention-days: 14
 

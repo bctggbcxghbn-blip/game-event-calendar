@@ -42,7 +42,7 @@ function displayItems(list){
     }
     const grouped=[...periods.values()].map(group=>{
       const first=group[0];
-      return {...first,name:[...new Set(group.map(e=>e.name))].join(' / '),groupItems:group,displayStart:first.start,displayEnd:first.end};
+      return {...first,name:[...new Set(group.map(e=>e.name))].join(' / '),groupItems:group,displayStart:first.start,displayEnd:effectiveEnd(first)};
     }).sort((a,b)=>a.start.localeCompare(b.start)||effectiveEnd(a).localeCompare(effectiveEnd(b)));
     // Pack non-overlapping periods into lanes; overlapping banners get separate rows.
     const packed=[];
@@ -66,14 +66,15 @@ function displayItems(list){
   return ordinary.filter(l=>l.segments.some(e=>e.displayStart<=plus(start,days-1)&&e.displayEnd>=start))
     .sort((a,b)=>type(a.segments[0]).localeCompare(type(b.segments[0]))||a.segments[0].displayEnd.localeCompare(b.segments[0].displayEnd));
 }
-function eventTime(e,side){
+function eventMoment(e,side){
+  const sourceDate=e._calendarSourceDates?e._calendarSourceDates[side]:e[side];
   // Official announcement wording is displayed verbatim when a clock is not supplied.
   const labelKeys=side==='start'?['start_label','start_note']:['end_label','end_note'];
   const clockKeys=side==='start'?['start_time','startTime','start_datetime','startDateTime']:['end_time','endTime','end_datetime','endDateTime'];
   const hasClock=clockKeys.some(k=>typeof e[k]==='string'&&e[k].trim());
   if(!hasClock){
     for(const key of labelKeys){
-      if(typeof e[key]==='string'&&e[key].trim())return e[key].trim();
+      if(typeof e[key]==='string'&&e[key].trim())return {date:sourceDate,time:e[key].trim()};
     }
   }
   const keys=side==='start'?['start_time','startTime','start_datetime','startDateTime']:['end_time','endTime','end_datetime','endDateTime'];
@@ -81,15 +82,39 @@ function eventTime(e,side){
     const raw=e[key];
     if(typeof raw!=='string'||!raw.trim())continue;
     const value=raw.trim();
-    if(/^\d{1,2}:\d{2}(?::\d{2})?$/.test(value))return value.slice(0,5)+' JST';
-    if(/^\d{4}-\d\d-\d\d[T ]\d\d:\d\d/.test(value)){
-      const date=new Date(value);
-      if(!Number.isNaN(date.getTime())&&/[Zz]|[+-]\d\d:?\d\d$/.test(value))
-        return new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hour12:false}).format(date)+' JST';
-      return value.slice(11,16)+'（タイムゾーン未確認）';
+    const clock=value.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+    const timestamp=value.match(/^(\d{4}-\d\d-\d\d)[T ](\d\d:\d\d(?::\d\d(?:\.\d{1,3})?)?)([Zz]|[+-]\d\d:?\d\d)?$/);
+    if(clock||timestamp){
+      const localClock=clock?`${clock[1].padStart(2,'0')}:${clock[2]}:${clock[3]||'00'}`:timestamp[2];
+      const clockParts=localClock.split(':').map(Number);
+      if(clockParts[0]>23||clockParts[1]>59||(clockParts[2]||0)>59)continue;
+      const zone=e[side+'_time_zone']??e[side+'_timezone']??e.time_zone??e.timezone;
+      const offset=timezoneOffset(zone);
+      const suffix=timestamp&&timestamp[3]?timestamp[3].toUpperCase():offset;
+      const dateText=timestamp?timestamp[1]:sourceDate;
+      if(suffix&&/^\d{4}-\d\d-\d\d$/.test(dateText||'')){
+        const date=new Date(dateText+'T'+localClock+suffix);
+        if(!Number.isNaN(date.getTime()))return {date:fmt(date),time:new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',hour:'2-digit',minute:'2-digit',hour12:false}).format(date)+' JST'};
+      }
+      return {date:sourceDate,time:localClock.slice(0,5)+'（タイムゾーン未確認）'};
     }
   }
-  return '時刻未確認';
+  return {date:sourceDate,time:'時刻未確認'};
+}
+function timezoneOffset(zone){
+  const value=String(zone||'').trim().replace(/＋/g,'+').replace(/−/g,'-');
+  if(/^(?:JST|Asia\/Tokyo)$/i.test(value))return '+09:00';
+  if(/^(?:UTC|GMT|Z)$/i.test(value))return '+00:00';
+  const match=value.match(/(?:UTC|GMT)\s*([+-])\s*(\d{1,2})(?::(\d{2}))?(?![\d:])/i);
+  if(!match||Number(match[2])>14||Number(match[3]||0)>59||(Number(match[2])===14&&Number(match[3]||0)!==0))return null;
+  return match[1]+match[2].padStart(2,'0')+':'+(match[3]||'00');
+}
+function eventTime(e,side){return eventMoment(e,side).time}
+function calendarEvent(e){
+  if(e._calendarSourceDates)return e;
+  const start=eventMoment(e,'start').date||e.start;
+  const end=e.end?(eventMoment(e,'end').date||e.end):e.end;
+  return {...e,start,end,_calendarSourceDates:{start:e.start,end:e.end}};
 }
 function detailText(item){
   const members=item.groupItems||[item];
@@ -148,5 +173,5 @@ function dedupeDisplayEvents(items){
   }
   return order.map(k=>selected.get(k));
 }
-async function load(){let data=[];let labels={};try{const r=await fetch('./labels_ja.json?t='+Date.now(),{cache:'no-store'});if(r.ok)labels=await r.json()}catch(e){console.warn('Japanese labels unavailable',e)}try{let r=await fetch('./events.json?t='+Date.now(),{cache:'no-store'});if(r.ok){let j=await r.json();if(Array.isArray(j))data=j}}catch(e){console.warn(e)}let saved=[];try{saved=JSON.parse(localStorage.getItem('sevenGameEvents')||localStorage.getItem('fourGameEvents')||'[]')}catch{}let map=new Map();for(let e of [...saved,...data])if(e&&G[e.game]&&e.name&&/^\d{4}-\d\d-\d\d$/.test(e.start)&&(e.end==null||/^\d{4}-\d\d-\d\d$/.test(e.end)))map.set(e.id||`${e.game}:${e.name}:${e.start}`,e);events=dedupeDisplayEvents([...map.values()].map(e=>translatedEvent(e,labels)));render()}render();load();
+async function load(){let data=[];let labels={};try{const r=await fetch('./labels_ja.json?t='+Date.now(),{cache:'no-store'});if(r.ok)labels=await r.json()}catch(e){console.warn('Japanese labels unavailable',e)}try{let r=await fetch('./events.json?t='+Date.now(),{cache:'no-store'});if(r.ok){let j=await r.json();if(Array.isArray(j))data=j}}catch(e){console.warn(e)}let saved=[];try{saved=JSON.parse(localStorage.getItem('sevenGameEvents')||localStorage.getItem('fourGameEvents')||'[]')}catch{}let map=new Map();for(let e of [...saved,...data])if(e&&G[e.game]&&e.name&&/^\d{4}-\d\d-\d\d$/.test(e.start)&&(e.end==null||/^\d{4}-\d\d-\d\d$/.test(e.end)))map.set(e.id||`${e.game}:${e.name}:${e.start}`,e);events=dedupeDisplayEvents([...map.values()].map(e=>translatedEvent(e,labels))).map(calendarEvent);render()}render();load();
 </script></body></html>

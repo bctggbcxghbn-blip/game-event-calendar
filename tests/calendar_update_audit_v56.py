@@ -5,6 +5,9 @@ import datetime as dt
 import json
 import subprocess
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from event_dates import is_unknown_end_marker, valid_event_dates
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT_DIR = ROOT / '.reports' / 'calendar-v56'
@@ -32,11 +35,12 @@ def audit(events, previous=None, today=None):
         else: seen[eid].append(i)
         if not isinstance(game,str) or not game.strip() or not isinstance(name,str) or not name.strip():
             critical.append({'type':'missing_game_or_name','index':i,'id':eid})
-        start=date_only(e.get('start'));end=date_only(e.get('end'))
-        if start is None or end is None or start>end:
+        if not valid_event_dates(e):
             critical.append({'type':'invalid_dates','index':i,'id':eid,'start':e.get('start'),'end':e.get('end')})
-        if start and end and game and name:
-            signatures[(game,name.strip(),start.isoformat(),end.isoformat(),str(e.get('kind','')))].append(eid)
+        elif is_unknown_end_marker(e):
+            warnings.append({'type':'unknown_end','index':i,'id':eid})
+        if valid_event_dates(e) and game and name:
+            signatures[(game,name.strip(),e['start'],e['end'],str(e.get('kind','')))].append(eid)
     for eid,idx in seen.items():
         if len(idx)>1: critical.append({'type':'duplicate_id','id':eid,'indexes':idx})
     for key,ids in signatures.items():

@@ -2,10 +2,12 @@
 """Non-mutating calendar quality report. Never infers translations or gacha rarity."""
 import argparse
 import collections
-import datetime as dt
 import json
 import re
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from event_dates import is_unknown_end_marker, valid_event_dates
 
 ASCII_WORD = re.compile(r"[A-Za-z]{3,}")
 JP = re.compile(r"[\u3040-\u30ff\u3400-\u9fff]")
@@ -27,12 +29,10 @@ def analyze(events, labels=None):
         if not eid or eid in seen_ids:
             issues.append({'level': 'error', 'type': 'duplicate_or_missing_id', 'index': i, 'id': eid})
         seen_ids.add(eid)
-        try:
-            start = dt.date.fromisoformat(e['start'])
-            end = dt.date.fromisoformat(e['end'])
-            if end < start: raise ValueError('reversed')
-        except (KeyError, TypeError, ValueError):
+        if not valid_event_dates(e):
             issues.append({'level': 'error', 'type': 'invalid_dates', 'index': i, 'id': eid})
+        elif is_unknown_end_marker(e):
+            issues.append({'level': 'info', 'type': 'unknown_end', 'index': i, 'id': eid})
         identity = (game, str(name).strip(), e.get('start'), e.get('end'), kind)
         if identity in seen_exact:
             issues.append({'level': 'review', 'type': 'same_name_period_kind', 'index': i, 'id': eid})

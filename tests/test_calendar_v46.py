@@ -3,8 +3,10 @@ import json
 import re
 import unittest
 from collections import Counter
-from datetime import date
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from event_dates import valid_event_dates
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -35,13 +37,13 @@ class CalendarV46(unittest.TestCase):
         self.assertTrue(self.events)
         for event in self.events:
             with self.subTest(id=event.get('id')):
-                self.assertTrue(all(isinstance(event.get(k), str) and event[k].strip() for k in ('id','game','name','start','end')))
+                self.assertTrue(all(isinstance(event.get(k), str) and event[k].strip() for k in ('id','game','name','start','kind')))
+                self.assertTrue(valid_event_dates(event))
 
     def test_valid_calendar_dates(self):
         for event in self.events:
             with self.subTest(id=event['id']):
-                start, end = date.fromisoformat(event['start'][:10]), date.fromisoformat(event['end'][:10])
-                self.assertLessEqual(start, end)
+                self.assertTrue(valid_event_dates(event))
 
     def test_unique_ids(self):
         ids = [event['id'] for event in self.events]

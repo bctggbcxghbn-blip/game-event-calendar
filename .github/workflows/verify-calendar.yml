@@ -1,0 +1,36 @@
+name: Verify Calendar (no publishing)
+
+on:
+  push:
+    branches:
+      - 'codex/verify-calendar-*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: startsWith(github.ref, 'refs/heads/codex/verify-calendar-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run offline tests and read-only quality audit
+        run: python -B tools/verify_calendar.py --baseline origin/main --output "${{ runner.temp }}/calendar-verification.json"
+      - name: Upload verification report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-verification
+          path: ${{ runner.temp }}/calendar-verification.json
+          if-no-files-found: error
+          retention-days: 14
