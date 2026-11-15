@@ -668,6 +668,8 @@ jobs:
           fi
           if ! git diff --cached --quiet; then
             git commit -m "Auto-update game events"
-            git pull --rebase origin main
+            # Preserve any harmless generated working-tree changes while rebasing.
+            # The commit above remains limited to the explicitly staged update files.
+            git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
