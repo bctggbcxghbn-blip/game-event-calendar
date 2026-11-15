@@ -411,6 +411,12 @@ jobs:
       - name: Update events
         run: python update_events.py
 
+      - name: Test Arknights Japanese Wiki importer (offline)
+        run: python -m unittest discover -s tests -p 'test_arknights_wiki_v1.py' -v
+
+      - name: Import Arknights events from Japanese Wiki
+        run: python games/arknights/arknights_wiki_v1.py --apply
+
       - name: Test NTE official update V60 (offline)
         run: python -m unittest discover -s tests -p 'test_nte_v60_official.py' -v
 
