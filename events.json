@@ -1965,6 +1965,16 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "arknights-wiki-泡影を穿つ碧雷-2026-11-16",
+    "game": "arknights",
+    "name": "泡影を穿つ碧雷",
+    "kind": "イベント",
+    "start": "2026-11-16",
+    "end": "2026-11-30",
+    "official_url": "https://arknights.wikiru.jp/",
+    "source_status": "アークナイツ日本語Wiki"
+  },
+  {
     "id": "activity-574d2393530d98314676",
     "game": "hsr",
     "name": "Apocalyptic Shadow: Navigator's Netherveil",
