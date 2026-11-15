@@ -21,12 +21,36 @@ class TableRows(HTMLParser):
         if t in ('td','th') and self.in_cell:self.cells.append(' '.join(''.join(self.buf).split()));self.in_cell=False
         elif t=='tr' and self.cells:self.rows.append(self.cells)
 
+class Paragraphs(HTMLParser):
+    def __init__(self): super().__init__(); self.items=[]; self.buf=[]; self.in_p=False
+    def handle_starttag(self,t,a):
+        if t=='p': self.buf=[]; self.in_p=True
+    def handle_data(self,d):
+        if self.in_p: self.buf.append(d)
+    def handle_endtag(self,t):
+        if t=='p' and self.in_p:
+            self.items.append(' '.join(''.join(self.buf).split())); self.in_p=False
+
 def extract(html):
     p=TableRows();p.feed(html); out=[]
     for row in p.rows:
         text=' '.join(row); m=RANGE.search(text)
         if not m or not row: continue
         name=row[0].strip()
+        if not name or name in {'イベント名','期間限定イベント'}: continue
+        sy,sm,sd=m.group(1),m.group(2),m.group(3); ey=m.group(4) or sy; em,ed=m.group(5),m.group(6)
+        start=f'{sy}-{int(sm):02d}-{int(sd):02d}'; end=f'{ey}-{int(em):02d}-{int(ed):02d}'
+        try: date.fromisoformat(start);date.fromisoformat(end)
+        except ValueError: continue
+        kind='ガチャ' if 'スカウト' in name else 'イベント'; slug=re.sub(r'[^0-9A-Za-z一-龯ぁ-んァ-ヶ]+','-',name).strip('-')[:60]
+        out.append({'id':f'arknights-wiki-{slug}-{start}','game':'arknights','name':name,'kind':kind,'start':start,'end':end,'official_url':SOURCE,'source_status':'アークナイツ日本語Wiki'})
+    q=Paragraphs(); q.feed(html)
+    for text in q.items:
+        m=RANGE.search(text)
+        if not m: continue
+        name=text[:m.start()].strip().rstrip('(').strip()
+        if name.startswith('開催予定のイベント'):
+            name=name[len('開催予定のイベント'):].strip()
         if not name or name in {'イベント名','期間限定イベント'}: continue
         sy,sm,sd=m.group(1),m.group(2),m.group(3); ey=m.group(4) or sy; em,ed=m.group(5),m.group(6)
         start=f'{sy}-{int(sm):02d}-{int(sd):02d}'; end=f'{ey}-{int(em):02d}-{int(ed):02d}'
