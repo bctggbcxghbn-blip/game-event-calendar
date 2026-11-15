@@ -1183,11 +1183,12 @@
   {
     "id": "activity-3d050cf2a63beef84237",
     "game": "zzz",
-    "name": "Cyber Miracle Healer, on Duty!",
+    "name": "サイバー名医、出動！",
     "start": "2026-10-28",
     "end": "2026-11-16",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Cyber Miracle Healer, on Duty!"
   },
   {
     "id": "endfield-danqingdu-tantan",
@@ -1313,42 +1314,6 @@
     "time_source_url": "https://hsr.hoyoverse.com/ja-jp/news/166468"
   },
   {
-    "id": "activity-1b5c46e4e9d8429fcba7",
-    "game": "genshin",
-    "name": "\"Where Kristall Roots Run Deep\" Area Exploration Limited-Time Rewards",
-    "start": "2026-11-04",
-    "end": "2027-01-26",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-ac0eecd19ebb397e7233",
-    "game": "genshin",
-    "name": "Archon Quest \"Hour of Ruin\" Limited-Time Rewards",
-    "start": "2026-11-04",
-    "end": "2026-12-15",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-6e05ad2b5d32db77fb0d",
-    "game": "genshin",
-    "name": "Repertoire of Myriad Melodies Update - Encounter: Interlude of the Long Journey",
-    "start": "2026-11-04",
-    "end": "2026-12-15",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-a28e376aa4b3eab32697",
-    "game": "genshin",
-    "name": "The Grand Defense: Defy the Unjust Judgment",
-    "start": "2026-11-04",
-    "end": "2026-12-16",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "genshin-extra-47307205-5d0855a4",
     "game": "genshin",
     "name": "Version 7.2 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 1",
@@ -1372,6 +1337,46 @@
     "source_status": "HoYoLAB公式記事・終了は約5時間後の予定",
     "official_url": "https://www.hoyolab.com/article/47283828",
     "url": "https://www.hoyolab.com/article/47283828"
+  },
+  {
+    "id": "activity-a28e376aa4b3eab32697",
+    "game": "genshin",
+    "name": "全域防衛・不当なる裁きへの叛逆",
+    "start": "2026-11-04",
+    "end": "2026-12-16",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "The Grand Defense: Defy the Unjust Judgment"
+  },
+  {
+    "id": "activity-6e05ad2b5d32db77fb0d",
+    "game": "genshin",
+    "name": "出会い・遥かな旅の一休み：「幾千のメロディー」",
+    "start": "2026-11-04",
+    "end": "2026-12-15",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Repertoire of Myriad Melodies Update - Encounter: Interlude of the Long Journey"
+  },
+  {
+    "id": "activity-1b5c46e4e9d8429fcba7",
+    "game": "genshin",
+    "name": "晶石の森",
+    "start": "2026-11-04",
+    "end": "2027-01-26",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "\"Where Kristall Roots Run Deep\" Area Exploration Limited-Time Rewards"
+  },
+  {
+    "id": "activity-ac0eecd19ebb397e7233",
+    "game": "genshin",
+    "name": "終焉へ墜ちる時",
+    "start": "2026-11-04",
+    "end": "2026-12-15",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Archon Quest \"Hour of Ruin\" Limited-Time Rewards"
   },
   {
     "id": "activity-f61c018524082aed1b4c",
@@ -1493,15 +1498,6 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
-    "id": "activity-0ac98591aa13f47e3aaf",
-    "game": "genshin",
-    "name": "Perilous Realm Trials",
-    "start": "2026-11-11",
-    "end": "2026-12-15",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "genshin-extra-47375132-4f8829c6",
     "game": "genshin",
     "name": "Stygian Onslaught Event: Disturbance-affected Ley Line challenges",
@@ -1513,45 +1509,19 @@
     "url": "https://www.hoyolab.com/article/47375132"
   },
   {
-    "id": "activity-4c6c36824fdf1fb4e84f",
-    "game": "hsr",
-    "name": "Anomaly Arbitration: Hidden Stage",
+    "id": "activity-0ac98591aa13f47e3aaf",
+    "game": "genshin",
+    "name": "幽境の激戦",
     "start": "2026-11-11",
-    "end": "2026-12-23",
+    "end": "2026-12-15",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Perilous Realm Trials"
   },
   {
     "id": "activity-dd2e156fb31f280c7439",
     "game": "hsr",
     "name": "Grab Your Opening Gifts",
-    "start": "2026-11-11",
-    "end": "2026-12-23",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-10ae36b6121d4fb4d375",
-    "game": "hsr",
-    "name": "Interastral Peace Gala: Road to Fame",
-    "start": "2026-11-11",
-    "end": "2026-12-23",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-b1a956c21f7b5eb365bc",
-    "game": "hsr",
-    "name": "Relic Recon",
-    "start": "2026-11-11",
-    "end": "2026-12-23",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-3df898f40296ad3f6593",
-    "game": "hsr",
-    "name": "The Fluffy Movie: Overheated",
     "start": "2026-11-11",
     "end": "2026-12-23",
     "kind": "イベント",
@@ -1592,6 +1562,36 @@
     "url": "https://wikiwiki.jp/star-rail/%E8%B7%B3%E8%BA%8D",
     "source_status": "日本語Wiki・ガチャ日付と記載時刻確認済み",
     "end_time": "12:59"
+  },
+  {
+    "id": "activity-10ae36b6121d4fb4d375",
+    "game": "hsr",
+    "name": "スターピースフェスティバル：スターへの道",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Interastral Peace Gala: Road to Fame"
+  },
+  {
+    "id": "activity-3df898f40296ad3f6593",
+    "game": "hsr",
+    "name": "劇場版もふもふ号：ドタバタキッチン",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "The Fluffy Movie: Overheated"
+  },
+  {
+    "id": "activity-b1a956c21f7b5eb365bc",
+    "game": "hsr",
+    "name": "奇物宝庫トレジャー",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Relic Recon"
   },
   {
     "id": "wiki-hsr-gacha-46f971802e698c5771eb",
@@ -1638,6 +1638,16 @@
     "end_time": "12:59"
   },
   {
+    "id": "activity-4c6c36824fdf1fb4e84f",
+    "game": "hsr",
+    "name": "異相の仲裁",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Anomaly Arbitration: Hidden Stage"
+  },
+  {
     "id": "wiki-hsr-gacha-f6e9a030a6d1168d3763",
     "game": "hsr",
     "name": "銀河シティへようこそ",
@@ -1671,15 +1681,6 @@
     "url": "https://www.hoyolab.com/article/47376180"
   },
   {
-    "id": "activity-90876b56b5fc700c4751",
-    "game": "zzz",
-    "name": "Trails of the Hobbling Crow",
-    "start": "2026-11-11",
-    "end": "2026-11-30",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "zzz-official-47375931-ガチャ",
     "game": "zzz",
     "name": "V3.3 Limited-Time Channels (Phase II)",
@@ -1691,6 +1692,16 @@
     "url": "https://www.hoyolab.com/article/47375931"
   },
   {
+    "id": "activity-90876b56b5fc700c4751",
+    "game": "zzz",
+    "name": "ホブリング・クロウ奇踪録",
+    "start": "2026-11-11",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Trails of the Hobbling Crow"
+  },
+  {
     "id": "activity-bc2bb961aa510b2c5239",
     "game": "zzz",
     "name": "棚から「ンナンナ」",
@@ -1699,24 +1710,6 @@
     "kind": "イベント",
     "source_status": "外部API・要確認",
     "original_name": "\"En-Nah\" Into Your Lap"
-  },
-  {
-    "id": "activity-4c6e51b54f62e9e01c32",
-    "game": "wuwa",
-    "name": "Lament of the Past",
-    "start": "2026-11-12",
-    "end": "2026-12-21",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-00868b9e1a67cac5a206",
-    "game": "wuwa",
-    "name": "Second Solaris: Dreams Untold",
-    "start": "2026-11-12",
-    "end": "2026-12-21",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
   },
   {
     "id": "wuwa-wiki-gacha-908ccfdc7dca8547",
@@ -1797,6 +1790,26 @@
     "phase": "3.8前"
   },
   {
+    "id": "activity-00868b9e1a67cac5a206",
+    "game": "wuwa",
+    "name": "第二ソラリス：題なき夢",
+    "start": "2026-11-12",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Second Solaris: Dreams Untold"
+  },
+  {
+    "id": "activity-4c6e51b54f62e9e01c32",
+    "game": "wuwa",
+    "name": "過ぎし夢のプレゼント",
+    "start": "2026-11-12",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Lament of the Past"
+  },
+  {
     "id": "zzz-predicted-shiyu-20261113",
     "game": "zzz",
     "name": "【予測】式輿防衛戦・激変ノード",
@@ -1821,11 +1834,12 @@
   {
     "id": "activity-70b6e740e9bf0cfb09cd",
     "game": "zzz",
-    "name": "Repair! Drifting Art",
+    "name": "よみがえれ！漂流イラスト集",
     "start": "2026-11-16",
     "end": "2026-11-30",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Repair! Drifting Art"
   },
   {
     "id": "endfield-danqingdu-supply",
@@ -1843,11 +1857,12 @@
   {
     "id": "activity-4a1b111f59c78c892763",
     "game": "wuwa",
-    "name": "Laelaro Cubes: Reverse",
+    "name": "ラハイロイブロック・逆転",
     "start": "2026-11-19",
     "end": "2026-12-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Laelaro Cubes: Reverse"
   },
   {
     "id": "zzz-predicted-deadly-20261120",
@@ -1863,22 +1878,34 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "wiki-hsr-334c0cf054595d487f44",
+    "game": "hsr",
+    "name": "次元界分裂",
+    "start": "2026-11-23",
+    "end": "2026-12-07",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
+  },
+  {
     "id": "activity-98dcd61fa8eb276de42a",
     "game": "zzz",
-    "name": "Data Bounty: Combat Simulation",
+    "name": "データ懸賞-模擬実戦",
     "start": "2026-11-25",
     "end": "2026-11-30",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Data Bounty: Combat Simulation"
   },
   {
     "id": "activity-f6b8d535b8bee872c2bb",
     "game": "wuwa",
-    "name": "Echoing Realm",
+    "name": "反響領域",
     "start": "2026-11-26",
     "end": "2026-12-03",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Echoing Realm"
   },
   {
     "id": "zzz-predicted-shiyu-20261127",
@@ -1896,11 +1923,12 @@
   {
     "id": "activity-0339680aa6f2913ad772",
     "game": "hsr",
-    "name": "Pure Fiction: Fiction Made Truth",
+    "name": "虚構叙事",
     "start": "2026-11-30",
     "end": "2027-01-11",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Pure Fiction: Fiction Made Truth"
   },
   {
     "id": "wiki-hsr-gacha-cff3b35f1538478133f5",
@@ -1999,31 +2027,14 @@
     "end_time": "15:59"
   },
   {
-    "id": "activity-84e436f8cbcdd026f477",
-    "game": "wuwa",
-    "name": "Dreamscape Odyssey",
-    "start": "2026-12-03",
-    "end": "2026-12-21",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
-    "id": "activity-dfcbb9cc10082b3a37e3",
-    "game": "wuwa",
-    "name": "Where the Wind Leads",
-    "start": "2026-12-03",
-    "end": "2026-12-21",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
-  },
-  {
     "id": "activity-aac21e5be04b2086c727",
     "game": "wuwa",
-    "name": "Wuthering Exploration: Maintenance",
+    "name": "ブブ企画・準備",
     "start": "2026-12-03",
     "end": "2026-12-17",
     "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "source_status": "外部API・要確認",
+    "original_name": "Wuthering Exploration: Maintenance"
   },
   {
     "id": "wuwa-wiki-gacha-48c24a388ad3c7a0",
@@ -2037,6 +2048,16 @@
     "source_url": "https://wikiwiki.jp/w-w/Ver3.8",
     "gacha_type": "weapon",
     "phase": "3.8後"
+  },
+  {
+    "id": "activity-84e436f8cbcdd026f477",
+    "game": "wuwa",
+    "name": "夢見の巡り",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Dreamscape Odyssey"
   },
   {
     "id": "wuwa-wiki-gacha-2d098cd89b153da9",
@@ -2104,6 +2125,16 @@
     "phase": "3.8後"
   },
   {
+    "id": "activity-dfcbb9cc10082b3a37e3",
+    "game": "wuwa",
+    "name": "風のゆくさき",
+    "start": "2026-12-03",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "外部API・要確認",
+    "original_name": "Where the Wind Leads"
+  },
+  {
     "id": "zzz-predicted-deadly-20261204",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
@@ -2115,6 +2146,16 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "wiki-hsr-63820d3d1bbaab89728e",
+    "game": "hsr",
+    "name": "世を満たす異器",
+    "start": "2026-12-11",
+    "end": "2026-12-23",
+    "kind": "イベント",
+    "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
+    "source_status": "日本語Wiki・日付確認済み"
   },
   {
     "id": "zzz-predicted-shiyu-20261211",
@@ -2132,11 +2173,12 @@
   {
     "id": "activity-41d01c59dd1dc2a1b024",
     "game": "hsr",
-    "name": "Memory of Chaos: Echo of Darkness",
+    "name": "混沌の記憶",
     "start": "2026-12-14",
     "end": "2027-01-25",
-    "kind": "イベント",
-    "source_status": "外部API・要確認"
+    "kind": "チャレンジ",
+    "source_status": "外部API・要確認",
+    "original_name": "Memory of Chaos: Echo of Darkness"
   },
   {
     "id": "activity-8130bd74cd985e119f26",
