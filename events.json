@@ -1301,16 +1301,6 @@
     "start_time": "12:00"
   },
   {
-    "id": "arknights-wiki-時間啊-向前-サイドスト-リ-大型-2026-11-01",
-    "game": "arknights",
-    "name": "時間啊、向前！(サイドストーリー/大型)",
-    "kind": "イベント",
-    "start": "2026-11-01",
-    "end": "2026-11-22",
-    "official_url": "https://arknights.wikiru.jp/",
-    "source_status": "アークナイツ日本語Wiki"
-  },
-  {
     "id": "activity-5fc1a5ed4871e210004b",
     "game": "genshin",
     "name": "鍛錬の道",
