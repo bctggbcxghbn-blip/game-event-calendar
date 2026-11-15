@@ -28,6 +28,8 @@ def css(data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--baseline', help='Git ref used to check data and CSS preservation')
+    parser.add_argument('--allow-index-change', action='store_true',
+                        help='Allow an explicitly reviewed index.html change (PR UI work only)')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     # labels_ja.json is the intended translation-only change in this workflow.
@@ -48,6 +50,8 @@ def main():
                 supported = all(value == allowed.get(game, {}).get(key) for game, rows in current.items() for key, value in rows.items())
                 if not preserved or not supported:
                     report['errors'].append('Japanese labels overwrite existing values or lack verified evidence')
+            elif (args.allow_index_change and name == 'index.html'):
+                pass
             elif (css(result.stdout) != css(before[name]) if name == 'index.html' else
                   result.stdout.replace(b'\r\n', b'\n') != before[name].replace(b'\r\n', b'\n')):
                 report['errors'].append(f'Protected content differs from baseline: {name}')

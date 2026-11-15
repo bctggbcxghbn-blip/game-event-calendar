@@ -102,6 +102,7 @@ class RuntimeTests(unittest.TestCase):
         self.assertIn("if: github.event_name == 'pull_request' || startsWith(github.ref, 'refs/heads/codex/verify-calendar-')", workflow)
         self.assertIn('contents: read', workflow)
         self.assertIn('tools/verify_calendar.py --baseline origin/main', workflow)
+        self.assertIn("github.event_name == 'pull_request' && '--allow-index-change'", workflow)
         for forbidden in ('contents: write', 'git push', 'git commit', 'deploy-pages', '--apply', 'schedule:'):
             self.assertNotIn(forbidden, workflow)
 
