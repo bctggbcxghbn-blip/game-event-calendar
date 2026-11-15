@@ -16,7 +16,7 @@ class TestZZZPredictionTransition(unittest.TestCase):
         self.assertTrue(all('予測' in row['source_status'] for row in rows))
 
     def test_official_shifted_window_overlaps_prediction(self):
-        predicted = [{'id': 'p', 'game': 'zzz', 'kind': 'チャレンジ', 'start': '2026-11-13', 'end': '2026-11-27'}]
+        predicted = [{'id': 'p', 'game': 'zzz', 'kind': 'チャレンジ', 'name': '【予測】式輿防衛戦・激変ノード', 'start': '2026-11-13', 'end': '2026-11-27'}]
         official = [{'id': 'zzz-official-o', 'game': 'zzz', 'kind': 'チャレンジ', 'name': '【予測】式輿防衛戦・激変ノード', 'start': '2026-11-16', 'end': '2026-11-30'}]
         self.assertEqual(pred.filter_predictions(predicted, official), [])
 
