@@ -1181,6 +1181,17 @@
     "source_status": "日本語Wiki・日付確認済み"
   },
   {
+    "id": "zzz-official-47208493-イベント",
+    "game": "zzz",
+    "name": "\"Cyber Miracle Healer, on Duty!\" Event Details",
+    "start": "2026-10-28",
+    "end": "2026-11-16",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47208493",
+    "url": "https://www.hoyolab.com/article/47208493"
+  },
+  {
     "id": "activity-3d050cf2a63beef84237",
     "game": "zzz",
     "name": "サイバー名医、出動！",
@@ -1670,6 +1681,116 @@
     "end_time": "12:59"
   },
   {
+    "id": "nte-official-v1-5-7Daysボ-ナス",
+    "game": "nte",
+    "name": "7Daysボーナス",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-Y2Kミステリ",
+    "game": "nte",
+    "name": "Y2Kミステリー",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-あなたを待ってる",
+    "game": "nte",
+    "name": "あなたを待ってる",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-ぶんぶくフェア",
+    "game": "nte",
+    "name": "ぶんぶくフェア",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-イェルム",
+    "game": "nte",
+    "name": "イェルム",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-シティ物流",
+    "game": "nte",
+    "name": "シティ物流",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-ハンタ-褒章",
+    "game": "nte",
+    "name": "ハンター褒章",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-22",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-バトル-バンケット-強襲",
+    "game": "nte",
+    "name": "バトル・バンケット・強襲",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-真紅",
+    "game": "nte",
+    "name": "真紅",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-紅き蜃気楼",
+    "game": "nte",
+    "name": "紅き蜃気楼",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-02",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-行く先はタンタン号",
+    "game": "nte",
+    "name": "行く先はタンタン号",
+    "kind": "イベント",
+    "start": "2026-11-11",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
     "id": "zzz-official-47376180-イベント",
     "game": "zzz",
     "name": "\"'En-Nah' Into Your Lap\" Event Details",
@@ -1679,6 +1800,17 @@
     "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
     "official_url": "https://www.hoyolab.com/article/47376180",
     "url": "https://www.hoyolab.com/article/47376180"
+  },
+  {
+    "id": "zzz-official-47376055-イベント",
+    "game": "zzz",
+    "name": "\"Trails of the Hobbling Crow\" Event Details",
+    "start": "2026-11-11",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47376055",
+    "url": "https://www.hoyolab.com/article/47376055"
   },
   {
     "id": "zzz-official-47375931-ガチャ",
@@ -1832,6 +1964,27 @@
     "source_status": "外部API・要確認"
   },
   {
+    "id": "nte-official-v1-5-ピクセルオ-バ-フロ",
+    "game": "nte",
+    "name": "ピクセルオーバーフロー",
+    "kind": "イベント",
+    "start": "2026-11-16",
+    "end": "2026-11-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "zzz-official-47424979-イベント",
+    "game": "zzz",
+    "name": "\"Repair! Drifting Art\" Event Details",
+    "start": "2026-11-16",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47424979",
+    "url": "https://www.hoyolab.com/article/47424979"
+  },
+  {
     "id": "activity-70b6e740e9bf0cfb09cd",
     "game": "zzz",
     "name": "よみがえれ！漂流イラスト集",
@@ -1853,6 +2006,16 @@
     "time_zone": "サーバー時間",
     "end_time": "04:00",
     "start_time": "04:00"
+  },
+  {
+    "id": "nte-official-v1-5-タンクバトル",
+    "game": "nte",
+    "name": "タンクバトル",
+    "kind": "イベント",
+    "start": "2026-11-19",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
   },
   {
     "id": "activity-4a1b111f59c78c892763",
@@ -1886,6 +2049,26 @@
     "kind": "イベント",
     "url": "https://wikiwiki.jp/star-rail/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88",
     "source_status": "日本語Wiki・日付確認済み"
+  },
+  {
+    "id": "nte-official-v1-5-爆釣大作戦",
+    "game": "nte",
+    "name": "爆釣大作戦",
+    "kind": "イベント",
+    "start": "2026-11-23",
+    "end": "2026-12-23",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
+  },
+  {
+    "id": "nte-official-v1-5-略奪大作戦",
+    "game": "nte",
+    "name": "略奪大作戦",
+    "kind": "イベント",
+    "start": "2026-11-23",
+    "end": "2026-12-07",
+    "source_status": "NTE公式Ver.1.5",
+    "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
   },
   {
     "id": "activity-98dcd61fa8eb276de42a",
