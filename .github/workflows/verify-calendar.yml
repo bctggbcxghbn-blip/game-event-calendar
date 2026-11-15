@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - 'codex/verify-calendar-*'
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -11,7 +14,6 @@ permissions:
 
 jobs:
   verify:
-    if: startsWith(github.ref, 'refs/heads/codex/verify-calendar-')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -24,6 +26,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Run HSR review badge tests
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          PYTHONUTF8: '1'
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests -p 'test_hsr_review_badge.py' -v
+      - name: Run full offline test suite
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          PYTHONUTF8: '1'
+          PYTHONIOENCODING: utf-8
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Run quality audit (warnings are reported separately)
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          PYTHONUTF8: '1'
+          PYTHONIOENCODING: utf-8
+        run: python tests/calendar_update_audit_v56.py --strict
       - name: Run offline tests and read-only quality audit
         run: python -B tools/verify_calendar.py --baseline origin/main --output "${{ runner.temp }}/calendar-verification.json"
       - name: Upload verification report
