@@ -27,6 +27,14 @@
     "The \"Anniversary Memories Album\" web event is now live for a limited time.": {
       "name": "周年メモリアルブック"
     },
+    "\"Carefree Snowball Fight\" Event: Fun Throwing Challenge": {"name": "自由気ままな雪合戦"},
+    "\"Overflowing Favor\" Event: Double Drops With Artifacts": {"name": "祈聖の奔流"},
+    "\"Where Kristall Roots Run Deep\" Area Exploration Limited-Time Rewards": {"name": "晶石の森"},
+    "Archon Quest \"Hour of Ruin\" Limited-Time Rewards": {"name": "終焉へ墜ちる時"},
+    "Genshin Impact Miliastra Wonderland \"Starlit Gala\" Web Event Now Live for a Limited Time!": {"name": "星々の宴"},
+    "Perilous Realm Trials": {"name": "幽境の激戦"},
+    "Repertoire of Myriad Melodies Update - Encounter: Interlude of the Long Journey": {"name": "出会い・遥かな旅の一休み：「幾千のメロディー」"},
+    "The Grand Defense: Defy the Unjust Judgment": {"name": "全域防衛・不当なる裁きへの叛逆"},
     "Stygian Onslaught Event: Disturbance-affected Ley Line challenges": {
       "name": "幽境の激戦"
     },
@@ -68,6 +76,13 @@
     "Bountiful Crescendo": {
       "name": "反響領域"
     },
+    "Dreamscape Odyssey": {"name": "夢見の巡り"},
+    "Echoing Realm": {"name": "反響領域"},
+    "Laelaro Cubes: Reverse": {"name": "ラハイロイブロック・逆転"},
+    "Lament of the Past": {"name": "過ぎし夢のプレゼント"},
+    "Second Solaris: Dreams Untold": {"name": "第二ソラリス：題なき夢"},
+    "Where the Wind Leads": {"name": "風のゆくさき"},
+    "Wuthering Exploration: Maintenance": {"name": "ブブ企画・準備"},
     "Chord Cleansing": {
       "name": "響き渡る音弦"
     }
@@ -125,6 +140,12 @@
       "name": "混沌の記憶",
       "kind": "チャレンジ"
     },
+    "Anomaly Arbitration: Hidden Stage": {"name": "異相の仲裁", "kind": "チャレンジ"},
+    "Interastral Peace Gala: Road to Fame": {"name": "スターピースフェスティバル：スターへの道", "kind": "イベント"},
+    "Memory of Chaos: Echo of Darkness": {"name": "混沌の記憶", "kind": "チャレンジ"},
+    "Pure Fiction: Fiction Made Truth": {"name": "虚構叙事", "kind": "チャレンジ"},
+    "Relic Recon": {"name": "奇物宝庫トレジャー", "kind": "イベント"},
+    "The Fluffy Movie: Overheated": {"name": "劇場版もふもふ号：ドタバタキッチン", "kind": "イベント"},
     "Memory of Chaos: Survival of the Fittest": {
       "name": "混沌の記憶",
       "kind": "チャレンジ"
@@ -146,6 +167,7 @@
     "\"Diary of an Orbie Parent\" Event Details": {
       "name": "じゃーん！コロるん成長日記"
     },
+    "\"'En-Nah' Into Your Lap\" Event Details": {"name": "棚から「ンナンナ」"},
     "\"En-Nah\" Into Your Lap": {
       "name": "棚から「ンナンナ」"
     },
@@ -161,6 +183,14 @@
     "V3.2 Limited-Time Channels (Phase II)": {
       "name": "Ver.3.2期間限定チャンネル（後半）"
     },
+    "\"Spooky Funhouse Tales\" Event Details": {"name": "あやかしおどかしオバケ屋敷"},
+    "Cyber Miracle Healer, on Duty!": {"name": "サイバー名医、出動！"},
+    "Ding-Dong! Delivery Training in Progress": {"name": "ピンポーン！新米配達員！"},
+    "Repair! Drifting Art": {"name": "よみがえれ！漂流イラスト集"},
+    "Shadow Chase Showdown": {"name": "バーチャルシャドウアリーナ"},
+    "Trails of the Hobbling Crow": {"name": "ホブリング・クロウ奇踪録"},
+    "\"Advanced Bounty: Area Patrol\" Event Details": {"name": "先遣賞金-区域防衛"},
+    "Data Bounty: Combat Simulation": {"name": "データ懸賞-模擬実戦"},
     "Advanced Bounty: Area Patrol": {
       "name": "先遣賞金-区域防衛"
     }
