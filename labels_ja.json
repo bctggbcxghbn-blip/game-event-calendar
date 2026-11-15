@@ -151,6 +151,9 @@
       "kind": "チャレンジ"
     }
   },
+  "endfield": {
+    "理性補給（Asia）": {"name": "理性補給"}
+  },
   "zzz": {
     "Angels Support Operation": {
       "name": "天使応援大作戦"
