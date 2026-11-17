@@ -249,6 +249,45 @@ def classify(candidates):
         yield kind, name, start, end, start_time, end_time
 
 
+def validate_candidates(candidates, existing):
+    """Reject structurally suspicious parses before replacing Wiki rows."""
+    if len(candidates) < 4:
+        raise ValueError('Too few warp entries: Wiki table may have changed. events.json unchanged.')
+    seen = set()
+    types = set()
+    for row in candidates:
+        if not isinstance(row, tuple) or len(row) != 7:
+            raise ValueError('Unexpected warp row shape; events.json unchanged.')
+        item_type, name, start, end, _starred, _start_time, _end_time = row
+        if item_type not in {'character', 'lightcone'} or not isinstance(name, str) or not name.strip():
+            raise ValueError('Non-gacha data extracted from Wiki table; events.json unchanged.')
+        try:
+            start_date, end_date = dt.date.fromisoformat(start), dt.date.fromisoformat(end)
+        except (TypeError, ValueError) as exc:
+            raise ValueError('Invalid warp date extracted; events.json unchanged.') from exc
+        if end_date < start_date or (end_date - start_date).days > 90:
+            raise ValueError('Unnatural warp period extracted; events.json unchanged.')
+        key = (item_type, name.strip(), start, end)
+        if key in seen:
+            raise ValueError('Duplicate warp rows extracted; events.json unchanged.')
+        seen.add(key)
+        types.add(item_type)
+    if types != {'character', 'lightcone'}:
+        raise ValueError('Character/light-cone table structure is incomplete; events.json unchanged.')
+    active_existing = [e for e in existing if str(e.get('id', '')).startswith('wiki-hsr-gacha-')
+                       and isinstance(e.get('start'), str) and isinstance(e.get('end'), str)]
+    has_period_overlap = False
+    for _kind, _name, start, end, _starred, _st, _et in candidates:
+        a, b = dt.date.fromisoformat(start), dt.date.fromisoformat(end)
+        has_period_overlap = has_period_overlap or any(
+            not (b < dt.date.fromisoformat(e['start']) or a > dt.date.fromisoformat(e['end']))
+            for e in active_existing
+        )
+    if (len(active_existing) >= 8 and len(candidates) <= max(4, len(active_existing) // 2)
+            and not has_period_overlap):
+        raise ValueError('Abnormal warp entry count change; events.json unchanged.')
+
+
 def main():
     request = Request(URL, headers={'User-Agent': 'GameEventCalendar/1.0 (personal project)'})
     with urlopen(request, timeout=20) as response:
@@ -256,13 +295,11 @@ def main():
     if len(blob) > 2_000_000:
         raise ValueError('Wiki page exceeds 2 MB')
     candidates = collect(blob.decode('utf-8', 'replace'))
-    if len(candidates) < 4:
-        raise ValueError('Too few warp entries: Wiki table may have changed. events.json unchanged.')
-
     path = ROOT / 'events.json'
     events = json.loads(path.read_text(encoding='utf-8'))
     if not isinstance(events, list):
         raise ValueError('events.json must be a list')
+    validate_candidates(candidates, events)
     cutoff = dt.datetime.now(JST).date() - dt.timedelta(days=14)
     # Replace only gacha entries imported by this script, after parsing succeeded.
     events = [e for e in events if not str(e.get('id', '')).startswith('wiki-hsr-gacha-')]
