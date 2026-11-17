@@ -2318,17 +2318,6 @@
     "phase": "3.8後"
   },
   {
-    "id": "activity-dfcbb9cc10082b3a37e3",
-    "game": "wuwa",
-    "name": "風のゆくさき",
-    "start": "2026-12-07",
-    "end": "2026-12-21",
-    "kind": "イベント",
-    "source_status": "公式日本語告知・JST確認済み",
-    "original_name": "Where the Wind Leads",
-    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5785"
-  },
-  {
     "id": "zzz-predicted-deadly-20261204",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
@@ -2340,6 +2329,17 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-dfcbb9cc10082b3a37e3",
+    "game": "wuwa",
+    "name": "風のゆくさき",
+    "start": "2026-12-07",
+    "end": "2026-12-21",
+    "kind": "イベント",
+    "source_status": "公式日本語告知・JST確認済み",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5785",
+    "original_name": "Where the Wind Leads"
   },
   {
     "id": "wiki-hsr-63820d3d1bbaab89728e",
