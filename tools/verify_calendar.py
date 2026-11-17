@@ -25,11 +25,44 @@ def css(data):
     return re.search(rb'<style>(.*?)</style>', data, re.S).group(1).replace(b'\r\n', b'\n')
 
 
+WUWA_WIND_ID = 'activity-dfcbb9cc10082b3a37e3'
+WUWA_WIND_URL = 'https://wutheringwaves.kurogames.com/jp/main/news/detail/5785'
+
+
+def allowed_wuwa_wind_change(baseline_bytes, current_bytes):
+    """Allow exactly the reviewed Wind Leads correction and nothing else."""
+    try:
+        before, after = json.loads(baseline_bytes), json.loads(current_bytes)
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return False
+    if not isinstance(before, list) or not isinstance(after, list) or len(before) != len(after):
+        return False
+    old = {e.get('id'): e for e in before if isinstance(e, dict)}
+    new = {e.get('id'): e for e in after if isinstance(e, dict)}
+    if set(old) != set(new) or WUWA_WIND_ID not in old:
+        return False
+    changed = [key for key in old if old[key] != new[key]]
+    if changed != [WUWA_WIND_ID]:
+        return False
+    expected_old = dict(old[WUWA_WIND_ID])
+    expected_new = dict(expected_old)
+    expected_new.update({
+        'start': '2026-12-07',
+        'source_status': '公式日本語告知・JST確認済み',
+        'official_url': WUWA_WIND_URL,
+    })
+    expected_old.pop('official_url', None)
+    expected_old.update({'start': '2026-12-03', 'end': '2026-12-21', 'source_status': '外部API・要確認'})
+    return old[WUWA_WIND_ID] == expected_old and new[WUWA_WIND_ID] == expected_new
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--baseline', help='Git ref used to check data and CSS preservation')
     parser.add_argument('--allow-index-change', action='store_true',
                         help='Allow an explicitly reviewed index.html change (PR UI work only)')
+    parser.add_argument('--allow-reviewed-wuwa-wind', action='store_true',
+                        help='Allow only the reviewed Wuwa Wind Leads date correction')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     # labels_ja.json is the intended translation-only change in this workflow.
@@ -50,6 +83,9 @@ def main():
                 supported = all(value == allowed.get(game, {}).get(key) for game, rows in current.items() for key, value in rows.items())
                 if not preserved or not supported:
                     report['errors'].append('Japanese labels overwrite existing values or lack verified evidence')
+            elif (name == 'events.json' and args.allow_reviewed_wuwa_wind
+                  and allowed_wuwa_wind_change(result.stdout, before[name])):
+                pass
             elif (args.allow_index_change and name == 'index.html'):
                 pass
             elif (css(result.stdout) != css(before[name]) if name == 'index.html' else
