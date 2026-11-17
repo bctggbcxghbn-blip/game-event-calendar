@@ -2321,11 +2321,12 @@
     "id": "activity-dfcbb9cc10082b3a37e3",
     "game": "wuwa",
     "name": "風のゆくさき",
-    "start": "2026-12-03",
+    "start": "2026-12-07",
     "end": "2026-12-21",
     "kind": "イベント",
-    "source_status": "外部API・要確認",
-    "original_name": "Where the Wind Leads"
+    "source_status": "公式日本語告知・JST確認済み",
+    "original_name": "Where the Wind Leads",
+    "official_url": "https://wutheringwaves.kurogames.com/jp/main/news/detail/5785"
   },
   {
     "id": "zzz-predicted-deadly-20261204",
