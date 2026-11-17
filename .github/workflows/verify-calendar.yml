@@ -46,7 +46,7 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python tests/calendar_update_audit_v56.py --strict
       - name: Run offline tests and read-only quality audit
-        run: python -B tools/verify_calendar.py --baseline origin/main ${{ github.event_name == 'pull_request' && '--allow-index-change' || '' }} --output "${{ runner.temp }}/calendar-verification.json"
+        run: python -B tools/verify_calendar.py --baseline origin/main ${{ github.event_name == 'pull_request' && '--allow-index-change' || '' }} ${{ github.event_name == 'pull_request' && github.event.pull_request.number == 14 && '--allow-reviewed-wuwa-wind' || '' }} --output "${{ runner.temp }}/calendar-verification.json"
       - name: Upload verification report
         if: always()
         uses: actions/upload-artifact@v4

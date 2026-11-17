@@ -13,6 +13,11 @@ from event_dates import valid_event_dates
 
 ROOT = pathlib.Path(__file__).resolve().parent
 GAMES = {'genshin', 'wuwa', 'hsr', 'zzz', 'nte', 'arknights', 'endfield'}
+REVIEWED_ACTIVITY_OVERRIDES = {
+    # Official JP Ver.3.8 notice 5785; apply only to the stale API period.
+    ('wuwa', 'Where the Wind Leads', '2026-12-03', '2026-12-21'):
+        ('2026-12-07', '2026-12-21', 'https://wutheringwaves.kurogames.com/jp/main/news/detail/5785'),
+}
 DATE = r'(20\d{2})[年/.-](\d{1,2})[月/.-](\d{1,2})日?'
 RANGE = re.compile(DATE + r'\s*(?:\([^)]*\)\s*)?(?:[〜～~–—－]|から|至|to)\s*' + DATE, re.I)
 
@@ -143,6 +148,10 @@ def activity_events(blob, config):
                 continue
             category = str(item.get('kind') or '')
             kind = classify_activity(category, name)
+            source_start = start
+            reviewed_period = REVIEWED_ACTIVITY_OVERRIDES.get((game, name, start, end))
+            if reviewed_period:
+                start, end, reviewed_url = reviewed_period
             entry = reviewed.get(game, {}).get(name, {})
             if isinstance(entry, dict):
                 jp_name = entry.get('name')
@@ -155,8 +164,12 @@ def activity_events(blob, config):
                     kind = reviewed_kind
             else:
                 display_name = name
-            uid = hashlib.sha256((game+'|'+name+'|'+start).encode('utf-8')).hexdigest()[:20]
-            row = {'id':'activity-'+uid,'game':game,'name':display_name[:180], 'start':start,'end':end,'kind':kind,'source_status':'外部API・要確認'}
+            # Keep the activity ID stable when a reviewed period corrects the API dates.
+            uid = hashlib.sha256((game+'|'+name+'|'+source_start).encode('utf-8')).hexdigest()[:20]
+            row = {'id':'activity-'+uid,'game':game,'name':display_name[:180], 'start':start,'end':end,'kind':kind,
+                   'source_status':('公式日本語告知・JST確認済み' if reviewed_period else '外部API・要確認')}
+            if reviewed_period:
+                row['official_url'] = reviewed_url
             if display_name != name:
                 row['original_name'] = name
             if valid(row):
