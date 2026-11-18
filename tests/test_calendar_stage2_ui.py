@@ -27,6 +27,12 @@ class CalendarStage2UiTests(unittest.TestCase):
         self.assertIn('--game-color:${G[e.game][1]}', HTML)
         self.assertIn(".bar{border-width:3px", HTML)
 
+    def test_display_action_handlers_are_registered_after_creation(self):
+        creation = HTML.index("id=\"stage2Actions\"")
+        binding = HTML.index("$('showAll').onclick")
+        self.assertGreater(binding, creation)
+        self.assertNotIn("$('showAll').onclick", HTML[:HTML.index('function render()')])
+
 
 if __name__ == '__main__':
     unittest.main()
