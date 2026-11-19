@@ -1,0 +1,27 @@
+name: Verify Version Sources
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run live version source audit
+        run: python tools/verify_version_sources.py
+      - name: Upload version source reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: version-source-audit
+          path: artifacts/version-sources/
+          if-no-files-found: warn
+          retention-days: 14
