@@ -33,6 +33,19 @@ class CalendarStage2UiTests(unittest.TestCase):
         self.assertGreater(binding, creation)
         self.assertNotIn("$('showAll').onclick", HTML[:HTML.index('function render()')])
 
+    def test_per_event_visibility_uses_ids_and_persists(self):
+        self.assertIn('hiddenEvents=new Set', HTML)
+        self.assertIn('hiddenEvents.has(e.id)', HTML)
+        self.assertIn('hiddenEvents.add(id)', HTML)
+        self.assertIn('hiddenEvents:[...hiddenEvents]', HTML)
+        self.assertIn('data-show-event="${safe(e.id)}"', HTML)
+
+    def test_hidden_event_controls_and_reset_exist(self):
+        self.assertIn('このイベントを非表示', HTML)
+        self.assertIn('非表示イベント一覧', HTML)
+        self.assertIn('すべて再表示', HTML)
+        self.assertIn('hiddenEvents.clear()', HTML)
+
 
 if __name__ == '__main__':
     unittest.main()
