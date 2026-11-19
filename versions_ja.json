@@ -1,0 +1,9 @@
+{
+  "genshin": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "wuwa": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "hsr": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "zzz": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "nte": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "arknights": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
+  "endfield": {"version": null, "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"}
+}
