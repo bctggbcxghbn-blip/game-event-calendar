@@ -23,6 +23,8 @@ ARTICLE_HOST = 'endfield.gryphline.com'
 MAX_DETAILS = 20
 MAX_PAGES = 20
 RELATED_HINTS = ('バージョン', 'アップデート', 'メンテナンス', '丹青渡', 'version', 'update')
+NAMED_VERSION_RE = re.compile(r'(?:新バージョン|バージョンアップデート[^「]{0,20})[「『]([^」』]{2,40})[」』]|[「『]([^」』]{2,40})[」』]\s*バージョンアップデート')
+ASIA_MAINT_RE = re.compile(r'Asiaサーバー\s*[:：]\s*(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*(\d{1,2}):(\d{2})\s*[～~-]\s*(?:(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*)?(\d{1,2}):(\d{2})')
 
 
 def _safe_url(url, host=API_HOST):
@@ -81,6 +83,43 @@ def _diagnose_article(payload, cid, today):
         'cid_url_mapping': 'constructed_from_numeric_cid',
         'exclusion_reasons': reasons,
     }
+
+
+def _extract_named_version(payload, cid):
+    """Extract a named release only when explicit update wording is present."""
+    text = _text(payload)
+    match = NAMED_VERSION_RE.search(text)
+    name = next((group for group in match.groups() if group), None) if match else None
+    maintenance_start = maintenance_end = None
+    maintenance = ASIA_MAINT_RE.search(text)
+    if maintenance:
+        year, month, day, shour, smin, eyear, emonth, eday, ehour, emin = maintenance.groups()
+        eyear = eyear or year; emonth = emonth or month; eday = eday or day
+        # Asia times are UTC+8; retain the source offset and provide JST too.
+        start = dt.datetime(int(year), int(month), int(day), int(shour), int(smin), tzinfo=dt.timezone(dt.timedelta(hours=8)))
+        end = dt.datetime(int(eyear), int(emonth), int(eday), int(ehour), int(emin), tzinfo=dt.timezone(dt.timedelta(hours=8)))
+        maintenance_start = {'source': start.isoformat(), 'jst': start.astimezone(dt.timezone(dt.timedelta(hours=9))).isoformat()}
+        maintenance_end = {'source': end.isoformat(), 'jst': end.astimezone(dt.timezone(dt.timedelta(hours=9))).isoformat()}
+    article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
+    serialized = json.dumps(payload, ensure_ascii=False) if isinstance(payload, (dict, list)) else ''
+    mapping_verified = article_url in serialized
+    published = None
+    if isinstance(payload, dict):
+        for key in ('displayTime', 'published_at', 'publishTime', 'createdAt'):
+            if isinstance(payload.get(key), (str, int, float)):
+                published = payload[key]
+                break
+        data = payload.get('data')
+        if isinstance(data, dict) and published is None:
+            for key in ('displayTime', 'published_at', 'publishTime', 'createdAt'):
+                if isinstance(data.get(key), (str, int, float)):
+                    published = data[key]
+                    break
+    return {'named_version': name, 'numeric_version': None, 'maintenance_start': maintenance_start,
+            'maintenance_end': maintenance_end, 'effective_from': None,
+            'article_url': article_url, 'cid_url_mapping_verified': mapping_verified,
+            'status': 'official_named' if name and mapping_verified else 'unverified_named',
+            'accepted_as_current': False, 'published_at': published}
 
 
 def _request(url, timeout=15, opener=urlopen):
@@ -205,6 +244,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
         diagnostics = _diagnose_article(detail.get('payload'), cid, today)
+        diagnostics['named_version'] = _extract_named_version(detail.get('payload'), cid)
         item['diagnostics'] = diagnostics
         for reason in diagnostics['exclusion_reasons']:
             report['exclusions'][reason] = report['exclusions'].get(reason, 0) + 1

@@ -114,6 +114,46 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(len(report['pages']), 2)
         self.assertEqual(report['pages'][1]['status'], 503)
 
+    def test_named_version_and_asia_maintenance_are_diagnostic_only(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '9560'}])
+            return {'ok': True, 'status': 200, 'bytes': 100, 'payload': {
+                'title': '「丹青渡」バージョンアップデートについて',
+                'content': '新バージョン「丹青渡」がまもなくリリースされます。'
+                           ' Asiaサーバー：2026/10/15 06:00～2026/10/15 12:00（UTC+8）'
+            }}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertEqual(named['named_version'], '丹青渡')
+        self.assertEqual(named['numeric_version'], None)
+        self.assertEqual(named['maintenance_start']['jst'], '2026-10-15T07:00:00+09:00')
+        self.assertEqual(named['maintenance_end']['jst'], '2026-10-15T13:00:00+09:00')
+        self.assertIsNone(named['effective_from'])
+        self.assertFalse(named['accepted_as_current'])
+
+    def test_event_or_scout_name_is_not_named_version(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '1'}])
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {
+                'title': '特別スカウト「万象一新」', 'content': '日本語 Asia 2026/10/15'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertIsNone(named['named_version'])
+
+    def test_cid_mapping_unverified_is_not_accepted(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '2'}])
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {
+                'content': '新バージョン「雪氷の幽夢」バージョンアップデート 日本語 Asia 2026/10/15'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertEqual(named['status'], 'unverified_named')
+        self.assertFalse(named['cid_url_mapping_verified'])
+        self.assertFalse(named['accepted_as_current'])
+
 
 if __name__ == '__main__':
     unittest.main()
