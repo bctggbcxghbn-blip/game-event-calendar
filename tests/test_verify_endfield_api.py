@@ -53,6 +53,36 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(_request('http://web-news.gryphline.com/api/bulletin')['reason'], 'unsafe_url')
         self.assertEqual(_request('https://example.com/api/bulletin')['reason'], 'unsafe_url')
 
+    def test_article_diagnostics_separate_context_version_and_date(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '10'}, {'cid': '11'}, {'cid': '12'}, {'cid': '13'}])
+            cid = url.split('/bulletin/')[1].split('?')[0]
+            bodies = {
+                '10': {'text': '日本語の告知ですが地域表記なし 2026/01/01'},
+                '11': {'text': 'Asia向けですが Ver.1.2.3 の日付なし'},
+                '12': {'text': '日本語 Asia Ver.1.2.3 2099/01/01'},
+                '13': {'text': '日本語 Asia Ver.1.2.3 2026/01/01'},
+            }
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': bodies[cid]}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        by_id = {row['cid']: row['diagnostics'] for row in report['details']}
+        self.assertIn('missing_region_context', by_id['10']['exclusion_reasons'])
+        self.assertIn('missing_effective_date', by_id['11']['exclusion_reasons'])
+        self.assertIn('future_effective_date', by_id['12']['exclusion_reasons'])
+        self.assertEqual(report['body_verification_successes'], 1)
+        self.assertEqual(report['exclusion_counts']['future_effective_date'], 1)
+
+    def test_invalid_detail_is_diagnosed_without_body_storage(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '20'}])
+            return {'ok': True, 'status': 200, 'bytes': 2, 'payload': None}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        diag = report['details'][0]['diagnostics']
+        self.assertIn('invalid_detail_schema', diag['exclusion_reasons'])
+        self.assertNotIn('text', diag)
+
 
 if __name__ == '__main__':
     unittest.main()
