@@ -2,11 +2,13 @@
 import argparse
 import datetime as dt
 import json
+import time
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from tools.discover_version_news import NEWS_INDEX, discover_links
+from tools.discover_version_news import NEWS_INDEX, discover_links_diagnostic
+from tools.discover_versions import DOMAIN
 from tools.discover_versions import discover_html
 
 
@@ -18,19 +20,37 @@ class NoRedirect(HTTPRedirectHandler):
 OPENER = build_opener(NoRedirect())
 
 
-def fetch(url, timeout):
-    try:
+def fetch(url, timeout, game=None, max_redirects=2):
+    requested = url
+    redirects = []
+    started = time.monotonic()
+    for _ in range(max_redirects + 1):
+      try:
         response = OPENER.open(Request(url, headers={'User-Agent': 'GameEventCalendar-VersionAudit/1.0'}), timeout=timeout)
-        return {'ok': True, 'status': getattr(response, 'status', 200), 'final_url': response.geturl(),
-                'html': response.read().decode('utf-8', 'replace')}
-    except HTTPError as exc:
-        return {'ok': False, 'status': exc.code, 'reason': 'http_error', 'final_url': exc.geturl()}
-    except URLError as exc:
-        return {'ok': False, 'status': None, 'reason': 'network_error', 'detail': str(exc.reason)}
-    except TimeoutError:
-        return {'ok': False, 'status': None, 'reason': 'timeout'}
-    except OSError as exc:
-        return {'ok': False, 'status': None, 'reason': 'read_error', 'detail': str(exc)}
+        html = response.read().decode('utf-8', 'replace')
+        return {'ok': True, 'status': getattr(response, 'status', 200), 'requested_url': requested,
+                'final_url': response.geturl(), 'redirects': redirects, 'html': html,
+                'html_bytes': len(html.encode('utf-8')), 'elapsed_ms': round((time.monotonic()-started)*1000)}
+      except HTTPError as exc:
+        location = exc.headers.get('Location')
+        if exc.code in (301,302,303,307,308) and location:
+            from urllib.parse import urljoin, urlparse
+            target = urljoin(url, location)
+            redirects.append({'from': url, 'to': target, 'status': exc.code})
+            parsed = urlparse(target)
+            if len(redirects)>max_redirects or parsed.scheme != 'https' or parsed.hostname not in DOMAIN.get(game, set()):
+                return {'ok': False, 'status': exc.code, 'requested_url': requested, 'final_url': target,
+                        'redirects': redirects, 'reason': 'redirect_rejected', 'elapsed_ms': round((time.monotonic()-started)*1000)}
+            url = target
+            continue
+        return {'ok': False, 'status': exc.code, 'requested_url': requested, 'final_url': exc.geturl(),
+                'redirects': redirects, 'reason': 'http_error', 'elapsed_ms': round((time.monotonic()-started)*1000)}
+      except URLError as exc:
+        return {'ok': False, 'status': None, 'requested_url': requested, 'final_url': url, 'redirects': redirects, 'reason': 'network_error', 'detail': str(exc.reason), 'elapsed_ms': round((time.monotonic()-started)*1000)}
+      except TimeoutError:
+        return {'ok': False, 'status': None, 'requested_url': requested, 'final_url': url, 'redirects': redirects, 'reason': 'timeout', 'elapsed_ms': round((time.monotonic()-started)*1000)}
+      except OSError as exc:
+        return {'ok': False, 'status': None, 'requested_url': requested, 'final_url': url, 'redirects': redirects, 'reason': 'read_error', 'detail': str(exc), 'elapsed_ms': round((time.monotonic()-started)*1000)}
 
 
 def audit(timeout=15, max_articles=5):
@@ -38,20 +58,21 @@ def audit(timeout=15, max_articles=5):
     report = {'checked_at': checked_at, 'read_only': True, 'games': {}}
     today = dt.date.today()
     for game, listing_url in NEWS_INDEX.items():
-        row = {'listing_url': listing_url, 'status': 'failed', 'article_urls': [], 'candidates': [], 'errors': []}
-        listing = fetch(listing_url, timeout)
+        row = {'listing_url': listing_url, 'status': 'failed', 'article_urls': [], 'candidates': [], 'errors': [], 'diagnostics': {}}
+        listing = fetch(listing_url, timeout, game=game)
+        row['diagnostics']['listing'] = {k: listing.get(k) for k in ('status','requested_url','final_url','html_bytes','elapsed_ms','redirects')}
         if not listing.get('ok'):
-            row['errors'].append({k: listing[k] for k in ('reason', 'status', 'detail') if k in listing})
+            row['errors'].append({k: listing[k] for k in ('reason', 'status', 'detail','final_url') if k in listing})
             report['games'][game] = row
             continue
-        if listing.get('final_url') != listing_url:
-            row['errors'].append({'reason': 'redirect_rejected', 'final_url': listing.get('final_url')})
-            report['games'][game] = row
-            continue
-        links = discover_links(game, listing.get('html', ''), listing_url)
+        links, link_stats = discover_links_diagnostic(game, listing.get('html', ''), listing_url)
+        row['diagnostics']['discovery'] = link_stats
         row['article_urls'] = links[:max_articles]
+        if not row['article_urls']:
+            row['errors'].append({'reason': 'no_article_links_found'})
         for url in row['article_urls']:
-            article = fetch(url, timeout)
+            article = fetch(url, timeout, game=game)
+            row['diagnostics'].setdefault('articles', []).append({k: article.get(k) for k in ('status','requested_url','final_url','html_bytes','elapsed_ms','redirects')})
             if not article.get('ok'):
                 row['errors'].append({'url': url, 'reason': article.get('reason'), 'status': article.get('status')})
                 continue
@@ -61,7 +82,11 @@ def audit(timeout=15, max_articles=5):
             candidate = discover_html(game, article.get('html', ''), url, checked_at, today=today)
             if candidate:
                 row['candidates'].append(candidate)
+            else:
+                row['errors'].append({'url': url, 'reason': 'version_candidate_not_verified'})
         row['status'] = 'success' if row['candidates'] else ('unverified' if row['article_urls'] else 'failed')
+        if row['status'] == 'failed' and not row['errors']:
+            row['errors'].append({'reason': 'verification_failed_unknown'})
         report['games'][game] = row
     return report
 
