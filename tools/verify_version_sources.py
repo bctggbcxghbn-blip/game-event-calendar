@@ -10,7 +10,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from tools.discover_version_news import (NEWS_INDEX, discover_links_diagnostic,
                                          discover_endfield_body_candidates,
-                                         HREF_RE, _allowed)
+                                         diagnose_endfield_links, HREF_RE, _allowed)
 from tools.discover_versions import DOMAIN
 from tools.discover_versions import discover_html
 
@@ -70,6 +70,8 @@ def audit(timeout=15, max_articles=5):
             continue
         links, link_stats = discover_links_diagnostic(game, listing.get('html', ''), listing_url)
         if game == 'endfield':
+            link_stats['endfield_url_diagnostics'] = diagnose_endfield_links(
+                listing.get('html', ''), listing_url)
             # Endfield's listing often renders article titles outside the
             # anchor text.  Collect same-host article URLs for body parsing;
             # other games retain the existing title-based discovery path.

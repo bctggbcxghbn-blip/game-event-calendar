@@ -1,11 +1,12 @@
 """Discover official Japanese version-news URLs without changing calendar data."""
 import re
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qs, urljoin, urlparse, urlunparse
 from urllib.request import Request, urlopen
 
 from tools.discover_versions import DOMAIN, discover_html
 
 HREF_RE = re.compile(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''')
+SCRIPT_URL_RE = re.compile(r'''https://endfield\.gryphline\.com/[^"'\s<>]+''', re.I)
 VERSION_HINT = re.compile(r'(?i)(?:ver(?:sion)?\.?\s*\d+(?:\.\d+)+|バージョン\s*\d+(?:\.\d+)+|アップデート|update)')
 
 # These are conservative landing pages only; article URLs are accepted after
@@ -52,6 +53,53 @@ def discover_links_diagnostic(game, listing_html, listing_url):
             stats['rejected_no_version_hint'] += 1
     stats['article_urls'] = len(found)
     return found, stats
+
+
+def diagnose_endfield_links(listing_html, listing_url, sample_limit=30):
+    """Classify Endfield links without expanding the automatic fetch set."""
+    result = {
+        'official_link_samples': [], 'article_path_links': 0,
+        'rejected_wrong_path': 0, 'rejected_invalid_article_id': 0,
+        'script_json_article_urls': 0, 'article_urls_considered': 0,
+    }
+    if not _allowed('endfield', listing_url):
+        return result
+    seen = set()
+    for href, _title in HREF_RE.findall(listing_html or ''):
+        url = urljoin(listing_url, href)
+        parsed = urlparse(url)
+        if parsed.hostname not in DOMAIN['endfield'] or parsed.scheme != 'https':
+            continue
+        # Do not expose tokens or arbitrary query values in diagnostics.
+        safe_query = ''
+        query = parse_qs(parsed.query)
+        if 'id' in query and query['id'] and query['id'][0].isdigit():
+            safe_query = 'id=' + query['id'][0]
+        safe_url = urlunparse((parsed.scheme, parsed.netloc, parsed.path, '', safe_query, ''))
+        if safe_url in seen:
+            continue
+        seen.add(safe_url)
+        path = parsed.path.rstrip('/')
+        classification = 'other'
+        if path == '/ja-jp/news':
+            classification = 'news_index'
+        elif path.startswith('/ja-jp/news/'):
+            article_id = path.rsplit('/', 1)[-1]
+            if article_id.isdigit():
+                classification = 'valid_article_path'
+                result['article_path_links'] += 1
+            else:
+                classification = 'invalid_article_id'
+                result['rejected_invalid_article_id'] += 1
+        else:
+            classification = 'wrong_path'
+            result['rejected_wrong_path'] += 1
+        if len(result['official_link_samples']) < sample_limit:
+            result['official_link_samples'].append({'url': safe_url, 'path': parsed.path,
+                                                    'classification': classification})
+    urls = set(SCRIPT_URL_RE.findall(listing_html or ''))
+    result['script_json_article_urls'] = sum(1 for url in urls if '/ja-jp/news/' in url)
+    return result
 
 
 def discover_endfield_body_candidates(listing_html, listing_url, article_pages,
