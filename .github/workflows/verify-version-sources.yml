@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run live version source audit
-        run: python tools/verify_version_sources.py
+        run: python -m tools.verify_version_sources
       - name: Upload version source reports
         if: always()
         uses: actions/upload-artifact@v4
