@@ -6,7 +6,7 @@ from urllib.request import Request, urlopen
 from tools.discover_versions import DOMAIN, discover_html
 
 HREF_RE = re.compile(r'''(?is)<a\b[^>]*?href\s*=\s*["']([^"']+)["'][^>]*>(.*?)</a>''')
-SCRIPT_URL_RE = re.compile(r'''https://endfield\.gryphline\.com/[^"'\\s<>]+''', re.I)
+SCRIPT_URL_RE = re.compile(r'''https://endfield\.gryphline\.com/[^"'\s<>]+''', re.I)
 VERSION_HINT = re.compile(r'(?i)(?:ver(?:sion)?\.?\s*\d+(?:\.\d+)+|バージョン\s*\d+(?:\.\d+)+|アップデート|update)')
 
 # These are conservative landing pages only; article URLs are accepted after
