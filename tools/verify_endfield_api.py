@@ -21,6 +21,8 @@ APP_CODE = 'arknights_endfield_official'
 LANG = 'ja-jp'
 ARTICLE_HOST = 'endfield.gryphline.com'
 MAX_DETAILS = 20
+MAX_PAGES = 20
+RELATED_HINTS = ('バージョン', 'アップデート', 'メンテナンス', '丹青渡', 'version', 'update')
 
 
 def _safe_url(url, host=API_HOST):
@@ -104,26 +106,74 @@ def _request(url, timeout=15, opener=urlopen):
                 'bytes': 0, 'reason': type(exc).__name__}
 
 
+def _listing_url(page):
+    return API_BASE + '?' + urlencode({'lang': LANG, 'code': APP_CODE,
+                                       'page': str(page), 'pageSize': '20'})
+
+
+def _listing_items(payload):
+    data = payload.get('data') if isinstance(payload, dict) else None
+    rows = data.get('list') if isinstance(data, dict) else None
+    return rows if isinstance(rows, list) else None
+
+
 def audit(fetcher=_request, checked_at=None, today=None):
     checked_at = checked_at or dt.datetime.now(dt.timezone.utc).astimezone().isoformat()
     today = today or dt.date.today()
-    query = urlencode({'lang': LANG, 'code': APP_CODE, 'page': '1', 'pageSize': '20'})
-    listing_url = API_BASE + '?' + query
-    report = {'status': 'failed', 'listing': {}, 'article_ids': [], 'details': [],
+    report = {'status': 'failed', 'listing': {}, 'pages': [], 'article_ids': [],
+              'article_inventory': [], 'related_articles': [], 'details': [],
               'candidates': [], 'exclusions': {}, 'checked_at': checked_at,
               'read_only': True}
-    listing = fetcher(listing_url)
-    report['listing'] = {k: listing.get(k) for k in ('status', 'bytes', 'reason', 'final_url') if k in listing}
-    if not listing.get('ok'):
-        report['exclusions']['listing_failed'] = 1
-        return report
-    payload = listing.get('payload')
-    data = payload.get('data') if isinstance(payload, dict) else None
-    rows = data.get('list') if isinstance(data, dict) else None
-    if not isinstance(rows, list):
-        report['exclusions']['invalid_list_schema'] = 1
-        report['status'] = 'unverified'
-        return report
+    all_rows, seen_ids, page_signatures = [], set(), set()
+    first_page_ok = None
+    for page in range(1, MAX_PAGES + 1):
+        listing = fetcher(_listing_url(page))
+        page_report = {'page': page, 'status': listing.get('status'),
+                       'bytes': listing.get('bytes', 0), 'reason': listing.get('reason')}
+        report['pages'].append(page_report)
+        if page == 1:
+            report['listing'] = {k: listing.get(k) for k in ('status', 'bytes', 'reason', 'final_url') if k in listing}
+            first_page_ok = bool(listing.get('ok'))
+        if not listing.get('ok'):
+            report['exclusions']['listing_failed'] = report['exclusions'].get('listing_failed', 0) + 1
+            break
+        rows = _listing_items(listing.get('payload'))
+        if rows is None:
+            report['exclusions']['invalid_list_schema'] = report['exclusions'].get('invalid_list_schema', 0) + 1
+            break
+        page_ids = tuple(str(row.get('cid')) for row in rows if isinstance(row, dict) and str(row.get('cid') or '').isdigit())
+        page_report['item_count'] = len(rows)
+        page_report['valid_cid_count'] = len(page_ids)
+        if not rows or page_ids in page_signatures:
+            page_report['termination'] = 'empty_page' if not rows else 'duplicate_page'
+            break
+        page_signatures.add(page_ids)
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            cid = str(row.get('cid') or '')
+            if not cid.isdigit() or cid in seen_ids:
+                if not cid.isdigit():
+                    report['exclusions']['invalid_cid'] = report['exclusions'].get('invalid_cid', 0) + 1
+                if cid and cid in seen_ids:
+                    report['exclusions']['duplicate_cid'] = report['exclusions'].get('duplicate_cid', 0) + 1
+                continue
+            seen_ids.add(cid)
+            item = {key: row[key] for key in ('cid', 'title', 'brief', 'displayTime', 'tab', 'type') if key in row}
+            all_rows.append(item)
+        total = (listing.get('payload', {}).get('data', {}).get('total')
+                 if isinstance(listing.get('payload'), dict)
+                 and isinstance(listing.get('payload', {}).get('data'), dict)
+                 else None)
+        if total is not None and len(all_rows) >= int(total):
+            page_report['termination'] = 'final_page'
+            break
+    report['article_inventory'] = all_rows
+    related = [row for row in all_rows if any(h.lower() in (_text(row.get('title')) + ' ' + _text(row.get('brief'))).lower() for h in RELATED_HINTS)]
+    report['related_articles'] = related
+    rows = related + [row for row in all_rows if row not in related]
+    report['listing']['pages_fetched'] = len(report['pages'])
+    report['listing']['articles_fetched'] = len(all_rows)
     ids = []
     for row in rows:
         cid = row.get('cid') if isinstance(row, dict) else None
@@ -168,7 +218,10 @@ def audit(fetcher=_request, checked_at=None, today=None):
             report['candidates'].append(candidate)
         else:
             report['exclusions']['body_not_verified'] = report['exclusions'].get('body_not_verified', 0) + 1
-    report['status'] = 'success' if report['candidates'] else 'unverified'
+    if first_page_ok is False:
+        report['status'] = 'failed'
+    else:
+        report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
     report['body_verification_successes'] = len(report['candidates'])
     report['exclusion_counts'] = dict(report['exclusions'])
