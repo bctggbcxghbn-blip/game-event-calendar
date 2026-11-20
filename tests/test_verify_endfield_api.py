@@ -83,6 +83,37 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertIn('invalid_detail_schema', diag['exclusion_reasons'])
         self.assertNotIn('text', diag)
 
+    def test_pagination_collects_pages_and_prioritizes_related_articles(self):
+        calls = []
+        def fetch(url):
+            calls.append(url)
+            if '/bulletin/' in url:
+                return {'ok': True, 'status': 200, 'bytes': 10, 'payload': {'text': '日本語のお知らせ'}}
+            page = int(url.split('page=')[1].split('&')[0])
+            if page == 1:
+                return listing([{'cid': '1', 'title': '通常のお知らせ', 'displayTime': '2026-11-20'}])
+            if page == 2:
+                return listing([{'cid': '2', 'title': '丹青渡 バージョンアップデート', 'tab': 'ニュース'}])
+            return listing([])
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        self.assertEqual([x['cid'] for x in report['article_inventory']], ['1', '2'])
+        self.assertEqual(report['related_articles'][0]['cid'], '2')
+        self.assertEqual(report['pages'][-1]['termination'], 'empty_page')
+        self.assertEqual(report['article_ids'], ['2', '1'])
+
+    def test_page_error_keeps_previous_page_diagnostics(self):
+        def fetch(url):
+            if '/bulletin/' in url:
+                return {'ok': True, 'status': 200, 'bytes': 10, 'payload': {'text': '日本語のお知らせ'}}
+            page = int(url.split('page=')[1].split('&')[0])
+            if page == 1:
+                return listing([{'cid': '1', 'title': '通常のお知らせ'}])
+            return {'ok': False, 'status': 503, 'bytes': 0, 'reason': 'HTTPError'}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        self.assertEqual(report['article_inventory'][0]['cid'], '1')
+        self.assertEqual(len(report['pages']), 2)
+        self.assertEqual(report['pages'][1]['status'], 503)
+
 
 if __name__ == '__main__':
     unittest.main()
