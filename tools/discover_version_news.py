@@ -102,6 +102,49 @@ def diagnose_endfield_links(listing_html, listing_url, sample_limit=30):
     return result
 
 
+def discover_endfield_body_candidates(listing_html, listing_url, article_pages,
+                                      checked_at, today=None, max_articles=20):
+    """Inspect Endfield article bodies when listing titles lack version hints.
+
+    This fallback is deliberately Endfield-only.  It never accepts a title or
+    a proper-name version by itself; ``discover_html`` still requires an
+    explicit numeric version, Japanese/JP context, and an effective date.
+    """
+    stats = {'article_urls_considered': 0, 'article_fetch_failures': 0,
+             'body_candidates': 0, 'rejected_no_version': 0,
+             'rejected_no_effective_date_or_region': 0, 'rejected_future': 0,
+             'rejected_proper_name_only': 0}
+    if not _allowed('endfield', listing_url):
+        return [], stats
+    links = []
+    for href, _title in HREF_RE.findall(listing_html or ''):
+        url = urljoin(listing_url, href)
+        if _allowed('endfield', url) and '/ja-jp/news/' in url and url not in links:
+            links.append(url)
+    rows = []
+    for url in links[:max_articles]:
+        stats['article_urls_considered'] += 1
+        html = article_pages.get(url)
+        if html is None:
+            stats['article_fetch_failures'] += 1
+            continue
+        text = re.sub(r'<[^>]+>', ' ', html or '')
+        # A named update such as 丹青渡 is useful for diagnostics, but is not
+        # a numeric version candidate and therefore cannot update JSON.
+        if '丹青渡' in text and not re.search(r'(?i)\b(?:ver(?:sion)?\.?|バージョン)\s*\d+(?:\.\d+)+', text):
+            stats['rejected_proper_name_only'] += 1
+        row = discover_html('endfield', html, url, checked_at, today=today)
+        if row:
+            rows.append(row)
+            stats['body_candidates'] += 1
+            continue
+        if not re.search(r'(?i)\b(?:ver(?:sion)?\.?|バージョン)\s*\d+(?:\.\d+)+', text):
+            stats['rejected_no_version'] += 1
+        else:
+            stats['rejected_no_effective_date_or_region'] += 1
+    return rows, stats
+
+
 def fetch_listing(game, url=None, timeout=15):
     """Fetch a listing and reject redirects outside the official allow-list."""
     url = url or NEWS_INDEX.get(game)

@@ -5,9 +5,12 @@ import json
 import time
 from pathlib import Path
 from urllib.error import HTTPError, URLError
+from urllib.parse import urljoin
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from tools.discover_version_news import NEWS_INDEX, diagnose_endfield_links, discover_links_diagnostic
+from tools.discover_version_news import (NEWS_INDEX, discover_links_diagnostic,
+                                         discover_endfield_body_candidates,
+                                         diagnose_endfield_links, HREF_RE, _allowed)
 from tools.discover_versions import DOMAIN
 from tools.discover_versions import discover_html
 
@@ -69,10 +72,25 @@ def audit(timeout=15, max_articles=5):
         if game == 'endfield':
             link_stats['endfield_url_diagnostics'] = diagnose_endfield_links(
                 listing.get('html', ''), listing_url)
+            # Endfield's listing often renders article titles outside the
+            # anchor text.  Collect same-host article URLs for body parsing;
+            # other games retain the existing title-based discovery path.
+            links = []
+            for href, _title in HREF_RE.findall(listing.get('html', '') or ''):
+                url = urljoin(listing_url, href)
+                if _allowed(game, url) and '/ja-jp/news/' in url and url not in links:
+                    links.append(url)
+            links = links[:20]
+            link_stats['body_fallback'] = True
+            link_stats['article_urls'] = len(links)
+            link_stats['article_urls_considered'] = len(links)
+            link_stats['rejected_no_version_hint'] = max(0, link_stats.get('official_links', 0) - link_stats.get('version_candidates', 0))
         row['diagnostics']['discovery'] = link_stats
-        row['article_urls'] = links[:max_articles]
+        article_limit = 20 if game == 'endfield' else max_articles
+        row['article_urls'] = links[:article_limit]
         if not row['article_urls']:
             row['errors'].append({'reason': 'no_article_links_found'})
+        endfield_pages = {}
         for url in row['article_urls']:
             article = fetch(url, timeout, game=game)
             row['diagnostics'].setdefault('articles', []).append({k: article.get(k) for k in ('status','requested_url','final_url','html_bytes','elapsed_ms','redirects')})
@@ -82,11 +100,22 @@ def audit(timeout=15, max_articles=5):
             if article.get('final_url') != url:
                 row['errors'].append({'url': url, 'reason': 'redirect_rejected', 'final_url': article.get('final_url')})
                 continue
+            if game == 'endfield':
+                endfield_pages[url] = article.get('html', '')
+                continue
             candidate = discover_html(game, article.get('html', ''), url, checked_at, today=today)
             if candidate:
                 row['candidates'].append(candidate)
             else:
                 row['errors'].append({'url': url, 'reason': 'version_candidate_not_verified'})
+        if game == 'endfield' and endfield_pages:
+            candidates, body_stats = discover_endfield_body_candidates(
+                listing.get('html', ''), listing_url, endfield_pages,
+                checked_at, today=today, max_articles=20)
+            row['candidates'].extend(c for c in candidates if c not in row['candidates'])
+            row['diagnostics']['body_fallback'] = body_stats
+            if not candidates:
+                row['errors'].append({'reason': 'no_verified_numeric_version_in_article_body'})
         row['status'] = 'success' if row['candidates'] else ('unverified' if row['article_urls'] else 'failed')
         if row['status'] == 'failed' and not row['errors']:
             row['errors'].append({'reason': 'verification_failed_unknown'})
