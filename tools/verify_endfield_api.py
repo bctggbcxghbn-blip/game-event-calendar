@@ -13,6 +13,7 @@ from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 from tools.discover_versions import discover_html
+from tools.discover_versions import DATE_RE, VERSION_RE
 
 API_HOST = 'web-news.gryphline.com'
 API_BASE = 'https://' + API_HOST + '/api/bulletin'
@@ -35,6 +36,49 @@ def _text(value):
     if isinstance(value, list):
         return ' '.join(_text(v) for v in value)
     return ''
+
+
+def _diagnose_article(payload, cid, today):
+    """Return metadata and reasons without retaining article text."""
+    body = _text(payload)
+    japanese = bool(re.search(r'[ぁ-んァ-ヶ一-龯]', body))
+    region = bool(re.search(r'日本向け|日本版|Asia|アジア|\bJP\b', body, re.I))
+    version = VERSION_RE.search(body)
+    date = DATE_RE.search(body)
+    effective = None
+    future = False
+    if date:
+        effective = f'{date.group(1)}-{int(date.group(2)):02d}-{int(date.group(3)):02d}'
+        try:
+            future = dt.date.fromisoformat(effective) > today
+        except ValueError:
+            effective = None
+    reasons = []
+    if not japanese:
+        reasons.append('missing_japanese_context')
+    if not region:
+        reasons.append('missing_region_context')
+    if not version:
+        reasons.append('missing_numeric_version')
+    if not date or not effective:
+        reasons.append('missing_effective_date')
+    elif future:
+        reasons.append('future_effective_date')
+    if not isinstance(payload, (dict, list)) or not body.strip():
+        reasons.append('invalid_detail_schema')
+    return {
+        'field_type': type(payload).__name__,
+        'text_length': len(body),
+        'has_japanese': japanese,
+        'has_region_context': region,
+        'has_numeric_version': bool(version),
+        'has_date': bool(date),
+        'effective_date': effective,
+        'future_effective_date': future,
+        'article_url': f'https://{ARTICLE_HOST}/ja-jp/news/{cid}',
+        'cid_url_mapping': 'constructed_from_numeric_cid',
+        'exclusion_reasons': reasons,
+    }
 
 
 def _request(url, timeout=15, opener=urlopen):
@@ -98,10 +142,22 @@ def audit(fetcher=_request, checked_at=None, today=None):
                 'reason': detail.get('reason')}
         report['details'].append(item)
         if not detail.get('ok'):
+            item['diagnostics'] = {'field_type': None, 'text_length': 0,
+                                   'has_japanese': False, 'has_region_context': False,
+                                   'has_numeric_version': False, 'has_date': False,
+                                   'effective_date': None, 'future_effective_date': False,
+                                   'article_url': f'https://{ARTICLE_HOST}/ja-jp/news/{cid}',
+                                   'cid_url_mapping': 'constructed_from_numeric_cid',
+                                   'exclusion_reasons': ['detail_fetch_failed']}
             report['exclusions']['detail_failed'] = report['exclusions'].get('detail_failed', 0) + 1
+            report['exclusions']['detail_fetch_failed'] = report['exclusions'].get('detail_fetch_failed', 0) + 1
             continue
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
+        diagnostics = _diagnose_article(detail.get('payload'), cid, today)
+        item['diagnostics'] = diagnostics
+        for reason in diagnostics['exclusion_reasons']:
+            report['exclusions'][reason] = report['exclusions'].get(reason, 0) + 1
         # The reconstructed URL contains ``ja-jp`` by definition; require
         # Japanese/JP evidence in the API body itself as well.
         if not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
@@ -115,6 +171,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
     report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
     report['body_verification_successes'] = len(report['candidates'])
+    report['exclusion_counts'] = dict(report['exclusions'])
     return report
 
 
