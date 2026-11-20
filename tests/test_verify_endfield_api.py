@@ -14,7 +14,7 @@ class EndfieldApiAuditTests(unittest.TestCase):
         calls = {}
         def fetch(url):
             calls[url] = calls.get(url, 0) + 1
-            if '?' in url and url.rstrip('/').endswith('/bulletin'):
+            if '/bulletin?' in url:
                 return listing([{'cid': '9560'}, {'cid': '9560'}, {'cid': 'bad'}])
             return {'ok': True, 'status': 200, 'bytes': 50,
                     'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/11/01'}}

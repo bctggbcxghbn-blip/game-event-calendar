@@ -78,6 +78,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
     rows = data.get('list') if isinstance(data, dict) else None
     if not isinstance(rows, list):
         report['exclusions']['invalid_list_schema'] = 1
+        report['status'] = 'unverified'
         return report
     ids = []
     for row in rows:
@@ -101,7 +102,12 @@ def audit(fetcher=_request, checked_at=None, today=None):
             continue
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
-        candidate = discover_html('endfield', body, article_url, checked_at, today=today)
+        # The reconstructed URL contains ``ja-jp`` by definition; require
+        # Japanese/JP evidence in the API body itself as well.
+        if not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
+            candidate = None
+        else:
+            candidate = discover_html('endfield', body, article_url, checked_at, today=today)
         if candidate:
             report['candidates'].append(candidate)
         else:
