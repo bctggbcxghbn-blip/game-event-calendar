@@ -125,6 +125,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
               'candidates': [], 'exclusions': {}, 'checked_at': checked_at,
               'read_only': True}
     all_rows, seen_ids, page_signatures = [], set(), set()
+    first_page_ok = None
     for page in range(1, MAX_PAGES + 1):
         listing = fetcher(_listing_url(page))
         page_report = {'page': page, 'status': listing.get('status'),
@@ -132,6 +133,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
         report['pages'].append(page_report)
         if page == 1:
             report['listing'] = {k: listing.get(k) for k in ('status', 'bytes', 'reason', 'final_url') if k in listing}
+            first_page_ok = bool(listing.get('ok'))
         if not listing.get('ok'):
             report['exclusions']['listing_failed'] = report['exclusions'].get('listing_failed', 0) + 1
             break
@@ -151,13 +153,19 @@ def audit(fetcher=_request, checked_at=None, today=None):
                 continue
             cid = str(row.get('cid') or '')
             if not cid.isdigit() or cid in seen_ids:
+                if not cid.isdigit():
+                    report['exclusions']['invalid_cid'] = report['exclusions'].get('invalid_cid', 0) + 1
                 if cid and cid in seen_ids:
                     report['exclusions']['duplicate_cid'] = report['exclusions'].get('duplicate_cid', 0) + 1
                 continue
             seen_ids.add(cid)
             item = {key: row[key] for key in ('cid', 'title', 'brief', 'displayTime', 'tab', 'type') if key in row}
             all_rows.append(item)
-        if len(rows) < 20:
+        total = (listing.get('payload', {}).get('data', {}).get('total')
+                 if isinstance(listing.get('payload'), dict)
+                 and isinstance(listing.get('payload', {}).get('data'), dict)
+                 else None)
+        if total is not None and len(all_rows) >= int(total):
             page_report['termination'] = 'final_page'
             break
     report['article_inventory'] = all_rows
@@ -210,7 +218,10 @@ def audit(fetcher=_request, checked_at=None, today=None):
             report['candidates'].append(candidate)
         else:
             report['exclusions']['body_not_verified'] = report['exclusions'].get('body_not_verified', 0) + 1
-    report['status'] = 'success' if report['candidates'] else 'unverified'
+    if first_page_ok is False:
+        report['status'] = 'failed'
+    else:
+        report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
     report['body_verification_successes'] = len(report['candidates'])
     report['exclusion_counts'] = dict(report['exclusions'])
