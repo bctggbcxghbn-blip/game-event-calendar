@@ -2072,6 +2072,16 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "arknights-wiki-ポジションサッカ-選手権-2026-11-23",
+    "game": "arknights",
+    "name": "ポジションサッカー選手権",
+    "kind": "イベント",
+    "start": "2026-11-23",
+    "end": "2026-12-07",
+    "official_url": "https://arknights.wikiru.jp/",
+    "source_status": "アークナイツ日本語Wiki"
+  },
+  {
     "id": "wiki-hsr-334c0cf054595d487f44",
     "game": "hsr",
     "name": "次元界分裂",
