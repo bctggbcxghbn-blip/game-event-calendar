@@ -9,6 +9,11 @@ def listing(rows):
             'payload': {'data': {'list': rows}}}
 
 
+def article_html(cid='9560', title='日本語告知', published='2026/01/01'):
+    return {'ok': True, 'status': 200, 'bytes': 120,
+            'html': f'<html><title>{title}</title><span data-cid="{cid}">{published}</span></html>'}
+
+
 class EndfieldApiAuditTests(unittest.TestCase):
     def test_normal_response_and_deduplication(self):
         calls = {}
@@ -18,7 +23,7 @@ class EndfieldApiAuditTests(unittest.TestCase):
                 return listing([{'cid': '9560'}, {'cid': '9560'}, {'cid': 'bad'}])
             return {'ok': True, 'status': 200, 'bytes': 50,
                     'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/11/01'}}
-        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20), article_fetcher=lambda _url: article_html())
         self.assertEqual(report['article_ids'], ['9560'])
         self.assertEqual(report['body_verification_successes'], 1)
         self.assertEqual(report['exclusions']['invalid_cid'], 1)
@@ -39,7 +44,7 @@ class EndfieldApiAuditTests(unittest.TestCase):
             if cid == '2':
                 return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {'text': '日本語 Ver.1.2.4 2099/01/01'}}
             return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {'text': 'English Ver.1.2.3 2026/01/01'}}
-        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20), article_fetcher=lambda url: article_html(url.split('/')[-1]))
         self.assertEqual(report['candidates'], [])
         self.assertEqual(report['exclusions']['detail_failed'], 1)
 
@@ -114,6 +119,75 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(len(report['pages']), 2)
         self.assertEqual(report['pages'][1]['status'], 503)
 
+<<<<<<< Updated upstream
+=======
+    def test_named_version_and_asia_maintenance_are_diagnostic_only(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '9560'}])
+            return {'ok': True, 'status': 200, 'bytes': 100, 'payload': {
+                'title': '「丹青渡」バージョンアップデートについて',
+                'content': '新バージョン「丹青渡」がまもなくリリースされます。'
+                           ' Asiaサーバー：2026/10/15 06:00～2026/10/15 12:00（UTC+8）'
+            }}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertEqual(named['named_version'], '丹青渡')
+        self.assertEqual(named['numeric_version'], None)
+        self.assertEqual(named['maintenance_start']['jst'], '2026-10-15T07:00:00+09:00')
+        self.assertEqual(named['maintenance_end']['jst'], '2026-10-15T13:00:00+09:00')
+        self.assertIsNone(named['effective_from'])
+        self.assertFalse(named['accepted_as_current'])
+
+    def test_event_or_scout_name_is_not_named_version(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '1'}])
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {
+                'title': '特別スカウト「万象一新」', 'content': '日本語 Asia 2026/10/15'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertIsNone(named['named_version'])
+
+    def test_cid_mapping_unverified_is_not_accepted(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '2'}])
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {
+                'content': '新バージョン「雪氷の幽夢」バージョンアップデート 日本語 Asia 2026/10/15'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertEqual(named['status'], 'unverified_named')
+        self.assertFalse(named['cid_url_mapping_verified'])
+        self.assertFalse(named['accepted_as_current'])
+
+    def test_http_200_without_identity_match_is_unverified(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '42', 'title': '丹青渡 バージョンアップデート'}])
+            return {'ok': True, 'status': 200, 'bytes': 20,
+                    'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/01/01'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20),
+                       article_fetcher=lambda _url: article_html('999', '別の記事'))
+        self.assertFalse(report['url_verification'][0]['verified'])
+        self.assertIn('article_url_unverified', report['exclusions'])
+        self.assertEqual(report['candidates'], [])
+
+    def test_title_update_is_prioritized_and_cid_match_verifies(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '1', 'title': '通常のお知らせ', 'brief': '新バージョンの案内'},
+                                {'cid': '2', 'title': '丹青渡 バージョンアップデート', 'brief': 'メンテナンス'}])
+            cid = url.split('/bulletin/')[1].split('?')[0]
+            return {'ok': True, 'status': 200, 'bytes': 20,
+                    'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/01/01', 'content': '日本語 Asia 2026/01/01'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20),
+                       article_fetcher=lambda url: article_html(url.split('/')[-1]))
+        self.assertEqual([x['cid'] for x in report['article_ids']], ['2', '1'])
+        self.assertEqual(report['url_verification'][0]['method'], 'cid')
+        self.assertEqual(report['priority'][0]['priority'], 'title_update')
+
+>>>>>>> Stashed changes
 
 if __name__ == '__main__':
     unittest.main()

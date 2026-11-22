@@ -30,6 +30,92 @@ def _safe_url(url, host=API_HOST):
     return parsed.scheme == 'https' and parsed.hostname == host
 
 
+def _safe_article_url(url):
+    return _safe_url(url, ARTICLE_HOST)
+
+
+def _fetch_article_html(url, timeout=15, opener=urlopen):
+    """Fetch an article for read-only identity verification."""
+    if not _safe_article_url(url):
+        return {'ok': False, 'status': None, 'url': url, 'bytes': 0,
+                'reason': 'unsafe_article_url'}
+    try:
+        req = Request(url, headers={'Accept': 'text/html',
+                                    'User-Agent': 'GameEventCalendar-EndfieldAudit/1.0'})
+        with opener(req, timeout=timeout) as response:
+            raw = response.read(2_000_000)
+            final_url = response.geturl()
+            if final_url != url or not _safe_article_url(final_url):
+                return {'ok': False, 'status': getattr(response, 'status', None),
+                        'url': url, 'final_url': final_url, 'bytes': len(raw),
+                        'reason': 'unsafe_redirect'}
+            return {'ok': True, 'status': getattr(response, 'status', 200),
+                    'url': url, 'final_url': final_url, 'bytes': len(raw),
+                    'html': raw.decode('utf-8', 'replace')}
+    except Exception as exc:
+        return {'ok': False, 'status': getattr(exc, 'code', None), 'url': url,
+                'bytes': 0, 'reason': type(exc).__name__}
+
+
+def _normalize_title(value):
+    value = re.sub(r'<[^>]*>', ' ', str(value or ''))
+    return re.sub(r'\s+', ' ', value).strip().casefold()
+
+
+def _api_metadata(payload, cid):
+    """Read explicit identity fields; never infer absent API fields."""
+    obj = payload.get('data') if isinstance(payload, dict) and isinstance(payload.get('data'), dict) else payload
+    if not isinstance(obj, dict):
+        return {'cid': cid, 'id': None, 'url': None, 'title': None, 'published_at': None}
+    def first(keys):
+        for key in keys:
+            if obj.get(key) not in (None, ''):
+                return obj[key]
+        return None
+    return {'cid': cid, 'id': first(('cid', 'id', 'articleId', 'article_id')),
+            'url': first(('url', 'articleUrl', 'article_url', 'link')),
+            'title': first(('title', 'name')),
+            'published_at': first(('displayTime', 'published_at', 'publishTime', 'createdAt'))}
+
+
+def _html_metadata(html):
+    title = None
+    title_match = re.search(r'<title[^>]*>(.*?)</title>', html or '', re.I | re.S)
+    if title_match:
+        title = title_match.group(1)
+    if not title:
+        meta = re.search(r'<meta[^>]+(?:property|name)=["\'](?:og:title|title)["\'][^>]+content=["\']([^"\']+)', html or '', re.I)
+        title = meta.group(1) if meta else None
+    ids = re.findall(r'(?:cid|article(?:Id|_id)|newsId)["\'=:/> ]+(\d+)', html or '', re.I)
+    ids.extend(re.findall(r'/ja-jp/news/(\d+)', html or '', re.I))
+    dates = re.findall(r'(20\d{2}[/-]\d{1,2}[/-]\d{1,2}(?:[T ]\d{1,2}:\d{2}(?::\d{2})?)?)', html or '')
+    return {'title': _normalize_title(title), 'ids': sorted(set(ids)),
+            'published_at': dates[0] if dates else None}
+
+
+def _verify_article_identity(payload, cid, article_result):
+    """Return a strict identity decision; HTTP 200 alone is insufficient."""
+    meta = _api_metadata(payload, cid)
+    html = article_result.get('html', '') if isinstance(article_result, dict) else ''
+    hmeta = _html_metadata(html)
+    api_ids = {str(meta['cid']), str(meta['id'])} - {'None', ''}
+    id_match = bool(api_ids.intersection(hmeta['ids']))
+    explicit_url = str(meta.get('url') or '')
+    url_match = bool(explicit_url and _safe_article_url(explicit_url)
+                     and urlparse(explicit_url).path.rstrip('/') == f'/ja-jp/news/{cid}')
+    title_match = bool(meta.get('title') and hmeta['title']
+                       and _normalize_title(meta['title']) == hmeta['title'])
+    published_match = bool(meta.get('published_at') and hmeta.get('published_at')
+                           and str(meta['published_at'])[:10] == str(hmeta['published_at'])[:10])
+    verified = id_match or url_match or (title_match and published_match)
+    return {'verified': verified, 'method': 'cid' if id_match else ('url' if url_match else ('title_published' if title_match and published_match else None)),
+            'api_id': meta.get('id'), 'api_url': meta.get('url'),
+            'api_title': meta.get('title'), 'api_published_at': meta.get('published_at'),
+            'html_ids': hmeta['ids'], 'html_title': hmeta['title'],
+            'html_published_at': hmeta.get('published_at'),
+            'reason': None if verified else 'article_identity_mismatch'}
+
+
 def _text(value):
     if isinstance(value, str):
         return re.sub(r'<[^>]*>', ' ', value)
@@ -117,12 +203,17 @@ def _listing_items(payload):
     return rows if isinstance(rows, list) else None
 
 
-def audit(fetcher=_request, checked_at=None, today=None):
+def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
+    # Real audits always perform an official HTML GET.  Unit tests may inject
+    # an article_fetcher to keep network access deterministic.
+    if article_fetcher is None and fetcher is _request:
+        article_fetcher = _fetch_article_html
     checked_at = checked_at or dt.datetime.now(dt.timezone.utc).astimezone().isoformat()
     today = today or dt.date.today()
     report = {'status': 'failed', 'listing': {}, 'pages': [], 'article_ids': [],
               'article_inventory': [], 'related_articles': [], 'details': [],
-              'candidates': [], 'exclusions': {}, 'checked_at': checked_at,
+              'candidates': [], 'exclusions': {}, 'priority': [],
+              'url_verification': [], 'checked_at': checked_at,
               'read_only': True}
     all_rows, seen_ids, page_signatures = [], set(), set()
     first_page_ok = None
@@ -171,6 +262,7 @@ def audit(fetcher=_request, checked_at=None, today=None):
     report['article_inventory'] = all_rows
     related = [row for row in all_rows if any(h.lower() in (_text(row.get('title')) + ' ' + _text(row.get('brief'))).lower() for h in RELATED_HINTS)]
     report['related_articles'] = related
+    report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     rows = related + [row for row in all_rows if row not in related]
     report['listing']['pages_fetched'] = len(report['pages'])
     report['listing']['articles_fetched'] = len(all_rows)
@@ -205,12 +297,26 @@ def audit(fetcher=_request, checked_at=None, today=None):
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
         diagnostics = _diagnose_article(detail.get('payload'), cid, today)
+<<<<<<< Updated upstream
+=======
+        diagnostics['named_version'] = _extract_named_version(detail.get('payload'), cid)
+        article_result = article_fetcher(article_url) if article_fetcher else {'ok': False, 'reason': 'article_fetch_disabled'}
+        identity = _verify_article_identity(detail.get('payload'), cid, article_result) if article_result.get('ok') else {'verified': False, 'method': None, 'reason': article_result.get('reason', 'article_fetch_failed')}
+        item['article_fetch'] = {k: article_result.get(k) for k in ('status', 'bytes', 'final_url', 'reason') if k in article_result}
+        item['url_verification'] = identity
+        report['url_verification'].append({'cid': cid, **identity})
+        if not identity['verified']:
+            diagnostics['exclusion_reasons'].append('article_url_unverified')
+            report['exclusions']['article_url_unverified'] = report['exclusions'].get('article_url_unverified', 0) + 1
+>>>>>>> Stashed changes
         item['diagnostics'] = diagnostics
         for reason in diagnostics['exclusion_reasons']:
             report['exclusions'][reason] = report['exclusions'].get(reason, 0) + 1
         # The reconstructed URL contains ``ja-jp`` by definition; require
         # Japanese/JP evidence in the API body itself as well.
-        if not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
+        if not identity['verified']:
+            candidate = None
+        elif not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
             candidate = None
         else:
             candidate = discover_html('endfield', body, article_url, checked_at, today=today)
