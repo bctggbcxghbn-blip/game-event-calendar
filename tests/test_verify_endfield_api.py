@@ -181,7 +181,7 @@ class EndfieldApiAuditTests(unittest.TestCase):
                     'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/01/01', 'content': '日本語 Asia 2026/01/01'}}
         report = audit(fetcher=fetch, today=dt.date(2026, 11, 20),
                        article_fetcher=lambda url: article_html(url.split('/')[-1]))
-        self.assertEqual([x['cid'] for x in report['article_ids']], ['2', '1'])
+        self.assertEqual(report['article_ids'], ['2', '1'])
         self.assertEqual(report['url_verification'][0]['method'], 'cid')
         self.assertEqual(report['priority'][0]['priority'], 'title_update')
 

@@ -301,8 +301,8 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
     report['article_inventory'] = all_rows
     related = [row for row in all_rows if any(h.lower() in (_text(row.get('title')) + ' ' + _text(row.get('brief'))).lower() for h in RELATED_HINTS)]
     report['related_articles'] = related
-    report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     rows = related + [row for row in all_rows if row not in related]
+    report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     report['listing']['pages_fetched'] = len(report['pages'])
     report['listing']['articles_fetched'] = len(all_rows)
     ids = []
@@ -316,6 +316,7 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             ids.append(cid)
     report['article_ids'] = ids[:MAX_DETAILS]
     report['article_id_sample'] = report['article_ids'][:10]
+    body_verified_count = 0
     for cid in report['article_ids']:
         detail_url = API_BASE + '/' + cid + '?' + urlencode({'lang': LANG, 'code': APP_CODE})
         detail = fetcher(detail_url)
@@ -350,12 +351,13 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             report['exclusions'][reason] = report['exclusions'].get(reason, 0) + 1
         # The reconstructed URL contains ``ja-jp`` by definition; require
         # Japanese/JP evidence in the API body itself as well.
-        if not identity['verified']:
-            candidate = None
-        elif not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
-            candidate = None
+        if not re.search(r'日本|日本語|Asia|アジア|JP', body, re.I):
+            body_candidate = None
         else:
-            candidate = discover_html('endfield', body, article_url, checked_at, today=today)
+            body_candidate = discover_html('endfield', body, article_url, checked_at, today=today)
+        if body_candidate:
+            body_verified_count += 1
+        candidate = body_candidate if identity['verified'] else None
         if candidate:
             report['candidates'].append(candidate)
         else:
@@ -365,7 +367,7 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
     else:
         report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
-    report['body_verification_successes'] = len(report['candidates'])
+    report['body_verification_successes'] = body_verified_count
     report['exclusion_counts'] = dict(report['exclusions'])
     return report
 
