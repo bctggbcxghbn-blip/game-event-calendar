@@ -297,8 +297,6 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
         diagnostics = _diagnose_article(detail.get('payload'), cid, today)
-<<<<<<< Updated upstream
-=======
         diagnostics['named_version'] = _extract_named_version(detail.get('payload'), cid)
         article_result = article_fetcher(article_url) if article_fetcher else {'ok': False, 'reason': 'article_fetch_disabled'}
         identity = _verify_article_identity(detail.get('payload'), cid, article_result) if article_result.get('ok') else {'verified': False, 'method': None, 'reason': article_result.get('reason', 'article_fetch_failed')}
@@ -308,7 +306,6 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         if not identity['verified']:
             diagnostics['exclusion_reasons'].append('article_url_unverified')
             report['exclusions']['article_url_unverified'] = report['exclusions'].get('article_url_unverified', 0) + 1
->>>>>>> Stashed changes
         item['diagnostics'] = diagnostics
         for reason in diagnostics['exclusion_reasons']:
             report['exclusions'][reason] = report['exclusions'].get(reason, 0) + 1

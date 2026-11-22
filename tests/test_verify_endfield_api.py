@@ -119,8 +119,6 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(len(report['pages']), 2)
         self.assertEqual(report['pages'][1]['status'], 503)
 
-<<<<<<< Updated upstream
-=======
     def test_named_version_and_asia_maintenance_are_diagnostic_only(self):
         def fetch(url):
             if '/bulletin?' in url:
@@ -187,7 +185,6 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(report['url_verification'][0]['method'], 'cid')
         self.assertEqual(report['priority'][0]['priority'], 'title_update')
 
->>>>>>> Stashed changes
 
 if __name__ == '__main__':
     unittest.main()
