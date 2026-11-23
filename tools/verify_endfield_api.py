@@ -366,6 +366,13 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         item['article_fetch'] = {k: article_result.get(k) for k in ('status', 'bytes', 'final_url', 'reason') if k in article_result}
         item['url_verification'] = identity
         report['url_verification'].append({'cid': cid, **identity})
+        # URL verification is the authoritative mapping for the diagnostic
+        # named-version record; it does not make the version current.
+        named = diagnostics['named_version']
+        named['cid_url_mapping_verified'] = bool(identity.get('verified'))
+        named['article_url'] = (identity.get('api_url') or article_url)
+        named['status'] = ('official_named' if named.get('named_version') and identity.get('verified')
+                           else 'unverified_named')
         if not identity['verified']:
             diagnostics['exclusion_reasons'].append('article_url_unverified')
             report['exclusions']['article_url_unverified'] = report['exclusions'].get('article_url_unverified', 0) + 1
@@ -378,7 +385,13 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             body_candidate = None
         else:
             body_candidate = discover_html('endfield', body, article_url, checked_at, today=today)
-        if body_candidate:
+        body_verified = (diagnostics.get('has_japanese') and
+                         diagnostics.get('has_region_context') and
+                         (diagnostics.get('has_numeric_version') or
+                          bool(named.get('named_version'))) and
+                        diagnostics.get('effective_date') and
+                        not diagnostics.get('future_effective_date'))
+        if body_verified:
             body_verified_count += 1
         candidate = body_candidate if identity['verified'] else None
         if candidate:
