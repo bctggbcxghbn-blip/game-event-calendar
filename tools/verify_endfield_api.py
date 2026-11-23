@@ -25,6 +25,7 @@ MAX_PAGES = 20
 RELATED_HINTS = ('バージョン', 'アップデート', 'メンテナンス', '丹青渡', 'version', 'update')
 NAMED_VERSION_RE = re.compile(r'(?:新バージョン|バージョンアップデート[^「]{0,20})[「『]([^」』]{2,40})[」』]|[「『]([^」』]{2,40})[」』]\s*バージョンアップデート')
 ASIA_MAINT_RE = re.compile(r'Asiaサーバー\s*[:：]\s*(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*(\d{1,2}):(\d{2})\s*[～~-]\s*(?:(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*)?(\d{1,2}):(\d{2})')
+RELEASE_DATE_RE = re.compile(r'(?:公開|リリース|配信)[^20]{0,20}(20\d{2})[年/.-](\d{1,2})[月/.-](\d{1,2})')
 
 
 def _safe_url(url, host=API_HOST):
@@ -214,11 +215,28 @@ def _extract_named_version(payload, cid):
                 if isinstance(data.get(key), (str, int, float)):
                     published = data[key]
                     break
-    return {'named_version': name, 'numeric_version': None, 'maintenance_start': maintenance_start,
-            'maintenance_end': maintenance_end, 'effective_from': None,
+    release_match = RELEASE_DATE_RE.search(text)
+    announced_release_date = (f'{release_match.group(1)}-{int(release_match.group(2)):02d}-{int(release_match.group(3)):02d}'
+                              if release_match else None)
+    return {'named_version': name, 'numeric_version': None, 'announced_release_date': announced_release_date,
+            'maintenance_start': maintenance_start, 'maintenance_end': maintenance_end,
+            'maintenance_start_planned': maintenance_start,
+            'maintenance_end_planned': maintenance_end, 'applied_at': None,
+            'effective_from': None,
             'article_url': article_url, 'cid_url_mapping_verified': mapping_verified,
             'status': 'official_named' if name and mapping_verified else 'unverified_named',
             'accepted_as_current': False, 'published_at': published}
+
+
+def _classify_named_version(named, today, url_verified):
+    """Classify a named release for diagnostics only; never selects current."""
+    if not named.get('named_version') or not url_verified or not named.get('announced_release_date'):
+        return 'unverified'
+    try:
+        release_date = dt.date.fromisoformat(named['announced_release_date'])
+    except (TypeError, ValueError):
+        return 'unverified'
+    return 'scheduled' if release_date > today else 'released_candidate'
 
 
 def _request(url, timeout=15, opener=urlopen):
@@ -265,7 +283,7 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
     report = {'status': 'failed', 'listing': {}, 'pages': [], 'article_ids': [],
               'article_inventory': [], 'related_articles': [], 'details': [],
               'candidates': [], 'exclusions': {}, 'priority': [],
-              'url_verification': [], 'checked_at': checked_at,
+              'url_verification': [], 'named_version_states': [], 'checked_at': checked_at,
               'read_only': True}
     all_rows, seen_ids, page_signatures = [], set(), set()
     first_page_ok = None
@@ -373,6 +391,11 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         named['article_url'] = (identity.get('api_url') or article_url)
         named['status'] = ('official_named' if named.get('named_version') and identity.get('verified')
                            else 'unverified_named')
+        named['state'] = _classify_named_version(named, today, bool(identity.get('verified')))
+        named['accepted_as_current'] = False
+        report['named_version_states'].append({'cid': cid, 'named_version': named.get('named_version'),
+                                               'state': named['state'],
+                                               'announced_release_date': named.get('announced_release_date')})
         if not identity['verified']:
             diagnostics['exclusion_reasons'].append('article_url_unverified')
             report['exclusions']['article_url_unverified'] = report['exclusions'].get('article_url_unverified', 0) + 1
@@ -398,6 +421,18 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             report['candidates'].append(candidate)
         else:
             report['exclusions']['body_not_verified'] = report['exclusions'].get('body_not_verified', 0) + 1
+    released = [x for x in report['named_version_states'] if x['state'] == 'released_candidate' and x.get('announced_release_date')]
+    release_dates = {x['announced_release_date'] for x in released}
+    if len(release_dates) > 1:
+        newest = max(release_dates)
+        for state in report['named_version_states']:
+            if state['state'] == 'released_candidate' and state.get('announced_release_date') != newest:
+                state['state'] = 'historical_candidate'
+                for detail in report['details']:
+                    if detail.get('cid') == state['cid']:
+                        detail.get('diagnostics', {}).get('named_version', {})['state'] = 'historical_candidate'
+    report['detail_limit_reached'] = len(all_rows) > MAX_DETAILS
+    report['detail_limit_unverified_count'] = max(0, len(all_rows) - MAX_DETAILS)
     if first_page_ok is False:
         report['status'] = 'failed'
     else:
