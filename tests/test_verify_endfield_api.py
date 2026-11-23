@@ -256,6 +256,19 @@ class EndfieldApiAuditTests(unittest.TestCase):
             '報酬受取期間：2026/11/21～2026/11/25'}, '9569')
         self.assertIsNone(no_release['announced_release_date'])
 
+    def test_yearless_release_date_uses_published_year_only_when_unambiguous(self):
+        result = _extract_named_version(
+            {'published_at': '2026-10-15 09:00',
+             'content': '新バージョン「丹青渡」が10月15日に公開されます。'}, '7014')
+        self.assertEqual(result['announced_release_date'], '2026-10-15')
+        self.assertTrue(result['release_date_year_inferred'])
+        self.assertEqual(result['release_date_year_basis']['published_at'], '2026-10-15 09:00')
+
+        ambiguous = _extract_named_version(
+            {'published_at': '2026-01-02 09:00',
+             'content': '新バージョン「次章」が12月31日に公開されます。'}, '9999')
+        self.assertIsNone(ambiguous['announced_release_date'])
+
 
 if __name__ == '__main__':
     unittest.main()

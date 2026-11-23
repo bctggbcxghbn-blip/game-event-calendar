@@ -214,6 +214,11 @@ def _extract_named_version(payload, cid):
                 if isinstance(data.get(key), (str, int, float)):
                     published = data[key]
                     break
+    published_date = None
+    if published is not None:
+        published_match = re.search(r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})', str(published))
+        if published_match:
+            published_date = dt.date(int(published_match.group(1)), int(published_match.group(2)), int(published_match.group(3)))
     # Bind the date to this version's explicit release wording.  This avoids
     # mistaking a feature-page start date (for example 2026-10-06) for the
     # version release date.
@@ -229,13 +234,35 @@ def _extract_named_version(payload, cid):
             release_match = re.search(pattern, text)
             if release_match:
                 break
-    announced_release_date = (f'{release_match.group(1)}-{int(release_match.group(2)):02d}-{int(release_match.group(3)):02d}'
-                              if release_match else None)
+    inferred_year = False
+    year_basis = None
+    if not release_match and name and published_date:
+        name_pattern = re.escape(name)
+        yearless = re.search(
+            rf'(?:新バージョン|バージョン)?[「『]{name_pattern}[」』][^。\n]{{0,80}}?(\d{{1,2}})月(\d{{1,2}})日?(?:に)?(?:公開|リリース|配信)', text)
+        if yearless:
+            month, day = int(yearless.group(1)), int(yearless.group(2))
+            candidate = dt.date(published_date.year, month, day)
+            # Infer only when the date is close to publication and does not
+            # require crossing a year boundary.
+            if abs((candidate - published_date).days) <= 90:
+                release_match = (published_date.year, month, day)
+                inferred_year = True
+                year_basis = {'source': 'published_at', 'published_at': published}
+    if release_match:
+        if isinstance(release_match, tuple):
+            year, month, day = release_match
+        else:
+            year, month, day = release_match.group(1), release_match.group(2), release_match.group(3)
+        announced_release_date = f'{int(year):04d}-{int(month):02d}-{int(day):02d}'
+    else:
+        announced_release_date = None
     return {'named_version': name, 'numeric_version': None, 'announced_release_date': announced_release_date,
             'maintenance_start': maintenance_start, 'maintenance_end': maintenance_end,
             'maintenance_start_planned': maintenance_start,
             'maintenance_end_planned': maintenance_end, 'applied_at': None,
-            'effective_from': None,
+            'effective_from': None, 'release_date_year_inferred': inferred_year,
+            'release_date_year_basis': year_basis,
             'article_url': article_url, 'cid_url_mapping_verified': mapping_verified,
             'status': 'official_named' if name and mapping_verified else 'unverified_named',
             'accepted_as_current': False, 'published_at': published}
