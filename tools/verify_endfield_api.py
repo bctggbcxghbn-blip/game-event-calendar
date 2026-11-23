@@ -388,7 +388,9 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         body_verified = (diagnostics.get('has_japanese') and
                          diagnostics.get('has_region_context') and
                          (diagnostics.get('has_numeric_version') or
-                          bool(named.get('named_version'))))
+                          bool(named.get('named_version'))) and
+                        diagnostics.get('effective_date') and
+                        not diagnostics.get('future_effective_date'))
         if body_verified:
             body_verified_count += 1
         candidate = body_candidate if identity['verified'] else None
