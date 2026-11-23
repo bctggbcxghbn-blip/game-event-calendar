@@ -25,7 +25,6 @@ MAX_PAGES = 20
 RELATED_HINTS = ('バージョン', 'アップデート', 'メンテナンス', '丹青渡', 'version', 'update')
 NAMED_VERSION_RE = re.compile(r'(?:新バージョン|バージョンアップデート[^「]{0,20})[「『]([^」』]{2,40})[」』]|[「『]([^」』]{2,40})[」』]\s*バージョンアップデート')
 ASIA_MAINT_RE = re.compile(r'Asiaサーバー\s*[:：]\s*(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*(\d{1,2}):(\d{2})\s*[～~-]\s*(?:(20\d{2})[/.年](\d{1,2})[/.月](\d{1,2})\s*)?(\d{1,2}):(\d{2})')
-RELEASE_DATE_RE = re.compile(r'(?:公開|リリース|配信)[^20]{0,20}(20\d{2})[年/.-](\d{1,2})[月/.-](\d{1,2})')
 
 
 def _safe_url(url, host=API_HOST):
@@ -215,7 +214,21 @@ def _extract_named_version(payload, cid):
                 if isinstance(data.get(key), (str, int, float)):
                     published = data[key]
                     break
-    release_match = RELEASE_DATE_RE.search(text)
+    # Bind the date to this version's explicit release wording.  This avoids
+    # mistaking a feature-page start date (for example 2026-10-06) for the
+    # version release date.
+    release_match = None
+    if name:
+        name_pattern = re.escape(name)
+        release_patterns = (
+            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(?:公開|リリース|配信)[^20]{{0,20}}(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})',
+            rf'(?:新バージョン|バージョン)[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
+            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
+        )
+        for pattern in release_patterns:
+            release_match = re.search(pattern, text)
+            if release_match:
+                break
     announced_release_date = (f'{release_match.group(1)}-{int(release_match.group(2)):02d}-{int(release_match.group(3)):02d}'
                               if release_match else None)
     return {'named_version': name, 'numeric_version': None, 'announced_release_date': announced_release_date,
