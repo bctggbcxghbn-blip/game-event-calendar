@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from tools.verify_endfield_api import API_BASE, audit
+from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity
 
 
 def listing(rows):
@@ -184,6 +184,28 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertEqual(report['article_ids'], ['2', '1'])
         self.assertEqual(report['url_verification'][0]['method'], 'cid')
         self.assertEqual(report['priority'][0]['priority'], 'title_update')
+
+    def test_official_article_ids_are_verified_and_mismatches_rejected(self):
+        payload = {'cid': '7011', 'articleUrl': 'https://endfield.gryphline.com/ja-jp/news/7011',
+                   'title': 'キノコ菌グ！？君との大冒険！', 'displayTime': '2026-11-22'}
+        html = {'ok': True, 'status': 200,
+                'html': '<title>キノコ菌グ！？君との大冒険！</title><a href="/ja-jp/news/7011">2026-11-22</a>'}
+        result = _verify_article_identity(payload, '7011', html)
+        self.assertTrue(result['verified'])
+        self.assertEqual(result['method'], 'cid')
+        mismatch = _verify_article_identity(payload, '9569', html)
+        self.assertFalse(mismatch['verified'])
+        self.assertEqual(mismatch['reason'], 'article_id_mismatch')
+
+    def test_title_without_article_id_is_not_enough(self):
+        payload = {'title': '丹青渡 バージョンアップデート', 'displayTime': '2026-10-15'}
+        html = {'ok': True, 'status': 200,
+                'html': '<title>丹青渡 バージョンアップデート</title>2026-10-15'}
+        result = _verify_article_identity(payload, '9560', html)
+        self.assertTrue(result['verified'])
+        self.assertEqual(result['method'], 'title_published')
+        self.assertFalse(_verify_article_identity(payload, '9560',
+                          {'ok': True, 'status': 200, 'html': '<title>別記事</title>'})['verified'])
 
 
 if __name__ == '__main__':

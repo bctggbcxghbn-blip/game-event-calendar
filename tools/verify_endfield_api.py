@@ -47,7 +47,13 @@ def _fetch_article_html(url, timeout=15, opener=urlopen):
         with opener(req, timeout=timeout) as response:
             raw = response.read(2_000_000)
             final_url = response.geturl()
-            if final_url != url or not _safe_article_url(final_url):
+            requested = urlparse(url)
+            final = urlparse(final_url)
+            same_normalized_path = (requested.scheme == final.scheme == 'https'
+                                    and requested.hostname == final.hostname == ARTICLE_HOST
+                                    and requested.path.rstrip('/') == final.path.rstrip('/')
+                                    and requested.query == final.query)
+            if not same_normalized_path or not _safe_article_url(final_url):
                 return {'ok': False, 'status': getattr(response, 'status', None),
                         'url': url, 'final_url': final_url, 'bytes': len(raw),
                         'reason': 'unsafe_redirect'}
@@ -100,8 +106,10 @@ def _verify_article_identity(payload, cid, article_result):
     meta = _api_metadata(payload, cid)
     html = article_result.get('html', '') if isinstance(article_result, dict) else ''
     hmeta = _html_metadata(html)
-    api_ids = {str(meta['cid']), str(meta['id'])} - {'None', ''}
-    id_match = bool(api_ids.intersection(hmeta['ids']))
+    explicit_ids = {str(value) for value in (meta.get('id'), meta.get('cid'))
+                    if value not in (None, '')}
+    api_id_conflict = bool(explicit_ids - {str(cid)})
+    id_match = str(cid) in hmeta['ids'] and not api_id_conflict
     explicit_url = str(meta.get('url') or '')
     url_match = bool(explicit_url and _safe_article_url(explicit_url)
                      and urlparse(explicit_url).path.rstrip('/') == f'/ja-jp/news/{cid}')
@@ -109,15 +117,20 @@ def _verify_article_identity(payload, cid, article_result):
                        and _normalize_title(meta['title']) == hmeta['title'])
     published_match = bool(meta.get('published_at') and hmeta.get('published_at')
                            and str(meta['published_at'])[:10] == str(hmeta['published_at'])[:10])
-    verified = id_match or url_match or (title_match and published_match)
-    return {'verified': verified, 'method': 'cid' if id_match else ('url' if url_match else ('title_published' if title_match and published_match else None)),
+    # An explicit article ID is strongest evidence.  A URL field is accepted
+    # only after host/path validation.  Title/date is a fallback only when the
+    # HTML contains no contradictory ID; title alone is never sufficient.
+    conflicting_id = api_id_conflict or (bool(hmeta['ids']) and not id_match)
+    title_date_fallback = title_match and published_match and not conflicting_id
+    verified = id_match or url_match or title_date_fallback
+    method = 'cid' if id_match else ('url' if url_match else ('title_published' if title_date_fallback else None))
+    reason = None if verified else ('article_id_mismatch' if conflicting_id else 'article_identity_insufficient')
+    return {'verified': verified, 'method': method,
             'api_id': meta.get('id'), 'api_url': meta.get('url'),
             'api_title': meta.get('title'), 'api_published_at': meta.get('published_at'),
             'html_ids': hmeta['ids'], 'html_title': hmeta['title'],
             'html_published_at': hmeta.get('published_at'),
-            'reason': None if verified else 'article_identity_mismatch'}
-
-
+            'reason': reason}
 def _text(value):
     if isinstance(value, str):
         return re.sub(r'<[^>]*>', ' ', value)
@@ -378,6 +391,9 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
     report['body_verification_successes'] = body_verified_count
+    report['api_body_verification_successes'] = body_verified_count
+    report['url_verification_successes'] = sum(1 for x in report['url_verification'] if x.get('verified'))
+    report['url_verification_failures'] = len(report['url_verification']) - report['url_verification_successes']
     report['exclusion_counts'] = dict(report['exclusions'])
     return report
 
