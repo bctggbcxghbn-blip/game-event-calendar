@@ -383,6 +383,7 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             return 2
         return 3
     rows = sorted(all_rows, key=priority_rank)
+    row_by_cid = {str(row.get('cid')): row for row in all_rows}
     report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     report['listing']['pages_fetched'] = len(report['pages'])
     report['listing']['articles_fetched'] = len(all_rows)
@@ -418,7 +419,11 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
         diagnostics = _diagnose_article(detail.get('payload'), cid, today)
-        diagnostics['named_version'] = _extract_named_version(detail.get('payload'), cid)
+        # Some official API details omit the release sentence that is present
+        # in the listing brief.  Use that listing metadata only for named
+        # version diagnostics; body validation still uses the detail payload.
+        named_payload = {'detail': detail.get('payload'), 'listing': row_by_cid.get(cid, {})}
+        diagnostics['named_version'] = _extract_named_version(named_payload, cid)
         article_result = article_fetcher(article_url) if article_fetcher else {'ok': False, 'reason': 'article_fetch_disabled'}
         identity = _verify_article_identity(detail.get('payload'), cid, article_result) if article_result.get('ok') else {'verified': False, 'method': None, 'reason': article_result.get('reason', 'article_fetch_failed')}
         item['article_fetch'] = {k: article_result.get(k) for k in ('status', 'bytes', 'final_url', 'reason') if k in article_result}

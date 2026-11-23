@@ -269,6 +269,19 @@ class EndfieldApiAuditTests(unittest.TestCase):
              'content': '新バージョン「次章」が12月31日に公開されます。'}, '9999')
         self.assertIsNone(ambiguous['announced_release_date'])
 
+    def test_listing_brief_supplies_yearless_release_evidence(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '7014', 'brief': '新バージョン「丹青渡」が10月15日に公開されます。',
+                                 'displayTime': '2026-10-15 09:00'}])
+            return {'ok': True, 'status': 200, 'bytes': 10,
+                    'payload': {'content': '日本語 Asia'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 23),
+                       article_fetcher=lambda _url: article_html('7014'))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertEqual(named['announced_release_date'], '2026-10-15')
+        self.assertTrue(named['release_date_year_inferred'])
+
 
 if __name__ == '__main__':
     unittest.main()
