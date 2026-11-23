@@ -214,6 +214,12 @@ def _extract_named_version(payload, cid):
                 if isinstance(data.get(key), (str, int, float)):
                     published = data[key]
                     break
+        listing = payload.get('listing')
+        if isinstance(listing, dict) and published is None:
+            for key in ('displayTime', 'published_at', 'publishTime', 'createdAt'):
+                if isinstance(listing.get(key), (str, int, float)):
+                    published = listing[key]
+                    break
     published_date = None
     if published is not None:
         published_match = re.search(r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})', str(published))
