@@ -207,6 +207,21 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertFalse(_verify_article_identity(payload, '9560',
                           {'ok': True, 'status': 200, 'html': '<title>別記事</title>'})['verified'])
 
+    def test_url_verification_updates_named_mapping_without_current_adoption(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '7011', 'title': 'キノコ菌グ！？君との大冒険！ バージョンアップデート'}])
+            return {'ok': True, 'status': 200, 'bytes': 20, 'payload': {
+                'content': '新バージョン「キノコ菌グ！？君との大冒険！」 日本語 Asia 2026/11/22'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 23),
+                       article_fetcher=lambda url: article_html('7011'))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertTrue(named['cid_url_mapping_verified'])
+        self.assertEqual(named['status'], 'official_named')
+        self.assertFalse(named['accepted_as_current'])
+        self.assertEqual(report['api_body_verification_successes'], 1)
+        self.assertEqual(report['candidates'], [])
+
 
 if __name__ == '__main__':
     unittest.main()
