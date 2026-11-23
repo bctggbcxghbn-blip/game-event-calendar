@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity, _classify_named_version
+from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity, _classify_named_version, _extract_named_version
 
 
 def listing(rows):
@@ -239,6 +239,22 @@ class EndfieldApiAuditTests(unittest.TestCase):
                        today=dt.date(2026, 11, 23), article_fetcher=lambda _url: article_html('1'))
         named = report['details'][0]['diagnostics']['named_version']
         self.assertFalse(named['accepted_as_current'])
+
+    def test_release_date_is_bound_to_named_version_context(self):
+        mushroom = _extract_named_version({'content':
+            '新バージョン「キノコ菌グ！？君との大冒険！」の注目情報。'
+            '本ページは2026/10/06より常設公開。'
+            '新バージョン「キノコ菌グ！？君との大冒険！」が2026年11月25日に公開されます。'}, '7011')
+        self.assertEqual(mushroom['announced_release_date'], '2026-11-25')
+
+        danqing = _extract_named_version({'content':
+            '新バージョン「丹青渡」が2026年10月15日に公開されます。'}, '7014')
+        self.assertEqual(danqing['announced_release_date'], '2026-10-15')
+
+        no_release = _extract_named_version({'content':
+            '新バージョン「キノコ菌グ！？君との大冒険！」注目情報。'
+            '報酬受取期間：2026/11/21～2026/11/25'}, '9569')
+        self.assertIsNone(no_release['announced_release_date'])
 
 
 if __name__ == '__main__':
