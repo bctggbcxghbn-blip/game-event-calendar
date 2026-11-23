@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity
+from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity, _classify_named_version
 
 
 def listing(rows):
@@ -221,6 +221,24 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertFalse(named['accepted_as_current'])
         self.assertEqual(report['api_body_verification_successes'], 1)
         self.assertEqual(report['candidates'], [])
+
+    def test_named_version_state_does_not_adopt_future_release(self):
+        named = {'named_version': 'キノコ菌グ！？君との大冒険！',
+                 'announced_release_date': '2026-11-25'}
+        self.assertEqual(_classify_named_version(named, dt.date(2026, 11, 23), True), 'scheduled')
+        self.assertEqual(_classify_named_version(named, dt.date(2026, 11, 26), True), 'released_candidate')
+        self.assertEqual(_classify_named_version(named, dt.date(2026, 11, 23), False), 'unverified')
+
+    def test_named_version_state_never_marks_current(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '1'}])
+            return {'ok': True, 'status': 200, 'bytes': 1,
+                    'payload': {'content': '新バージョン「丹青渡」公開 2026/10/15 日本語 Asia'}}
+        report = audit(fetcher=fetch,
+                       today=dt.date(2026, 11, 23), article_fetcher=lambda _url: article_html('1'))
+        named = report['details'][0]['diagnostics']['named_version']
+        self.assertFalse(named['accepted_as_current'])
 
 
 if __name__ == '__main__':
