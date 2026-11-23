@@ -2115,6 +2115,17 @@
     "official_url": "https://nte.perfectworld.com/jp/article/news/gamenews/20261109/264951.html"
   },
   {
+    "id": "wuwa-challenge-6acc1e2b503081",
+    "game": "wuwa",
+    "kind": "challenge",
+    "name": "死の歌が纏う海の廃墟",
+    "start": "2026-11-23",
+    "end": "2026-12-21",
+    "source_status": "日本語Wiki掲載（日時のタイムゾーン未確認・暫定）",
+    "time_zone": "unverified (wiki)",
+    "official_url": "https://wikiwiki.jp/w-w/%E6%AD%BB%E3%81%AE%E6%AD%8C%E3%81%8C%E7%BA%8F%E3%81%86%E6%B5%B7%E3%81%AE%E5%BB%83%E5%A2%9F"
+  },
+  {
     "id": "genshin-extra-47494924-ad0742a8",
     "game": "genshin",
     "name": "Version 7.2 Event Wishes Notice - Phase II",
@@ -2124,6 +2135,17 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/47494924",
     "url": "https://www.hoyolab.com/article/47494924"
+  },
+  {
+    "id": "zzz-official-47537269-イベント",
+    "game": "zzz",
+    "name": "\"Data Bounty: Combat Simulation\" Event Details",
+    "start": "2026-11-25",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（サーバー時刻の地域差を考慮）",
+    "official_url": "https://www.hoyolab.com/article/47537269",
+    "url": "https://www.hoyolab.com/article/47537269"
   },
   {
     "id": "activity-98dcd61fa8eb276de42a",
