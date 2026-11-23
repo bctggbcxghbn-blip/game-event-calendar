@@ -301,7 +301,17 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
     report['article_inventory'] = all_rows
     related = [row for row in all_rows if any(h.lower() in (_text(row.get('title')) + ' ' + _text(row.get('brief'))).lower() for h in RELATED_HINTS)]
     report['related_articles'] = related
-    rows = related + [row for row in all_rows if row not in related]
+    def priority_rank(row):
+        title = _text(row.get('title'))
+        brief = _text(row.get('brief'))
+        if 'バージョンアップデート' in title:
+            return 0
+        if '新バージョン' in brief:
+            return 1
+        if 'メンテナンス' in title + brief:
+            return 2
+        return 3
+    rows = sorted(all_rows, key=priority_rank)
     report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     report['listing']['pages_fetched'] = len(report['pages'])
     report['listing']['articles_fetched'] = len(all_rows)
