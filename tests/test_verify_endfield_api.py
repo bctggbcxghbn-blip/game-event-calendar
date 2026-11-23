@@ -1,7 +1,7 @@
 import datetime as dt
 import unittest
 
-from tools.verify_endfield_api import API_BASE, audit
+from tools.verify_endfield_api import API_BASE, audit, _verify_article_identity
 
 
 def listing(rows):
@@ -154,6 +154,57 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertFalse(named['cid_url_mapping_verified'])
         self.assertFalse(named['accepted_as_current'])
 
+<<<<<<< Updated upstream
+=======
+    def test_http_200_without_identity_match_is_unverified(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '42', 'title': '丹青渡 バージョンアップデート'}])
+            return {'ok': True, 'status': 200, 'bytes': 20,
+                    'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/01/01'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20),
+                       article_fetcher=lambda _url: article_html('999', '別の記事'))
+        self.assertFalse(report['url_verification'][0]['verified'])
+        self.assertIn('article_url_unverified', report['exclusions'])
+        self.assertEqual(report['candidates'], [])
+
+    def test_title_update_is_prioritized_and_cid_match_verifies(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([{'cid': '1', 'title': '通常のお知らせ', 'brief': '新バージョンの案内'},
+                                {'cid': '2', 'title': '丹青渡 バージョンアップデート', 'brief': 'メンテナンス'}])
+            cid = url.split('/bulletin/')[1].split('?')[0]
+            return {'ok': True, 'status': 200, 'bytes': 20,
+                    'payload': {'title': '日本語 Ver.1.2.3 Asia 2026/01/01', 'content': '日本語 Asia 2026/01/01'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 20),
+                       article_fetcher=lambda url: article_html(url.split('/')[-1]))
+        self.assertEqual(report['article_ids'], ['2', '1'])
+        self.assertEqual(report['url_verification'][0]['method'], 'cid')
+        self.assertEqual(report['priority'][0]['priority'], 'title_update')
+
+    def test_official_article_ids_are_verified_and_mismatches_rejected(self):
+        payload = {'cid': '7011', 'articleUrl': 'https://endfield.gryphline.com/ja-jp/news/7011',
+                   'title': 'キノコ菌グ！？君との大冒険！', 'displayTime': '2026-11-22'}
+        html = {'ok': True, 'status': 200,
+                'html': '<title>キノコ菌グ！？君との大冒険！</title><a href="/ja-jp/news/7011">2026-11-22</a>'}
+        result = _verify_article_identity(payload, '7011', html)
+        self.assertTrue(result['verified'])
+        self.assertEqual(result['method'], 'cid')
+        mismatch = _verify_article_identity(payload, '9569', html)
+        self.assertFalse(mismatch['verified'])
+        self.assertEqual(mismatch['reason'], 'article_id_mismatch')
+
+    def test_title_without_article_id_is_not_enough(self):
+        payload = {'title': '丹青渡 バージョンアップデート', 'displayTime': '2026-10-15'}
+        html = {'ok': True, 'status': 200,
+                'html': '<title>丹青渡 バージョンアップデート</title>2026-10-15'}
+        result = _verify_article_identity(payload, '9560', html)
+        self.assertTrue(result['verified'])
+        self.assertEqual(result['method'], 'title_published')
+        self.assertFalse(_verify_article_identity(payload, '9560',
+                          {'ok': True, 'status': 200, 'html': '<title>別記事</title>'})['verified'])
+
+>>>>>>> Stashed changes
 
 if __name__ == '__main__':
     unittest.main()

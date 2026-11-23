@@ -32,6 +32,110 @@ def _safe_url(url, host=API_HOST):
     return parsed.scheme == 'https' and parsed.hostname == host
 
 
+<<<<<<< Updated upstream
+=======
+def _safe_article_url(url):
+    return _safe_url(url, ARTICLE_HOST)
+
+
+def _fetch_article_html(url, timeout=15, opener=urlopen):
+    """Fetch an article for read-only identity verification."""
+    if not _safe_article_url(url):
+        return {'ok': False, 'status': None, 'url': url, 'bytes': 0,
+                'reason': 'unsafe_article_url'}
+    try:
+        req = Request(url, headers={'Accept': 'text/html',
+                                    'User-Agent': 'GameEventCalendar-EndfieldAudit/1.0'})
+        with opener(req, timeout=timeout) as response:
+            raw = response.read(2_000_000)
+            final_url = response.geturl()
+            requested = urlparse(url)
+            final = urlparse(final_url)
+            same_normalized_path = (requested.scheme == final.scheme == 'https'
+                                    and requested.hostname == final.hostname == ARTICLE_HOST
+                                    and requested.path.rstrip('/') == final.path.rstrip('/')
+                                    and requested.query == final.query)
+            if not same_normalized_path or not _safe_article_url(final_url):
+                return {'ok': False, 'status': getattr(response, 'status', None),
+                        'url': url, 'final_url': final_url, 'bytes': len(raw),
+                        'reason': 'unsafe_redirect'}
+            return {'ok': True, 'status': getattr(response, 'status', 200),
+                    'url': url, 'final_url': final_url, 'bytes': len(raw),
+                    'html': raw.decode('utf-8', 'replace')}
+    except Exception as exc:
+        return {'ok': False, 'status': getattr(exc, 'code', None), 'url': url,
+                'bytes': 0, 'reason': type(exc).__name__}
+
+
+def _normalize_title(value):
+    value = re.sub(r'<[^>]*>', ' ', str(value or ''))
+    return re.sub(r'\s+', ' ', value).strip().casefold()
+
+
+def _api_metadata(payload, cid):
+    """Read explicit identity fields; never infer absent API fields."""
+    obj = payload.get('data') if isinstance(payload, dict) and isinstance(payload.get('data'), dict) else payload
+    if not isinstance(obj, dict):
+        return {'cid': cid, 'id': None, 'url': None, 'title': None, 'published_at': None}
+    def first(keys):
+        for key in keys:
+            if obj.get(key) not in (None, ''):
+                return obj[key]
+        return None
+    return {'cid': cid, 'id': first(('cid', 'id', 'articleId', 'article_id')),
+            'url': first(('url', 'articleUrl', 'article_url', 'link')),
+            'title': first(('title', 'name')),
+            'published_at': first(('displayTime', 'published_at', 'publishTime', 'createdAt'))}
+
+
+def _html_metadata(html):
+    title = None
+    title_match = re.search(r'<title[^>]*>(.*?)</title>', html or '', re.I | re.S)
+    if title_match:
+        title = title_match.group(1)
+    if not title:
+        meta = re.search(r'<meta[^>]+(?:property|name)=["\'](?:og:title|title)["\'][^>]+content=["\']([^"\']+)', html or '', re.I)
+        title = meta.group(1) if meta else None
+    ids = re.findall(r'(?:cid|article(?:Id|_id)|newsId)["\'=:/> ]+(\d+)', html or '', re.I)
+    ids.extend(re.findall(r'/ja-jp/news/(\d+)', html or '', re.I))
+    dates = re.findall(r'(20\d{2}[/-]\d{1,2}[/-]\d{1,2}(?:[T ]\d{1,2}:\d{2}(?::\d{2})?)?)', html or '')
+    return {'title': _normalize_title(title), 'ids': sorted(set(ids)),
+            'published_at': dates[0] if dates else None}
+
+
+def _verify_article_identity(payload, cid, article_result):
+    """Return a strict identity decision; HTTP 200 alone is insufficient."""
+    meta = _api_metadata(payload, cid)
+    html = article_result.get('html', '') if isinstance(article_result, dict) else ''
+    hmeta = _html_metadata(html)
+    explicit_ids = {str(value) for value in (meta.get('id'), meta.get('cid'))
+                    if value not in (None, '')}
+    api_id_conflict = bool(explicit_ids - {str(cid)})
+    id_match = str(cid) in hmeta['ids'] and not api_id_conflict
+    explicit_url = str(meta.get('url') or '')
+    url_match = bool(explicit_url and _safe_article_url(explicit_url)
+                     and urlparse(explicit_url).path.rstrip('/') == f'/ja-jp/news/{cid}')
+    title_match = bool(meta.get('title') and hmeta['title']
+                       and _normalize_title(meta['title']) == hmeta['title'])
+    published_match = bool(meta.get('published_at') and hmeta.get('published_at')
+                           and str(meta['published_at'])[:10] == str(hmeta['published_at'])[:10])
+    # An explicit article ID is strongest evidence.  A URL field is accepted
+    # only after host/path validation.  Title/date is a fallback only when the
+    # HTML contains no contradictory ID; title alone is never sufficient.
+    conflicting_id = api_id_conflict or (bool(hmeta['ids']) and not id_match)
+    title_date_fallback = title_match and published_match and not conflicting_id
+    verified = id_match or url_match or title_date_fallback
+    method = 'cid' if id_match else ('url' if url_match else ('title_published' if title_date_fallback else None))
+    reason = None if verified else ('article_id_mismatch' if conflicting_id else 'article_identity_insufficient')
+    return {'verified': verified, 'method': method,
+            'api_id': meta.get('id'), 'api_url': meta.get('url'),
+            'api_title': meta.get('title'), 'api_published_at': meta.get('published_at'),
+            'html_ids': hmeta['ids'], 'html_title': hmeta['title'],
+            'html_published_at': hmeta.get('published_at'),
+            'reason': reason}
+
+
+>>>>>>> Stashed changes
 def _text(value):
     if isinstance(value, str):
         return re.sub(r'<[^>]*>', ' ', value)
@@ -263,7 +367,14 @@ def audit(fetcher=_request, checked_at=None, today=None):
     else:
         report['status'] = 'success' if report['candidates'] else 'unverified'
     report['article_detail_successes'] = sum(1 for x in report['details'] if x.get('reason') is None and x.get('status') is not None)
+<<<<<<< Updated upstream
     report['body_verification_successes'] = len(report['candidates'])
+=======
+    report['body_verification_successes'] = body_verified_count
+    report['api_body_verification_successes'] = body_verified_count
+    report['url_verification_successes'] = sum(1 for x in report['url_verification'] if x.get('verified'))
+    report['url_verification_failures'] = len(report['url_verification']) - report['url_verification_successes']
+>>>>>>> Stashed changes
     report['exclusion_counts'] = dict(report['exclusions'])
     return report
 
