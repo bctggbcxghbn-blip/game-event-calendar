@@ -285,6 +285,16 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertFalse(named['accepted_as_current'])
         self.assertEqual(report['candidates'], [])
 
+    def test_listing_brief_accepts_unix_display_time(self):
+        result = _extract_named_version({'listing': {
+            'brief': '新バージョン「丹青渡」が10月15日に公開されます。',
+            'displayTime': 1791340200,
+        }}, '7014')
+        self.assertEqual(result['announced_release_date'], '2026-10-15')
+        self.assertTrue(result['release_date_year_inferred'])
+        self.assertEqual(result['release_date_year_basis']['published_at'], 1791340200)
+        self.assertIn('2026-10-07', result['release_date_year_basis']['published_at_jst'])
+
     def test_yearless_release_does_not_use_publication_as_explicit_release(self):
         for ending in ('', '。'):
             with self.subTest(ending=ending):
