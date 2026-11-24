@@ -223,8 +223,21 @@ def _extract_named_version(payload, cid):
                     published = listing[key]
                     break
     published_date = None
-    if published is not None:
-        published_match = re.search(r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})', str(published))
+    published_value = published
+    if isinstance(published, (int, float)) and not isinstance(published, bool):
+        # The bulletin API uses Unix seconds for displayTime. Interpret it in
+        # JST for year inference; the timestamp itself is not release proof.
+        timestamp = float(published)
+        if timestamp > 10**12:
+            timestamp /= 1000
+        try:
+            published_value = dt.datetime.fromtimestamp(
+                timestamp, tz=dt.timezone(dt.timedelta(hours=9))
+            ).strftime('%Y-%m-%d %H:%M:%S JST')
+        except (OverflowError, OSError, ValueError):
+            published_value = None
+    if published_value is not None:
+        published_match = re.search(r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})', str(published_value))
         if published_match:
             published_date = dt.date(int(published_match.group(1)), int(published_match.group(2)), int(published_match.group(3)))
     # Bind the date to this version's explicit release wording.  This avoids
@@ -257,6 +270,8 @@ def _extract_named_version(payload, cid):
                 release_match = (published_date.year, month, day)
                 inferred_year = True
                 year_basis = {'source': 'published_at', 'published_at': published}
+                if published_value != published:
+                    year_basis['published_at_jst'] = published_value
     if release_match:
         if isinstance(release_match, tuple):
             year, month, day = release_match
