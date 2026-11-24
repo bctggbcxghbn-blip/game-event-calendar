@@ -131,13 +131,13 @@ def _verify_article_identity(payload, cid, article_result):
             'html_ids': hmeta['ids'], 'html_title': hmeta['title'],
             'html_published_at': hmeta.get('published_at'),
             'reason': reason}
-def _text(value):
+def _text(value, separator=' '):
     if isinstance(value, str):
         return re.sub(r'<[^>]*>', ' ', value)
     if isinstance(value, dict):
-        return ' '.join(_text(v) for v in value.values())
+        return separator.join(_text(v, separator) for v in value.values())
     if isinstance(value, list):
-        return ' '.join(_text(v) for v in value)
+        return separator.join(_text(v, separator) for v in value)
     return ''
 
 
@@ -186,7 +186,9 @@ def _diagnose_article(payload, cid, today):
 
 def _extract_named_version(payload, cid):
     """Extract a named release only when explicit update wording is present."""
-    text = _text(payload)
+    # Keep API fields separate so publication metadata cannot complete a
+    # release sentence from another field. Other diagnostics keep space joins.
+    text = _text(payload, separator='\n')
     match = NAMED_VERSION_RE.search(text)
     name = next((group for group in match.groups() if group), None) if match else None
     maintenance_start = maintenance_end = None
@@ -214,6 +216,12 @@ def _extract_named_version(payload, cid):
                 if isinstance(data.get(key), (str, int, float)):
                     published = data[key]
                     break
+        listing = payload.get('listing')
+        if isinstance(listing, dict) and published is None:
+            for key in ('displayTime', 'published_at', 'publishTime', 'createdAt'):
+                if isinstance(listing.get(key), (str, int, float)):
+                    published = listing[key]
+                    break
     published_date = None
     if published is not None:
         published_match = re.search(r'(20\d{2})[/-](\d{1,2})[/-](\d{1,2})', str(published))
@@ -226,7 +234,7 @@ def _extract_named_version(payload, cid):
     if name:
         name_pattern = re.escape(name)
         release_patterns = (
-            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(?:公開|リリース|配信)[^20]{{0,20}}(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})',
+            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(?:公開|リリース|配信)[^。\n20]{{0,20}}(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})',
             rf'(?:新バージョン|バージョン)[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
             rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
         )
@@ -383,6 +391,7 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
             return 2
         return 3
     rows = sorted(all_rows, key=priority_rank)
+    row_by_cid = {str(row.get('cid')): row for row in all_rows}
     report['priority'] = [{'cid': row.get('cid'), 'priority': 'title_update' if 'バージョンアップデート' in _text(row.get('title')) else ('brief_new_version' if '新バージョン' in _text(row.get('brief')) else ('maintenance' if 'メンテナンス' in (_text(row.get('title')) + _text(row.get('brief'))) else 'normal'))} for row in rows]
     report['listing']['pages_fetched'] = len(report['pages'])
     report['listing']['articles_fetched'] = len(all_rows)
@@ -418,7 +427,11 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
         body = _text(detail.get('payload'))
         article_url = f'https://{ARTICLE_HOST}/ja-jp/news/{cid}'
         diagnostics = _diagnose_article(detail.get('payload'), cid, today)
-        diagnostics['named_version'] = _extract_named_version(detail.get('payload'), cid)
+        # Some official API details omit the release sentence that is present
+        # in the listing brief.  Use that listing metadata only for named
+        # version diagnostics; body validation still uses the detail payload.
+        named_payload = {'detail': detail.get('payload'), 'listing': row_by_cid.get(cid, {})}
+        diagnostics['named_version'] = _extract_named_version(named_payload, cid)
         article_result = article_fetcher(article_url) if article_fetcher else {'ok': False, 'reason': 'article_fetch_disabled'}
         identity = _verify_article_identity(detail.get('payload'), cid, article_result) if article_result.get('ok') else {'verified': False, 'method': None, 'reason': article_result.get('reason', 'article_fetch_failed')}
         item['article_fetch'] = {k: article_result.get(k) for k in ('status', 'bytes', 'final_url', 'reason') if k in article_result}
