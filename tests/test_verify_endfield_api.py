@@ -281,6 +281,45 @@ class EndfieldApiAuditTests(unittest.TestCase):
         named = report['details'][0]['diagnostics']['named_version']
         self.assertEqual(named['announced_release_date'], '2026-10-15')
         self.assertTrue(named['release_date_year_inferred'])
+        self.assertEqual(named['release_date_year_basis']['published_at'], '2026-10-15 09:00')
+        self.assertFalse(named['accepted_as_current'])
+        self.assertEqual(report['candidates'], [])
+
+    def test_yearless_release_does_not_use_publication_as_explicit_release(self):
+        for ending in ('', '。'):
+            with self.subTest(ending=ending):
+                result = _extract_named_version({
+                    'listing': {
+                        'brief': '新バージョン「丹青渡」が10月15日に公開されます' + ending,
+                        'displayTime': '2026-10-01 09:00',
+                    }}, '7014')
+                self.assertEqual(result['announced_release_date'], '2026-10-15')
+                self.assertTrue(result['release_date_year_inferred'])
+                self.assertEqual(result['release_date_year_basis'], {
+                    'source': 'published_at', 'published_at': '2026-10-01 09:00'})
+
+    def test_separate_sentence_or_api_field_cannot_supply_release_date(self):
+        payloads = (
+            {'content': '新バージョン「丹青渡」を公開。関連記事は2026/10/01掲載。'},
+            {'content': '新バージョン「丹青渡」を公開', 'displayTime': '2026-10-01'},
+            {'detail': {'content': '新バージョン「丹青渡」を公開'},
+             'listing': {'displayTime': '2026-10-01'}},
+            {'content': ['新バージョン「丹青渡」を公開', '2026/10/01']},
+        )
+        for payload in payloads:
+            with self.subTest(payload=payload):
+                result = _extract_named_version(payload, '7014')
+                self.assertIsNone(result['announced_release_date'])
+                self.assertFalse(result['release_date_year_inferred'])
+
+    def test_yearless_listing_requires_nearby_publication_date(self):
+        for published in (None, '2026-01-01', '2026-12-31'):
+            with self.subTest(published=published):
+                result = _extract_named_version({'listing': {
+                    'brief': '新バージョン「丹青渡」が10月01日に公開されます。',
+                    'displayTime': published}}, '7014')
+                self.assertIsNone(result['announced_release_date'])
+                self.assertFalse(result['release_date_year_inferred'])
 
 
 if __name__ == '__main__':

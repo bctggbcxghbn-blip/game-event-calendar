@@ -131,13 +131,13 @@ def _verify_article_identity(payload, cid, article_result):
             'html_ids': hmeta['ids'], 'html_title': hmeta['title'],
             'html_published_at': hmeta.get('published_at'),
             'reason': reason}
-def _text(value):
+def _text(value, separator=' '):
     if isinstance(value, str):
         return re.sub(r'<[^>]*>', ' ', value)
     if isinstance(value, dict):
-        return ' '.join(_text(v) for v in value.values())
+        return separator.join(_text(v, separator) for v in value.values())
     if isinstance(value, list):
-        return ' '.join(_text(v) for v in value)
+        return separator.join(_text(v, separator) for v in value)
     return ''
 
 
@@ -186,7 +186,9 @@ def _diagnose_article(payload, cid, today):
 
 def _extract_named_version(payload, cid):
     """Extract a named release only when explicit update wording is present."""
-    text = _text(payload)
+    # Keep API fields separate so publication metadata cannot complete a
+    # release sentence from another field. Other diagnostics keep space joins.
+    text = _text(payload, separator='\n')
     match = NAMED_VERSION_RE.search(text)
     name = next((group for group in match.groups() if group), None) if match else None
     maintenance_start = maintenance_end = None
@@ -232,7 +234,7 @@ def _extract_named_version(payload, cid):
     if name:
         name_pattern = re.escape(name)
         release_patterns = (
-            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(?:公開|リリース|配信)[^20]{{0,20}}(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})',
+            rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(?:公開|リリース|配信)[^。\n20]{{0,20}}(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})',
             rf'(?:新バージョン|バージョン)[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
             rf'[「『]{name_pattern}[」』][^。\n]{{0,80}}?(20\d{{2}})[年/.-](\d{{1,2}})[月/.-](\d{{1,2}})[日]?(?:に)?(?:公開|リリース|配信)',
         )
