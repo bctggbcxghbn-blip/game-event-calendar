@@ -2072,6 +2072,16 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "arknights-wiki-聖山降臨1101-復刻ライト版-サイドスト-リ-復刻-2026-11-22",
+    "game": "arknights",
+    "name": "聖山降臨1101 復刻ライト版(サイドストーリー/復刻)",
+    "kind": "イベント",
+    "start": "2026-11-22",
+    "end": "2026-12-02",
+    "official_url": "https://arknights.wikiru.jp/",
+    "source_status": "アークナイツ日本語Wiki"
+  },
+  {
     "id": "arknights-wiki-ポジションサッカ-選手権-2026-11-23",
     "game": "arknights",
     "name": "ポジションサッカー選手権",
@@ -2135,6 +2145,17 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/47494924",
     "url": "https://www.hoyolab.com/article/47494924"
+  },
+  {
+    "id": "genshin-extra-47546927-18205d74",
+    "game": "genshin",
+    "name": "Version 7.2 Share HoYoverse Top-Up Center Event: Win Primogems, Phase 2",
+    "start": "2026-11-24",
+    "end": "2026-12-16",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47546927",
+    "url": "https://www.hoyolab.com/article/47546927"
   },
   {
     "id": "zzz-official-47537269-イベント",
