@@ -346,7 +346,8 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
     report = {'status': 'failed', 'listing': {}, 'pages': [], 'article_ids': [],
               'article_inventory': [], 'related_articles': [], 'details': [],
               'candidates': [], 'exclusions': {}, 'priority': [],
-              'url_verification': [], 'named_version_states': [], 'checked_at': checked_at,
+              'url_verification': [], 'named_version_states': [], 'named_version_groups': [],
+              'checked_at': checked_at,
               'read_only': True}
     all_rows, seen_ids, page_signatures = [], set(), set()
     first_page_ok = None
@@ -499,6 +500,31 @@ def audit(fetcher=_request, checked_at=None, today=None, article_fetcher=None):
                 for detail in report['details']:
                     if detail.get('cid') == state['cid']:
                         detail.get('diagnostics', {}).get('named_version', {})['state'] = 'historical_candidate'
+    # Keep a diagnostic-only rollup for multiple official articles describing
+    # the same named version.  This never feeds candidates or current-version
+    # selection; it only makes release and maintenance evidence inspectable.
+    groups = {}
+    for state in report['named_version_states']:
+        name = state.get('named_version')
+        if not name:
+            continue
+        group = groups.setdefault(name, {'named_version': name, 'evidence': []})
+        detail = next((d for d in report['details'] if d.get('cid') == state.get('cid')), {})
+        named = detail.get('diagnostics', {}).get('named_version', {})
+        group['evidence'].append({
+            'cid': state.get('cid'),
+            'article_url': named.get('article_url'),
+            'announced_release_date': state.get('announced_release_date'),
+            'published_at': named.get('published_at'),
+            'maintenance_start_planned': named.get('maintenance_start_planned'),
+            'maintenance_end_planned': named.get('maintenance_end_planned'),
+            'state': state.get('state'),
+        })
+    for group in groups.values():
+        group['evidence'].sort(key=lambda e: (e.get('announced_release_date') or '', str(e.get('cid'))))
+        released = [e for e in group['evidence'] if e.get('state') == 'released_candidate']
+        group['latest_released_candidate'] = released[-1] if released else None
+    report['named_version_groups'] = list(groups.values())
     report['detail_limit_reached'] = len(all_rows) > MAX_DETAILS
     report['detail_limit_unverified_count'] = max(0, len(all_rows) - MAX_DETAILS)
     if first_page_ok is False:
