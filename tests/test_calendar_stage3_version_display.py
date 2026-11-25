@@ -14,6 +14,15 @@ class VersionDisplayTests(unittest.TestCase):
             self.assertIsNone(row['version'])
             self.assertEqual(row['status'], 'unverified')
             self.assertIsNone(row['official_url'])
+            self.assertIn('release_name', row)
+            self.assertIn('version_kind', row)
+
+    def test_endfield_supports_named_release_diagnostics_without_auto_data(self):
+        self.assertEqual(data := json.loads((ROOT / 'versions_ja.json').read_text(encoding='utf-8'))['endfield']['version_kind'], 'named')
+        self.assertIn("row.status==='scheduled'", HTML)
+        self.assertIn('公開告知・適用未確認', HTML)
+        self.assertIn('公開予定', HTML)
+        self.assertIn("row.status==='historical_candidate'", HTML)
 
     def test_safe_version_loading_and_fallback_exist(self):
         self.assertIn('async function loadVersions()', HTML)
