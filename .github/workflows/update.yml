@@ -666,9 +666,12 @@ jobs:
 
       - name: Commit changes
         run: |
+          # Endfield named versions are merged only from the read-only audit;
+          # missing/ambiguous evidence leaves the existing JSON untouched.
+          python -m tools.update_versions --discover-endfield
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add events.json labels_ja.json
+          git add events.json labels_ja.json versions_ja.json
           if [ -f reviews/auto_labels_ja_evidence.json ]; then
             git add reviews/auto_labels_ja_evidence.json
           fi

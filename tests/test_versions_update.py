@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.update_versions import accept, merge, update, version_key
+from tools.update_versions import accept, endfield_candidate_from_audit, merge, update, version_key
 
 
 TODAY = dt.date(2026, 11, 19)
@@ -54,6 +54,26 @@ class VersionUpdateTests(unittest.TestCase):
             path.write_text('{broken', encoding='utf-8')
             self.assertFalse(update(path, today=TODAY))
             self.assertEqual(path.read_text(encoding='utf-8'), '{broken')
+
+    def test_endfield_released_candidate_is_diagnostic_data_only(self):
+        report = {'checked_at': '2026-11-26T00:00:00+09:00', 'named_version_groups': [{
+            'named_version': 'キノコ菌グ！？君との大冒険！',
+            'latest_released_candidate': {'cid': '7011', 'article_url': 'https://endfield.gryphline.com/ja-jp/news/7011',
+                                          'announced_release_date': '2026-11-25'},
+            'evidence': [{'cid': '7011', 'article_url': 'https://endfield.gryphline.com/ja-jp/news/7011'}]}]}
+        rows = endfield_candidate_from_audit(report, TODAY)
+        self.assertEqual(rows, [])
+        rows = endfield_candidate_from_audit(report, dt.date(2026, 11, 26))
+        self.assertEqual(rows[0]['version_kind'], 'named')
+        self.assertEqual(accept(rows[0], dt.date(2026, 11, 26))['release_name'], 'キノコ菌グ！？君との大冒険！')
+
+    def test_endfield_older_named_candidate_cannot_roll_back(self):
+        old = {'endfield': {'version_kind': 'named', 'release_name': '新',
+                            'announced_release_date': '2026-11-25'}, 'genshin': {}}
+        newer = {'game': 'endfield', 'version_kind': 'named', 'release_name': '旧',
+                 'status': 'released_candidate', 'official_url': 'https://endfield.gryphline.com/ja-jp/news/1',
+                 'checked_at': '2026-11-26', 'announced_release_date': '2026-11-20', 'region': 'JP'}
+        self.assertEqual(merge(old, [newer], dt.date(2026, 11, 26))['endfield']['release_name'], '新')
 
 
 if __name__ == '__main__':
