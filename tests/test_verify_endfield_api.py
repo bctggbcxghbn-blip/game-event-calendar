@@ -285,6 +285,29 @@ class EndfieldApiAuditTests(unittest.TestCase):
         self.assertFalse(named['accepted_as_current'])
         self.assertEqual(report['candidates'], [])
 
+    def test_same_named_version_groups_release_and_maintenance_evidence(self):
+        def fetch(url):
+            if '/bulletin?' in url:
+                return listing([
+                    {'cid': '7011', 'brief': '新バージョン「丹青渡」が11月25日に公開されます。',
+                     'displayTime': '2026-11-20'},
+                    {'cid': '0740', 'title': '「丹青渡」バージョンアップデート',
+                     'brief': 'Asiaサーバー メンテナンス'},
+                ])
+            cid = url.split('/bulletin/')[1].split('?')[0]
+            if cid == '7011':
+                return {'ok': True, 'status': 200, 'bytes': 20,
+                        'payload': {'content': '新バージョン「丹青渡」が2026年11月25日に公開されます。日本語 Asia'}}
+            return {'ok': True, 'status': 200, 'bytes': 20,
+                    'payload': {'content': '「丹青渡」バージョンアップデート 日本語 Asia'}}
+        report = audit(fetcher=fetch, today=dt.date(2026, 11, 23),
+                       article_fetcher=lambda url: article_html(url.split('/')[-1]))
+        groups = {g['named_version']: g for g in report['named_version_groups']}
+        self.assertIn('丹青渡', groups)
+        self.assertEqual(len(groups['丹青渡']['evidence']), 2)
+        self.assertEqual(groups['丹青渡']['latest_released_candidate']['cid'], '7011')
+        self.assertFalse(any(c.get('named_version') == '丹青渡' for c in report['candidates']))
+
     def test_listing_brief_accepts_unix_display_time(self):
         result = _extract_named_version({'listing': {
             'brief': '新バージョン「丹青渡」が10月15日に公開されます。',
