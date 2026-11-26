@@ -1,9 +1,79 @@
 {
-  "genshin": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "wuwa": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "hsr": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "zzz": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "nte": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "arknights": {"version": null, "release_name": null, "version_kind": "numeric", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"},
-  "endfield": {"version": null, "release_name": null, "version_kind": "named", "status": "unverified", "official_url": null, "checked_at": null, "effective_from": null, "expires_at": null, "region": "JP"}
+  "genshin": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "wuwa": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "hsr": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "zzz": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "nte": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "arknights": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "numeric",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  },
+  "endfield": {
+    "version": null,
+    "release_name": null,
+    "version_kind": "named",
+    "status": "unverified",
+    "official_url": null,
+    "checked_at": null,
+    "effective_from": null,
+    "expires_at": null,
+    "region": "JP"
+  }
 }
