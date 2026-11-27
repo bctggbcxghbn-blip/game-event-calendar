@@ -2173,6 +2173,16 @@
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
   },
   {
+    "id": "arknights-wiki-紅炎遣らう落葉-復刻ライト版-2026-11-30",
+    "game": "arknights",
+    "name": "紅炎遣らう落葉 復刻ライト版",
+    "kind": "イベント",
+    "start": "2026-11-30",
+    "end": "2026-12-10",
+    "official_url": "https://arknights.wikiru.jp/",
+    "source_status": "アークナイツ日本語Wiki"
+  },
+  {
     "id": "activity-0339680aa6f2913ad772",
     "game": "hsr",
     "name": "虚構叙事",
