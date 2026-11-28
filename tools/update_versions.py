@@ -68,7 +68,7 @@ def endfield_candidate_from_audit(report, today=None):
     candidates = []
     for group in groups:
         item = group.get('latest_released_candidate') if isinstance(group, dict) else None
-        if not isinstance(item, dict) or not item.get('named_version'):
+        if not isinstance(item, dict) or not str(group.get('named_version') or '').strip():
             continue
         release_date = parse_date(item.get('announced_release_date'))
         if not release_date or release_date > today or not item.get('article_url'):
