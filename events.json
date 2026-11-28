@@ -2019,6 +2019,15 @@
     "url": "https://www.hoyolab.com/article/47482557"
   },
   {
+    "id": "activity-e2f7046c9aeae48456f9",
+    "game": "genshin",
+    "name": "Stress Block Smashing Project",
+    "start": "2026-11-20",
+    "end": "2026-11-30",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
     "id": "zzz-predicted-deadly-20261120",
     "game": "zzz",
     "name": "【予測】危局強襲戦",
@@ -2030,6 +2039,15 @@
     "kind": "チャレンジ",
     "source_status": "予測（14日周期から算出・公式個別日程未確認）",
     "url": "https://www.icy-veins.com/zenless-zone-zero/shiyu-defense-critical-node"
+  },
+  {
+    "id": "activity-4f1e8db3596c730bee84",
+    "game": "genshin",
+    "name": "\"Genius Invokation TCG\" Heated Battle Mode: Sprinting Stratagems",
+    "start": "2026-11-21",
+    "end": "2026-12-07",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "arknights-wiki-聖山降臨1101-復刻ライト版-サイドスト-リ-復刻-2026-11-22",
@@ -2050,6 +2068,15 @@
     "end": "2026-12-07",
     "official_url": "https://arknights.wikiru.jp/",
     "source_status": "アークナイツ日本語Wiki"
+  },
+  {
+    "id": "activity-06c475c13f8c0faf22a8",
+    "game": "hsr",
+    "name": "Planar Fissure",
+    "start": "2026-11-23",
+    "end": "2026-12-07",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
   },
   {
     "id": "wiki-hsr-334c0cf054595d487f44",
@@ -2158,6 +2185,26 @@
     "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
     "official_url": "https://www.hoyolab.com/article/47558481",
     "url": "https://www.hoyolab.com/article/47558481"
+  },
+  {
+    "id": "activity-30555128d09ab0f9b94d",
+    "game": "genshin",
+    "name": "Frames of Fierce Splendor",
+    "start": "2026-11-27",
+    "end": "2026-12-07",
+    "kind": "イベント",
+    "source_status": "外部API・要確認"
+  },
+  {
+    "id": "genshin-extra-47579095-77772fd8",
+    "game": "genshin",
+    "name": "The \"Miliastra Wonderland: Moments to Treasure\" web event is now live for a limited time!",
+    "start": "2026-11-27",
+    "end": "2026-12-08",
+    "kind": "イベント",
+    "source_status": "HoYoLAB公式・日付のみ（地域別時刻は未確定）",
+    "official_url": "https://www.hoyolab.com/article/47579095",
+    "url": "https://www.hoyolab.com/article/47579095"
   },
   {
     "id": "zzz-predicted-shiyu-20261127",
